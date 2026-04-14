@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://dnrcan0vjoa01"]
+
+[ext_resource type="Script" uid="uid://dfmxxkwiaybno" path="res://Game/Entities/LaserEmitter.cs" id="1_6n86s"]
+[ext_resource type="Material" uid="uid://dacgrm68qacw0" path="res://assets/batch_exports/dungeonwalls/ScratchMetal.tres" id="2_r0gsw"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x22l6"]
+albedo_color = Color(0.9955612, 0, 0.1769489, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_emitter"]
+size = Vector3(0.8, 1.7036133, 0.8)
+
+[node name="LaserEmitter" type="Node3D" unique_id=598281519 node_paths=PackedStringArray("BeamOrigin", "CollisionBody")]
+script = ExtResource("1_6n86s")
+BeamOrigin = NodePath("BeamOrigin")
+CollisionBody = NodePath("Body")
+
+[node name="Body" type="StaticBody3D" parent="." unique_id=779157404]
+
+[node name="Mesh" type="CSGCylinder3D" parent="Body" unique_id=2006960709]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.19999999, 0)
+radius = 0.4
+height = 1.6
+material = ExtResource("2_r0gsw")
+
+[node name="Mesh3" type="CSGCylinder3D" parent="Body" unique_id=1262118504]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 1, -0.05)
+radius = 0.4
+height = 0.78808594
+sides = 11
+material = ExtResource("2_r0gsw")
+
+[node name="Mesh2" type="CSGCylinder3D" parent="Body" unique_id=598681578]
+transform = Transform3D(0.48999998, 0, 0, 0, -2.1418579e-08, -0.48999998, 0, 0.48999998, -2.1418579e-08, 0, 0.95000005, -0.19)
+radius = 0.4
+height = 1.2
+material = SubResource("StandardMaterial3D_x22l6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Body" unique_id=1349126150]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25180668, 0)
+shape = SubResource("BoxShape3D_emitter")
+
+[node name="BeamOrigin" type="Node3D" parent="." unique_id=1330998356]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

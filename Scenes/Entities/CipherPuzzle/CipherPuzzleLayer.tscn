@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://cl5j868uaep2"]
+
+[ext_resource type="Script" uid="uid://cs42ywsx6rvpt" path="res://Game/Entities/CipherPuzzleLayer.cs" id="1_k72cm"]
+[ext_resource type="Material" uid="uid://bf1ac1avi82pp" path="res://Game/Resources/cipher_layer_material.tres" id="1_kdakn"]
+[ext_resource type="Texture2D" uid="uid://r4eckddylotj" path="res://images/cipher rune 1.png" id="2_ap07t"]
+[ext_resource type="Texture2D" uid="uid://cyyyatrmpgpij" path="res://images/cipher rune 2.png" id="3_ri0xu"]
+[ext_resource type="Texture2D" uid="uid://201cybfl4vqq" path="res://images/cipher rune 3.png" id="4_vv3xd"]
+[ext_resource type="Texture2D" uid="uid://lpqk6atdmetb" path="res://images/cipher rune 4.png" id="5_1i1j5"]
+[ext_resource type="Texture2D" uid="uid://dcwxdnwyccagd" path="res://images/cipher rune 5.png" id="6_vucbf"]
+[ext_resource type="Texture2D" uid="uid://bc4asd3q7uf21" path="res://images/cipher rune 6.png" id="7_w4ij5"]
+[ext_resource type="Texture2D" uid="uid://bguknurumvb1b" path="res://images/cipher rune 7.png" id="8_ks2rl"]
+[ext_resource type="Texture2D" uid="uid://c4qfivkcnv3qv" path="res://images/cipher rune 8.png" id="9_1lmt8"]
+[ext_resource type="Texture2D" uid="uid://dkx5bda5fsbc7" path="res://images/cipher rune 9.png" id="10_4vgwv"]
+[ext_resource type="Texture2D" uid="uid://8kbn1tifu6bq" path="res://images/cipher rune 10.png" id="11_88yci"]
+[ext_resource type="Texture2D" uid="uid://bsp1dn1p3sp3t" path="res://images/cipher rune 11.png" id="12_hme2h"]
+[ext_resource type="Texture2D" uid="uid://dmsuf4003psks" path="res://images/cipher rune 12.png" id="13_yan4h"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ap07t"]
+top_radius = 1.0
+bottom_radius = 1.0
+height = 0.2
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ri0xu"]
+height = 0.2
+radius = 1.0
+
+[node name="CipherPuzzleLayer" type="Node3D" unique_id=424869640]
+script = ExtResource("1_k72cm")
+RuneTextures = [ExtResource("2_ap07t"), ExtResource("3_ri0xu"), ExtResource("4_vv3xd"), ExtResource("5_1i1j5"), ExtResource("6_vucbf"), ExtResource("7_w4ij5"), ExtResource("8_ks2rl"), ExtResource("9_1lmt8"), ExtResource("10_4vgwv"), ExtResource("11_88yci"), ExtResource("12_hme2h"), ExtResource("13_yan4h")]
+SelectedRuneColor = Color(0.42562586, 0.04829821, 0.034757238, 1)
+
+[node name="cylinder" type="MeshInstance3D" parent="." unique_id=395839879]
+mesh = SubResource("CylinderMesh_ap07t")
+surface_material_override/0 = ExtResource("1_kdakn")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=966511667]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1641261432]
+shape = SubResource("CylinderShape3D_ri0xu")

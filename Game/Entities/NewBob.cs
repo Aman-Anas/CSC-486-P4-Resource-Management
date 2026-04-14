@@ -1,0 +1,89 @@
+using Godot;
+
+namespace Game.Entities;
+
+public partial class NewBob : RigidBody3D
+{
+    [Export]
+    Farmer? playerToFollow;
+
+    [Export]
+    public Label SpeechLabel { get; set; } = null!;
+
+    [Export]
+    AnimationPlayer animPlayer = null!;
+
+    [Export]
+    float minimumFollowingDistance = 3.0f;
+
+    [Export]
+    float followSpeed = 5.0f;
+
+    [Export]
+    StringName runAnimation = "UAL1_Standard/Sprint";
+
+    [Export]
+    StringName idleAnimation = "UAL1_Standard/Idle";
+
+    [Export]
+    float animationBlendAmount = 0.5f;
+
+    public override void _Ready() { }
+
+    [Export]
+    float teleportDistance = 24;
+
+    public override void _IntegrateForces(PhysicsDirectBodyState3D state)
+    {
+        if (playerToFollow == null)
+        {
+            return;
+        }
+
+        Node3D nodeToFollow = playerToFollow;
+        float followDistance = minimumFollowingDistance;
+
+        if (playerToFollow.OtherButtonToPress != null)
+        {
+            // we need to go and stand on a button.
+            nodeToFollow = playerToFollow.OtherButtonToPress;
+            followDistance = 0.1f;
+        }
+        else
+        {
+            var dist = (playerToFollow.GlobalPosition - GlobalPosition);
+            // GD.Print(dist.Length());
+            // If we're too far from the player then teleport to the player.
+            if ((dist).LengthSquared() > (teleportDistance * teleportDistance))
+            {
+                GlobalPosition = playerToFollow.GlobalPosition + (Vector3.Left * 1);
+                return;
+            }
+        }
+
+        var localLinearVelocity = GlobalBasis.Inverse() * state.LinearVelocity;
+        localLinearVelocity.X = 0;
+
+        var myPos = GlobalPosition;
+        var playerPos = nodeToFollow.GlobalPosition with { Y = myPos.Y };
+
+        // Make Bob look at the player
+        this.LookAt(playerPos, Vector3.Up);
+
+        var distanceToPlayer = myPos.DistanceTo(playerPos);
+
+        // If we're close enough to the player, just do nothing
+        if (distanceToPlayer <= followDistance)
+        {
+            localLinearVelocity.Z = 0;
+            animPlayer.Play(idleAnimation, customBlend: animationBlendAmount);
+        }
+        else
+        {
+            localLinearVelocity.Z = -followSpeed;
+            animPlayer.Play(runAnimation, customBlend: animationBlendAmount);
+        }
+
+        state.LinearVelocity = GlobalBasis * localLinearVelocity;
+    }
+}

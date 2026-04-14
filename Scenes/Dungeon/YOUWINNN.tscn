@@ -1,0 +1,92 @@
+[gd_scene format=3 uid="uid://dpnuxxgi5fhdh"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_qpie1"]
+font_size = 109
+font_color = Color(5.7756904e-07, 0.659357, 0.38441384, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_36886"]
+font_size = 33
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xykly"]
+content_margin_left = 30.0
+content_margin_top = 30.0
+content_margin_right = 30.0
+content_margin_bottom = 30.0
+bg_color = Color(0.12, 0.12, 0.12, 0.7137255)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+shadow_size = 17
+
+[sub_resource type="LabelSettings" id="LabelSettings_kybp6"]
+font_size = 34
+
+[node name="Youwinnn" type="Control" unique_id=1669545708]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Good" type="Control" parent="." unique_id=913161932]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Label2" type="Label" parent="Good" unique_id=1460728008]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -464.0
+offset_top = 26.0
+offset_right = 464.0
+offset_bottom = 136.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "GOOD ENDING"
+label_settings = SubResource("LabelSettings_qpie1")
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="Good" unique_id=1765139736]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -201.0
+offset_top = 149.0
+offset_right = 201.0
+offset_bottom = 183.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Thank you for playing!"
+label_settings = SubResource("LabelSettings_36886")
+horizontal_alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="Good" unique_id=305476017]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -501.0
+offset_top = 51.0
+offset_right = 501.0
+offset_bottom = 200.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_xykly")
+
+[node name="Label3" type="Label" parent="Good/PanelContainer" unique_id=1704858630]
+layout_mode = 2
+text = "NOW YOU GO TO COUNCIL OF BURGERS"
+label_settings = SubResource("LabelSettings_kybp6")
+horizontal_alignment = 1

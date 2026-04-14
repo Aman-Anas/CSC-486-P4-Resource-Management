@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Item" format=3 uid="uid://mmyw8tjfhn1u"]
+
+[ext_resource type="Texture2D" uid="uid://dlsgwqo4xn4me" path="res://images/purple key hotbar image.png" id="1_hdm8m"]
+[ext_resource type="Script" uid="uid://bgj82ecr30nhb" path="res://Game/Resources/Item.cs" id="2_gjjov"]
+
+[resource]
+script = ExtResource("2_gjjov")
+Name = "purple key"
+ItemColor = Color(0.8881758, 0.00027588545, 0.80024236, 1)
+Icon = ExtResource("1_hdm8m")
+metadata/_custom_type_script = "uid://bgj82ecr30nhb"

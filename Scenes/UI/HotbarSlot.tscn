@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://dem5wghouhf3r"]
+
+[ext_resource type="Texture2D" uid="uid://bxftjtvodwmg" path="res://images/hotbar placeholder.png" id="1_5iaem"]
+[ext_resource type="Script" uid="uid://dh3msuais7jv3" path="res://Game/UI/HotbarSlot.cs" id="1_otpte"]
+
+[node name="HotbarSlot" type="Control" unique_id=1864591955 node_paths=PackedStringArray("icon")]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 64.0
+offset_bottom = 64.0
+script = ExtResource("1_otpte")
+icon = NodePath("TextureRect")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=124941069]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_5iaem")
+expand_mode = 1

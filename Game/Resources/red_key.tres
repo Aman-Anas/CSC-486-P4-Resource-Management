@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Item" format=3 uid="uid://ca38akcpchrlo"]
+
+[ext_resource type="Texture2D" uid="uid://bos8ctawdhsdd" path="res://images/red key hotbar image.png" id="1_uyk7d"]
+[ext_resource type="Script" uid="uid://bgj82ecr30nhb" path="res://Game/Resources/Item.cs" id="1_xi8la"]
+
+[resource]
+script = ExtResource("1_xi8la")
+Name = "Red Key"
+Icon = ExtResource("1_uyk7d")
+metadata/_custom_type_script = "uid://bgj82ecr30nhb"

@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://upgf2x2gbv53"]
+
+[ext_resource type="Script" uid="uid://du8ca6w86wuya" path="res://Game/Entities/LaserMirrorSocket.cs" id="1_lnpme"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_socket"]
+albedo_color = Color(0.25, 0.35, 0.25, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_socket"]
+size = Vector3(1.4, 0.2, 1.4)
+
+[node name="MirrorSocketA" type="Node3D" unique_id=1846915498 node_paths=PackedStringArray("Controller", "SnapPoint")]
+transform = Transform3D(0.7071068, 0, -0.7071068, 0, 1, 0, 0.7071068, 0, 0.7071068, 0, 0, 0)
+script = ExtResource("1_lnpme")
+Controller = NodePath("")
+SnapPoint = NodePath("SnapPoint")
+
+[node name="Body" type="StaticBody3D" parent="." unique_id=1496815040]
+
+[node name="Pad" type="CSGBox3D" parent="Body" unique_id=227716779]
+size = Vector3(1.4, 0.2, 1.4)
+material = SubResource("StandardMaterial3D_socket")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Body" unique_id=2020475010]
+shape = SubResource("BoxShape3D_socket")
+
+[node name="SnapPoint" type="Node3D" parent="." unique_id=752355336]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)

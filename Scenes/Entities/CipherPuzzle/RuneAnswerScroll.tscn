@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://dvqcnrl8555db"]
+
+[ext_resource type="Texture2D" uid="uid://1wu240jto5px" path="res://images/scroll.png" id="1_y3kmn"]
+
+[node name="RuneAnswerScroll" type="Node3D" unique_id=1567666829]
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=1985572760]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 3.4686503, 0)
+texture = ExtResource("1_y3kmn")

@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://buev36jw6s5n"]
+
+[ext_resource type="Script" uid="uid://2e47cp3558b7" path="res://Game/Entities/StatueDoor.cs" id="1_yv3ki"]
+[ext_resource type="Texture2D" uid="uid://bigwnn62erlmu" path="res://addons/kenney_prototype_textures/dark/texture_01.png" id="3_df4cp"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lxfwk"]
+resource_local_to_scene = true
+albedo_texture = ExtResource("3_df4cp")
+uv1_triplanar = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kgj7f"]
+size = Vector3(1, 2, 0.1)
+
+[sub_resource type="Animation" id="Animation_kgj7f"]
+resource_name = "RESET"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatableBody3D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ehuso"]
+resource_name = "open"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatableBody3D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 1.5707964, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qhnma"]
+_data = {
+&"RESET": SubResource("Animation_kgj7f"),
+&"open": SubResource("Animation_ehuso")
+}
+
+[node name="StatueDoor" type="Node3D" unique_id=962990637]
+script = ExtResource("1_yv3ki")
+
+[node name="AnimatableBody3D" type="AnimatableBody3D" parent="." unique_id=1638109288]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="AnimatableBody3D" unique_id=792758996]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, 0)
+size = Vector3(1, 2, 0.1)
+material = SubResource("StandardMaterial3D_lxfwk")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="AnimatableBody3D" unique_id=302370796]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9, 1, 0)
+size = Vector3(0.1, 0.1, 0.2)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AnimatableBody3D" unique_id=1090529135]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, 0)
+shape = SubResource("BoxShape3D_kgj7f")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2107694136]
+libraries/ = SubResource("AnimationLibrary_qhnma")

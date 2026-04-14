@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Item" format=3 uid="uid://b2ah6v4scde21"]
+
+[ext_resource type="Texture2D" uid="uid://c0km81q7v3jku" path="res://images/green key hotbar image.png" id="1_yo7wt"]
+[ext_resource type="Script" uid="uid://bgj82ecr30nhb" path="res://Game/Resources/Item.cs" id="2_st786"]
+
+[resource]
+script = ExtResource("2_st786")
+Name = "green key"
+ItemColor = Color(0, 0.64559686, 0.22186768, 1)
+Icon = ExtResource("1_yo7wt")
+metadata/_custom_type_script = "uid://bgj82ecr30nhb"

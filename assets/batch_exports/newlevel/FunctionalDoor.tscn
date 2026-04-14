@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://csdaujqj4gyvy"]
+
+[ext_resource type="PackedScene" uid="uid://bs0xy5r7f2xr0" path="res://Scenes/Entities/KeyDoor.tscn" id="1_wlcbo"]
+[ext_resource type="PackedScene" uid="uid://dd1dtpc51uawc" path="res://assets/batch_exports/newlevel/doorframe.gltf" id="3_v10kj"]
+
+[node name="FunctionalDoor" type="Node3D" unique_id=1515798251]
+
+[node name="KeyDoor" parent="." unique_id=962990637 instance=ExtResource("1_wlcbo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0)
+
+[node name="doorframe2" parent="." unique_id=1508930005 instance=ExtResource("3_v10kj")]
+
+[editable path="doorframe2"]

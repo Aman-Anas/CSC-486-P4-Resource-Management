@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://c3ekcsuysbvca"]
+
+[ext_resource type="Script" uid="uid://ebmiwubhf4jf" path="res://Game/Entities/LaserReceiver.cs" id="1_m1u2w"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_receiver"]
+size = Vector3(0.8, 0.8, 0.8)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_receiver"]
+albedo_color = Color(0.2, 0.2, 0.2, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_receiver"]
+size = Vector3(0.8, 0.8, 0.8)
+
+[node name="LaserReceiver" type="Node3D" unique_id=1857446426 node_paths=PackedStringArray("IndicatorMesh")]
+script = ExtResource("1_m1u2w")
+IndicatorMesh = NodePath("Body/Indicator")
+
+[node name="Body" type="StaticBody3D" parent="." unique_id=654606979]
+
+[node name="Indicator" type="MeshInstance3D" parent="Body" unique_id=112624869]
+mesh = SubResource("BoxMesh_receiver")
+surface_material_override/0 = SubResource("StandardMaterial3D_receiver")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Body" unique_id=1055553590]
+shape = SubResource("BoxShape3D_receiver")

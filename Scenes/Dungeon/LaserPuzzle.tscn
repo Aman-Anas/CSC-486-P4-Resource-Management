@@ -1,0 +1,112 @@
+[gd_scene format=3 uid="uid://bc7vyj243dy3v"]
+
+[ext_resource type="Material" uid="uid://cfls41uebm78j" path="res://assets/mats/test_material.tres" id="1_hs8i7"]
+[ext_resource type="PackedScene" uid="uid://cgv3ggu25ffs1" path="res://Scenes/Entities/old/Farmer.tscn" id="2_4wkx3"]
+[ext_resource type="Script" uid="uid://xmvsbo0ktcjk" path="res://Game/Entities/LaserPuzzleController.cs" id="3_4w17a"]
+[ext_resource type="PackedScene" uid="uid://dnrcan0vjoa01" path="res://Scenes/Entities/Laser/laser_emitter.tscn" id="4_ig02u"]
+[ext_resource type="PackedScene" uid="uid://c3ekcsuysbvca" path="res://Scenes/Entities/Laser/laser_receiver.tscn" id="5_dh4bm"]
+[ext_resource type="PackedScene" uid="uid://bwletl21u1xpy" path="res://Scenes/Entities/Laser/laser_door.tscn" id="6_0imr8"]
+[ext_resource type="PackedScene" uid="uid://upgf2x2gbv53" path="res://Scenes/Entities/Laser/mirror_socket.tscn" id="7_spi1t"]
+[ext_resource type="PackedScene" uid="uid://c0kfgcgpcqpn7" path="res://Scenes/Entities/Laser/mirror_block.tscn" id="8_n57nc"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6llaw"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_jl2m7"]
+sky_material = SubResource("ProceduralSkyMaterial_6llaw")
+
+[sub_resource type="Environment" id="Environment_h3gxl"]
+background_mode = 2
+sky = SubResource("Sky_jl2m7")
+tonemap_mode = 4
+tonemap_exposure = 1.9
+tonemap_agx_white = 2.56
+tonemap_agx_contrast = 1.46
+glow_enabled = true
+
+[node name="LaserPuzzle" type="Node3D" unique_id=1286538182]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1300621646]
+environment = SubResource("Environment_h3gxl")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1236856621]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="." unique_id=953920408]
+use_collision = true
+
+[node name="Floor" type="CSGBox3D" parent="CSGCombiner3D" unique_id=993673735]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+size = Vector3(22, 0.5, 22)
+material = ExtResource("1_hs8i7")
+
+[node name="Ceiling" type="CSGBox3D" parent="CSGCombiner3D" unique_id=2003194707]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.2, 0)
+size = Vector3(22, 0.5, 22)
+material = ExtResource("1_hs8i7")
+
+[node name="WestWall" type="CSGBox3D" parent="CSGCombiner3D" unique_id=1510643363]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 1.95, 0)
+size = Vector3(0.5, 4.4, 22)
+material = ExtResource("1_hs8i7")
+
+[node name="EastWall" type="CSGBox3D" parent="CSGCombiner3D" unique_id=565576261]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 1.95, 0)
+size = Vector3(0.5, 4.4, 22)
+material = ExtResource("1_hs8i7")
+
+[node name="NorthWall" type="CSGBox3D" parent="CSGCombiner3D" unique_id=1263779460]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.95, -11)
+size = Vector3(22, 4.4, 0.5)
+material = ExtResource("1_hs8i7")
+
+[node name="SouthWall" type="CSGBox3D" parent="CSGCombiner3D" unique_id=831540455]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.95, 11)
+size = Vector3(22, 4.4, 0.5)
+material = ExtResource("1_hs8i7")
+
+[node name="DoorPillarA" type="CSGBox3D" parent="CSGCombiner3D" unique_id=894764066]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1.5, 1.3)
+size = Vector3(0.8, 3, 0.8)
+material = ExtResource("1_hs8i7")
+
+[node name="DoorPillarB" type="CSGBox3D" parent="CSGCombiner3D" unique_id=826850320]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1.5, 4.7)
+size = Vector3(0.8, 3, 0.8)
+material = ExtResource("1_hs8i7")
+
+[node name="DoorLintel" type="CSGBox3D" parent="CSGCombiner3D" unique_id=699183263]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 3, 3)
+size = Vector3(0.8, 0.8, 4.2)
+material = ExtResource("1_hs8i7")
+
+[node name="Farmer" parent="." unique_id=555299838 instance=ExtResource("2_4wkx3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.5, 0, -8)
+
+[node name="LaserPuzzleController" type="Node3D" parent="." unique_id=702502874 node_paths=PackedStringArray("Emitter", "Receiver", "Door", "BeamRoot")]
+script = ExtResource("3_4w17a")
+Emitter = NodePath("../LaserEmitter")
+Receiver = NodePath("../LaserReceiver")
+Door = NodePath("../LaserDoor")
+BeamRoot = NodePath("BeamSegments")
+
+[node name="BeamSegments" type="Node3D" parent="LaserPuzzleController" unique_id=1625313472]
+
+[node name="LaserEmitter" parent="." unique_id=598281519 instance=ExtResource("4_ig02u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, -6)
+
+[node name="LaserReceiver" parent="." unique_id=1857446426 instance=ExtResource("5_dh4bm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0.6, 3)
+
+[node name="LaserDoor" parent="." unique_id=1154189529 instance=ExtResource("6_0imr8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 3)
+
+[node name="MirrorSocketA" parent="." unique_id=1846915498 node_paths=PackedStringArray("Controller") instance=ExtResource("7_spi1t")]
+transform = Transform3D(0.70710677, 0, -0.70710677, 0, 1, 0, 0.70710677, 0, 0.70710677, -1, 0.1, -6)
+Controller = NodePath("../LaserPuzzleController")
+
+[node name="MirrorBlockA" parent="." unique_id=2108130015 node_paths=PackedStringArray("Controller") instance=ExtResource("8_n57nc")]
+transform = Transform3D(0.70710677, 0, -0.70710677, 0, 1, 0, 0.70710677, 0, 0.70710677, -6.2, 0.9, -2)
+Controller = NodePath("../LaserPuzzleController")

@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://bwletl21u1xpy"]
+
+[ext_resource type="Script" uid="uid://cxwx2jhrbf22b" path="res://Game/Entities/LaserDoor.cs" id="1_ifqhi"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_door"]
+albedo_color = Color(0.14, 0.14, 0.16, 1)
+metallic = 0.15
+roughness = 0.35
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_door"]
+size = Vector3(0.6, 2.6, 2.8)
+
+[node name="LaserDoor" type="Node3D" unique_id=1154189529 node_paths=PackedStringArray("DoorBody", "DoorCollision")]
+script = ExtResource("1_ifqhi")
+DoorBody = NodePath("DoorBody")
+DoorCollision = NodePath("DoorBody/CollisionShape3D")
+OpenOffset = Vector3(0, 3.2, 0)
+
+[node name="DoorBody" type="AnimatableBody3D" parent="." unique_id=1178067328]
+
+[node name="DoorMesh" type="CSGBox3D" parent="DoorBody" unique_id=1731571084]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0)
+size = Vector3(0.6, 2.6, 2.8)
+material = SubResource("StandardMaterial3D_door")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DoorBody" unique_id=745417498]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0)
+shape = SubResource("BoxShape3D_door")

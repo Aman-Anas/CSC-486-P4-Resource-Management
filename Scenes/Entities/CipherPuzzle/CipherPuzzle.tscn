@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://dshc6s2di6du1"]
+
+[ext_resource type="Material" uid="uid://bqojwc168v4eo" path="res://assets/batch_exports/dungeonwalls/Dungeonwall.tres" id="1_2e2hv"]
+[ext_resource type="Script" uid="uid://b00lb3qsfitpy" path="res://Game/Entities/CipherPuzzle.cs" id="1_awfqu"]
+[ext_resource type="PackedScene" uid="uid://cl5j868uaep2" path="res://Scenes/Entities/CipherPuzzle/CipherPuzzleLayer.tscn" id="3_ai3wv"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_qyvas"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ai3wv"]
+size = Vector3(2.5, 0.4, 2.5)
+
+[sub_resource type="PrismMesh" id="PrismMesh_ai3wv"]
+size = Vector3(0.2, 0.05, 0.025)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ouxfs"]
+albedo_color = Color(0.47918278, 0.47918278, 0.47918278, 1)
+emission_enabled = true
+emission = Color(1, 1, 0, 1)
+
+[node name="CipherPuzzle" type="Node3D" unique_id=2135199629 node_paths=PackedStringArray("Layers", "FrontMarker")]
+script = ExtResource("1_awfqu")
+Layers = [NodePath("layer 1"), NodePath("layer 2"), NodePath("layer 3"), NodePath("layer 4"), NodePath("layer 5"), NodePath("layer 6"), NodePath("layer 7")]
+FrontMarker = NodePath("front marker")
+UnsolvedColor = Color(0.8248443, 0.14086074, 0.11660019, 1)
+
+[node name="base" type="MeshInstance3D" parent="." unique_id=447850345]
+transform = Transform3D(2.5, 0, 0, 0, 0.4, 0, 0, 0, 2.5, 0, 0.20000002, 0)
+mesh = SubResource("BoxMesh_qyvas")
+surface_material_override/0 = ExtResource("1_2e2hv")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1534799402]
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D" unique_id=922347218]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.19999999, 0)
+shape = SubResource("BoxShape3D_ai3wv")
+
+[node name="layer 1" parent="." unique_id=424869640 node_paths=PackedStringArray("Puzzle") instance=ExtResource("3_ai3wv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5109968, 0)
+Puzzle = NodePath("..")
+
+[node name="layer 2" parent="." unique_id=170025576 node_paths=PackedStringArray("Puzzle") instance=ExtResource("3_ai3wv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.72365606, 0)
+Puzzle = NodePath("..")
+
+[node name="layer 3" parent="." unique_id=644140080 node_paths=PackedStringArray("Puzzle") instance=ExtResource("3_ai3wv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.93642485, 0)
+Puzzle = NodePath("..")
+
+[node name="layer 4" parent="." unique_id=739109336 node_paths=PackedStringArray("Puzzle") instance=ExtResource("3_ai3wv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1491936, 0)
+Puzzle = NodePath("..")
+
+[node name="layer 5" parent="." unique_id=1856138497 node_paths=PackedStringArray("Puzzle") instance=ExtResource("3_ai3wv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3619624, 0)
+Puzzle = NodePath("..")
+
+[node name="layer 6" parent="." unique_id=1664455975 node_paths=PackedStringArray("Puzzle") instance=ExtResource("3_ai3wv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5853045, 0)
+Puzzle = NodePath("..")
+
+[node name="layer 7" parent="." unique_id=1866694181 node_paths=PackedStringArray("Puzzle") instance=ExtResource("3_ai3wv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8086464, 0)
+Puzzle = NodePath("..")
+
+[node name="front marker" type="MeshInstance3D" parent="." unique_id=50357195]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.42310432, 1.2016919)
+mesh = SubResource("PrismMesh_ai3wv")
+surface_material_override/0 = SubResource("StandardMaterial3D_ouxfs")

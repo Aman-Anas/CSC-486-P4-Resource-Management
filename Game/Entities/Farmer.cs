@@ -1,0 +1,632 @@
+using System;
+using System.Linq;
+using Game;
+using Game.Entities;
+using Game.UI;
+using Godot;
+using GodotTask;
+
+namespace Game.Entities;
+
+[GlobalClass]
+public partial class Farmer : RigidBody3D
+{
+    [Export]
+    public Inventory inventory { get; private set; } = null!;
+
+    [Export]
+    Label useKeyLabel = null!;
+
+    [Export]
+    Label gameTimer = null!;
+
+    public StandButton? OtherButtonToPress { get; set; }
+
+    public bool MovementEnabled { get; set; } = true;
+
+    /// <summary>
+    /// Location for enemies to target the player
+    /// </summary>
+    [Export]
+    public Node3D TargetPosition { get; set; } = null!;
+
+    /// <summary>
+    /// Raycast to check if we're on solid ground
+    /// </summary>
+    [Export]
+    Node3D floorSensorParent = null!;
+
+    [Export]
+    AnimationPlayer? player = null;
+
+    ////////////////////////////////////////
+
+    /// Constants go here
+    [Export]
+    float MOVEMENT_FORCE = 30;
+
+    [Export]
+    float AIR_MOVEMENT_FORCE = 30;
+
+    [Export]
+    float RUN_SPEED = 10;
+
+    [Export]
+    float WALK_SPEED = 6;
+
+    // [Export]
+    // float JUMP_MOVE_SPEED = 8;
+
+    [Export]
+    float GRAPPLE_FORCE = 50;
+
+    [Export]
+    float maxMovementSpeed = 6;
+
+    bool running;
+
+    Vector3 movementVec = new(0, 0, 0);
+
+    // Jumping
+
+    [Export]
+    Vector3 JUMP_IMPULSE = new(0, 5.5f, 0);
+
+    [Export]
+    ulong MAX_JUMP_RESET_TIME = 4000; // ms
+
+    ////////////////////////////////////////
+
+    bool justJumped;
+    ulong timeJumped;
+
+    // Mouselook
+    [Export]
+    Node3D yawTarget = null!;
+
+    [Export]
+    Node3D pitchTarget = null!;
+
+    [Export]
+    Node3D headPosition = null!;
+
+    readonly float MIN_PITCH = Mathf.DegToRad(-90.0f);
+    readonly float MAX_PITCH = Mathf.DegToRad(90.0f);
+
+    const float GRAVITY_CORRECTION_SPEED = 4.0f;
+    const float ROTATION_SPEED = 7f;
+
+    [Export]
+    RayCast3D grappleCast = null!;
+    Vector3 currentGrapplePos;
+    Node3D? currentGrappleNode = null;
+
+    [Export]
+    PackedScene returnToTitleScene = null!;
+
+    // Called when the node enters the scene tree for the first time.
+    public override void _Ready()
+    {
+        // Need this to capture the mouse of course
+        Input.MouseMode = Input.MouseModeEnum.Captured;
+        yawTarget.TopLevel = true;
+
+        progressBar.SetCoolValue(Manager.Instance.Data.CurrentHealth);
+
+        // set damage meta
+        DamageManager.SetMyForce(this, DamageManager.FarmerForceName);
+    }
+
+    void UpdateHeadOrientation()
+    {
+        yawTarget.Orthonormalize();
+        yawTarget.GlobalPosition = headPosition.GlobalPosition;
+        var yawUpDiff = new Quaternion(yawTarget.GlobalBasis.Y, GlobalBasis.Y).Normalized();
+        var axis = yawUpDiff.GetAxis();
+
+        // Check to ensure the quaternion is valid and not all zeros
+        if (yawUpDiff.LengthSquared() == 0 || axis.LengthSquared() == 0)
+            return;
+
+        yawTarget.Rotate(axis.Normalized(), yawUpDiff.GetAngle());
+
+        // mouseLookRotationTarget.GlobalRotation = yawTarget.GlobalRotation;
+    }
+
+    public override void _UnhandledInput(InputEvent @event)
+    {
+        // Direct mouselook for head itself
+        if (@event is InputEventMouseMotion motion)
+        {
+            var sensitivity = Manager.Instance.Config.MouseSensitivity;
+
+            yawTarget.RotateObjectLocal(Vector3.Up, -motion.Relative.X * sensitivity);
+
+            var pitchRot = pitchTarget.Rotation;
+            pitchRot.X = Mathf.Clamp(
+                pitchRot.X + (-motion.Relative.Y * sensitivity),
+                MIN_PITCH,
+                MAX_PITCH
+            );
+            pitchTarget.Rotation = pitchRot;
+        }
+    }
+
+    public override void _IntegrateForces(PhysicsDirectBodyState3D state)
+    {
+        Orthonormalize();
+
+        var inputVec = Input.GetVector(
+            GameActions.PlayerStrafeLeft,
+            GameActions.PlayerStrafeRight,
+            GameActions.PlayerForward,
+            GameActions.PlayerBackward
+        );
+
+        var touchingFloor = false;
+
+        foreach (var floorSensor in floorSensorParent.GetChildren().Cast<RayCast3D>())
+        {
+            // Detect whether we're touching the floor (with feet)
+            if (floorSensor.IsColliding())
+            {
+                touchingFloor = true;
+                break;
+            }
+        }
+
+        // Movement
+        movementVec.X = inputVec.X;
+        movementVec.Y = 0;
+        movementVec.Z = inputVec.Y;
+
+        // Convert our global linear velocity to local and remove Y
+        var actualLocalVelocity = GlobalBasis.Inverse() * state.LinearVelocity;
+        Vector3 localVeloCopy = actualLocalVelocity;
+        actualLocalVelocity.Y = 0;
+
+        running =
+            Input.IsActionPressed(GameActions.PlayerRun)
+            || Input.IsMouseButtonPressed(MouseButton.Right);
+
+        maxMovementSpeed = running ? RUN_SPEED : WALK_SPEED;
+
+        var intendedLocalVelocity = maxMovementSpeed * movementVec;
+
+        // Find the difference between them and use it to apply a force
+        var diffVelo = intendedLocalVelocity - actualLocalVelocity;
+
+        // Only control our own movement when touching the floor
+        if (touchingFloor)
+        {
+            state.ApplyCentralForce(GlobalBasis * (diffVelo.LimitLength(1) * MOVEMENT_FORCE));
+        }
+        else
+        {
+            state.ApplyCentralForce(GlobalBasis * (diffVelo.LimitLength(1) * AIR_MOVEMENT_FORCE));
+        }
+
+        // Jumping
+
+        // Reset the jump flag if we're in the air or a min time elapsed
+
+
+        if (!touchingFloor)
+        {
+            justJumped = false;
+        }
+        else
+        {
+            if ((Time.GetTicksMsec() - timeJumped) > MAX_JUMP_RESET_TIME)
+            {
+                justJumped = false;
+            }
+        }
+
+        // Dev mode jetpack
+        // if (false && Input.IsActionPressed(GameActions.PlayerJump))
+        // {
+        //     state.ApplyCentralImpulse(GlobalBasis * Vector3.Up * 0.3f);
+        // }
+
+        if (Input.IsActionPressed(GameActions.PlayerJump) && touchingFloor && !justJumped)
+        {
+            state.ApplyCentralImpulse(
+                GlobalBasis * (JUMP_IMPULSE + new Vector3(0, -localVeloCopy.Y * Mass, 0))
+            );
+            justJumped = true;
+            timeJumped = Time.GetTicksMsec();
+        }
+
+        // Get the current gravity direction and our down direction (both global)
+        var currentGravityDir = state.TotalGravity.Normalized();
+
+        var currentDownDir = -GlobalBasis.Y;
+
+        // Find the rotation difference between these two
+        var rotationDifference = new Quaternion(currentDownDir, currentGravityDir);
+
+        // Turn it into an euler and multiply by our gravity correction speed
+        var gravityCorrectionVelo = rotationDifference.Normalized();
+
+        // Before assigning gravity correction, add mouselook
+        var newLocalAngVelo = gravityCorrectionVelo.GetEuler() * GRAVITY_CORRECTION_SPEED;
+
+        // Get the rotation difference for our head
+        var mouseLookDiff = new Quaternion(GlobalBasis.Z, yawTarget.GlobalBasis.Z)
+            .Normalized()
+            .GetEuler();
+
+        // Put into local coordinates
+        mouseLookDiff = GlobalBasis.Inverse() * mouseLookDiff;
+
+        // Remove extraneous rotation (only want mouselook to affect Y)
+        mouseLookDiff.X = 0;
+        mouseLookDiff.Z = 0;
+
+        // Add it to our new velocity (after making it global)
+        newLocalAngVelo += GlobalBasis * (mouseLookDiff * ROTATION_SPEED);
+
+        /**
+        Get our final angular velocity. It would be more realistic to use torque,
+        but velocity is a bit easier to work with. If needed, torque can be used though.
+        */
+        state.AngularVelocity = newLocalAngVelo;
+
+        if (!IsInstanceValid(currentGrappleNode))
+        {
+            currentGrappleNode = null;
+            currentGrapplePos = Vector3.Zero;
+        }
+        if (!Input.IsMouseButtonPressed(MouseButton.Right))
+        {
+            currentGrapplePos = Vector3.Zero;
+            currentGrappleNode = null;
+        }
+
+        // if (Input.IsMouseButtonPressed(MouseButton.Right) && currentGrappleNode == null)
+        // {
+        //     if (grappleCast.IsColliding() && IsInstanceValid(grappleCast.GetCollider()))
+        //     {
+        //         currentGrappleNode = (Node3D)grappleCast.GetCollider();
+        //         var hitPoint = grappleCast.GetCollisionPoint();
+        //         currentGrapplePos = currentGrappleNode.ToLocal(hitPoint);
+        //     }
+        // }
+
+        if (
+            grappleCast.IsColliding()
+            && IsInstanceValid(grappleCast.GetCollider())
+            && grappleCast.GetCollider() is Node colNode
+        )
+        {
+            // var interactable = GetLookedAtInteractable();
+            // GD.Print(interactable);
+
+            // if (interactable != null)
+            // {
+            //     var interactionText = interactable.GetInteractionText(this);
+
+            //     if (!string.IsNullOrEmpty(interactionText))
+            //     {
+            //         useKeyLabel.Show();
+            //         useKeyLabel.Text = interactionText;
+
+            //         if (useKeyLabel.LabelSettings != null)
+            //         {
+            //             useKeyLabel.LabelSettings.FontColor = interactable.GetInteractionColor();
+            //         }
+
+            //         if (Input.IsActionJustPressed(GameActions.UseDoor))
+            //         {
+            //             interactable.Interact(this);
+            //         }
+            //     }
+            //     else
+            //     {
+            //         useKeyLabel.Hide();
+            //     }
+            // }
+
+            switch (colNode.Owner)
+            {
+                case IPlayerInteractable interactable:
+                    useKeyLabel.Show();
+                    useKeyLabel.Text = interactable.GetInteractionText(this);
+
+                    if (useKeyLabel.LabelSettings != null)
+                    {
+                        useKeyLabel.LabelSettings.FontColor = interactable.GetInteractionColor();
+                    }
+
+                    if (Input.IsActionPressed(GameActions.UseDoor))
+                    {
+                        interactable.Interact(this);
+                    }
+                    break;
+
+                case KeyDoor door:
+                    useKeyLabel.Show();
+                    if (door.Opened)
+                        useKeyLabel.Text = $"Door is open.";
+                    else if (inventory.HasItem(door.RequiredKey))
+                    {
+                        useKeyLabel.Text = $"[e] to open door with {door.RequiredKey.Name}";
+                        if (Input.IsActionJustPressed(GameActions.UseDoor))
+                            door.Open(inventory);
+                    }
+                    else
+                        useKeyLabel.Text = $"You need a {door.RequiredKey.Name} to open this door.";
+                    useKeyLabel.LabelSettings.FontColor = door.RequiredKey.ItemColor;
+                    break;
+
+                case CipherPuzzleLayer layer:
+                    useKeyLabel.Show();
+                    useKeyLabel.LabelSettings.FontColor = new Color("#ffffff");
+                    if (layer.AllowRotation)
+                    {
+                        useKeyLabel.Text = $"[J] rotate left, [K] rotate right";
+                        if (Input.IsActionJustPressed(GameActions.RotateLeft))
+                            layer.RotateLeft();
+                        if (Input.IsActionJustPressed(GameActions.RotateRight))
+                            layer.RotateRight();
+                    }
+                    else
+                        useKeyLabel.Text = "Puzzle has been solved!";
+                    break;
+
+                default:
+                    useKeyLabel.Hide();
+                    break;
+            }
+        }
+        else
+        {
+            useKeyLabel.Hide();
+        }
+
+        if (currentGrappleNode != null)
+        {
+            var targetPoint = (currentGrappleNode.ToGlobal(currentGrapplePos));
+            // GD.Print("point", actualPoint);
+            var forceDir = ((targetPoint) - GlobalPosition).Normalized();
+            state.ApplyCentralForce(GRAPPLE_FORCE * forceDir);
+        }
+    }
+
+    [Export]
+    BoneAttachment3D glowyEndPos = null!;
+
+    [Export]
+    Node3D glowyThing = null!;
+
+    StringName runAnim = "BAKED_Run";
+    StringName walkAnim = "BAKED_Run";
+    StringName idleAnim = "BAKED_Run";
+
+    // Called every frame. 'delta' is the elapsed time since the previous frame.
+    public override void _Process(double delta)
+    {
+        UpdateHeadOrientation();
+
+        var localVelo = GlobalBasis.Inverse() * LinearVelocity;
+        localVelo.Y = 0;
+
+        StringName currentAnimation;
+
+        // Switch between idle and run anims
+        if (movementVec.LengthSquared() > 0)
+        {
+            if (running && (localVelo.LengthSquared() > (WALK_SPEED * WALK_SPEED)))
+            {
+                currentAnimation = runAnim;
+            }
+            else
+            {
+                currentAnimation = walkAnim;
+            }
+        }
+        else
+        {
+            currentAnimation = idleAnim;
+        }
+
+        player?.Play(currentAnimation, customBlend: 0.5);
+
+        if (IsInstanceValid(currentGrappleNode) && (currentGrappleNode != null))
+        {
+            var targetPoint = (currentGrappleNode.ToGlobal(currentGrapplePos));
+            glowyEndPos.GlobalPosition = targetPoint;
+            glowyThing.Visible = true;
+        }
+        else
+        {
+            glowyThing.Visible = false;
+        }
+    }
+
+    // Whether or not we can take damage. Set to false during the invulnerability timer
+    bool canTakeDamage = true;
+
+    // Enemies should be marked with this string metadata
+    //public readonly StringName EnemyMeta = "enemy";
+
+    // Time in seconds to stay invulnerable after a hit
+    [Export]
+    public float InvulnerabilityTime { get; set; } = 0.5f;
+
+    [Export]
+    FancyProgressBar progressBar = null!;
+
+    // Generated by Copilot
+    [Export]
+    Node3D? heldStatueDisplay = null;
+
+    private MeshInstance3D? heldStatueMesh = null;
+    private StandardMaterial3D? heldStatueMaterial = null;
+
+    // Generated by Copilot: helper to add health to the player and update HUD
+    // This allows other entities (e.g. edible enemies) to heal the player
+    public void AddHealth(int amount)
+    {
+        // Ensure we don't exceed a 100 hp cap here. Change if you have a different max.
+        Manager.Instance.Data.CurrentHealth = Math.Min(
+            100,
+            Manager.Instance.Data.CurrentHealth + amount
+        );
+        progressBar.SetCoolValue(Manager.Instance.Data.CurrentHealth);
+    }
+
+    [Export]
+    AnimationPlayer damagePlayer = null!;
+    StringName damageAnimName = "takedamage";
+
+    [Export]
+    public AudioStreamPlayer3D EatFx { get; set; } = null!;
+
+    public override void _PhysicsProcess(double delta)
+    {
+        // burgersEatenCounter.Text = $"Burgers eaten: {Manager.Instance.Data.BurgersEaten}";
+
+        double time = (Time.GetTicksMsec() - Manager.Instance.Data.TimeGameStarted) / 1000.0;
+        gameTimer.Text = $"{time:F2}s";
+
+        // Figure out if we're touching an enemy
+        var colliding = GetCollidingBodies();
+        bool touchingEnemy = false;
+        int amountToReduceHealth = 0;
+        foreach (var collider in colliding)
+        {
+            if (DamageManager.CanDamageMe(this, collider))
+            //if (collider.HasMeta(EnemyMeta) && !(collider is Bullet))
+            {
+                touchingEnemy = true;
+
+                // Grab the amount to reduce health by
+                //amountToReduceHealth = (int)collider.GetMeta(EnemyMeta);
+                amountToReduceHealth = DamageManager.GetDamageAmount(collider);
+
+                // if (collider is NewBurger burger)
+                //     burger.Kill();
+
+                break;
+            }
+        }
+
+        // Take damage
+        if (canTakeDamage && touchingEnemy)
+        {
+            // Reduce our health
+            Manager.Instance.Data.CurrentHealth -= amountToReduceHealth;
+            progressBar.SetCoolValue(Manager.Instance.Data.CurrentHealth);
+            damagePlayer.Play(damageAnimName);
+
+            if (Manager.Instance.Data.CurrentHealth < 0)
+            {
+                Input.MouseMode = Input.MouseModeEnum.Visible;
+                GetTree().ChangeSceneToPacked(returnToTitleScene);
+            }
+
+            // Start invulnerability timer
+            canTakeDamage = false;
+            ResetInvulnerability().Forget();
+        }
+    }
+
+    async GDTaskVoid ResetInvulnerability()
+    {
+        await GDTask.Delay(TimeSpan.FromSeconds(InvulnerabilityTime));
+        canTakeDamage = true;
+    }
+
+    /// Generated by Copilot: Display a held statue in the player's hand
+    public void DisplayHeldStatue(string statueId, StandardMaterial3D? material)
+    {
+        if (heldStatueDisplay == null)
+        {
+            GD.PrintErr("Hand display node not assigned in Farmer!");
+            return;
+        }
+
+        GD.Print(
+            $"[DisplayHeldStatue] Starting display for {statueId}, material is {(material != null ? "provided" : "null")}"
+        );
+
+        // Clear any existing children
+        foreach (var child in heldStatueDisplay.GetChildren())
+        {
+            child.QueueFree();
+        }
+
+        // Create a mesh for the held statue
+        var boxMesh = new BoxMesh();
+        boxMesh.Size = new Vector3(0.3f, 0.8f, 0.3f);
+
+        heldStatueMesh = new MeshInstance3D();
+        heldStatueMesh.Mesh = boxMesh;
+
+        // Generated by Copilot: create or apply material with color based on statue ID
+        var finalMaterial = new StandardMaterial3D();
+        finalMaterial.AlbedoColor = statueId switch
+        {
+            "statue1" => new Color(0.8f, 0.7f, 0.5f, 1f),
+            "statue2" => new Color(0.6f, 0.6f, 0.6f, 1f),
+            "statue3" => new Color(0.2f, 0.2f, 0.2f, 1f),
+            "statue4" => new Color(0.4f, 0.5f, 0.6f, 1f),
+            _ => new Color(0.5f, 0.4f, 0.3f, 1f),
+        };
+
+        heldStatueMesh.SetSurfaceOverrideMaterial(0, finalMaterial);
+        heldStatueDisplay.AddChild(heldStatueMesh);
+
+        GD.Print(
+            $"[DisplayHeldStatue] Statue '{statueId}' added to hand display. Mesh visible: {heldStatueMesh.Visible}"
+        );
+    }
+
+    /// Generated by Copilot: Clear the held statue display
+    public void ClearHeldStatueDisplay()
+    {
+        if (heldStatueDisplay != null)
+        {
+            foreach (var child in heldStatueDisplay.GetChildren())
+            {
+                child.QueueFree();
+            }
+        }
+        heldStatueMesh = null;
+        heldStatueMaterial = null;
+        GD.Print("Statue display cleared");
+    }
+
+    private IPlayerInteractable? GetLookedAtInteractable()
+    {
+        if (!grappleCast.IsColliding() || !IsInstanceValid(grappleCast.GetCollider()))
+        {
+            return null;
+        }
+
+        if (grappleCast.GetCollider() is not Node colliderNode)
+        {
+            return null;
+        }
+
+        return FindInteractableInAncestry(colliderNode);
+    }
+
+    private static IPlayerInteractable? FindInteractableInAncestry(Node? node)
+    {
+        var current = node;
+        while (current != null)
+        {
+            if (current is IPlayerInteractable interactable)
+            {
+                return interactable;
+            }
+
+            current = current.GetParent();
+        }
+
+        return null;
+    }
+}

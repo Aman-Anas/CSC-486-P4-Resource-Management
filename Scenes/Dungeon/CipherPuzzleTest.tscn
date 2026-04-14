@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://ddo82csti855c"]
+
+[ext_resource type="Material" uid="uid://cfls41uebm78j" path="res://assets/mats/test_material.tres" id="1_wkc3p"]
+[ext_resource type="PackedScene" uid="uid://cgv3ggu25ffs1" path="res://Scenes/Entities/old/Farmer.tscn" id="2_8rh71"]
+[ext_resource type="PackedScene" uid="uid://dshc6s2di6du1" path="res://Scenes/Entities/CipherPuzzle/CipherPuzzle.tscn" id="3_7hlxx"]
+[ext_resource type="PackedScene" uid="uid://bs0xy5r7f2xr0" path="res://Scenes/Entities/KeyDoor.tscn" id="4_1v7tc"]
+[ext_resource type="PackedScene" uid="uid://78mq6el7k5ox" path="res://Scenes/Entities/keys.tscn" id="5_q8wow"]
+[ext_resource type="Resource" uid="uid://b30u1ba2a7p40" path="res://Scenes/Entities/Door_item_red.tres" id="6_pjjmk"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8rh71"]
+size = Vector3(18.807495, 0.63586426, 15.393494)
+
+[sub_resource type="BoxMesh" id="BoxMesh_t4dss"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8rh71"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_3yyu3"]
+sky_material = SubResource("ProceduralSkyMaterial_8rh71")
+
+[sub_resource type="Environment" id="Environment_7hlxx"]
+background_mode = 2
+sky = SubResource("Sky_3yyu3")
+tonemap_mode = 4
+tonemap_exposure = 1.9
+tonemap_agx_white = 2.56
+tonemap_agx_contrast = 1.46
+glow_enabled = true
+
+[node name="CipherPuzzleTest" type="Node3D" unique_id=791306623]
+
+[node name="Farmer" parent="." unique_id=483625553 instance=ExtResource("2_8rh71")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6705648, 0.35624456, 5.3713927)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1531722234]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=88551607]
+transform = Transform3D(1.0000001, 0, 0, 0, 0.99999994, 0, 0, 0, 1, 0.7225952, -0.18206786, 0.16055298)
+shape = SubResource("BoxShape3D_8rh71")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=1605737725]
+transform = Transform3D(15.805, 0, 0, 0, 0.21, 0, 0, 0, 14.985, 0, 0, 0)
+material_override = ExtResource("1_wkc3p")
+mesh = SubResource("BoxMesh_t4dss")
+skeleton = NodePath("../..")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1170025305]
+environment = SubResource("Environment_7hlxx")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1653903212]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="CipherPuzzle" parent="." unique_id=2135199629 instance=ExtResource("3_7hlxx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.23564553, 0.13586378, -0.21307647)
+
+[node name="KeyDoor" parent="." unique_id=962990637 instance=ExtResource("4_1v7tc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6732163, 0.13586378, -5.3105516)
+RequiredKey = ExtResource("6_pjjmk")
+
+[node name="red key" parent="." unique_id=293070295 instance=ExtResource("5_q8wow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3954582, 0.23952794, -5.7472615)
+Info = ExtResource("6_pjjmk")
