@@ -49,5 +49,9 @@ public partial class UnitBase : RigidBody3D
         {
             velo = Vector3.Zero;
         }
+
+        velo += state.TotalGravity;
+
+        state.LinearVelocity = velo;
     }
 }
