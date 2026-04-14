@@ -10,7 +10,10 @@ public partial class BattlefieldCamera : Node3D
     public Camera3D MainCamera { get; set; } = null!;
 
     [Export]
-    public float ZoomSpeed { get; set; } = 5f;
+    public float MoveSpeed { get; set; } = 20f;
+
+    [Export]
+    public float ZoomSpeed { get; set; } = 2f;
 
     Vector3 targetPos;
 
@@ -21,38 +24,65 @@ public partial class BattlefieldCamera : Node3D
 
     public override void _Process(double delta)
     {
-        var movementVec = Input.GetVector(
-            GameActions.PlayerStrafeLeft,
-            GameActions.PlayerStrafeRight,
-            GameActions.PlayerBackward,
-            GameActions.PlayerForward
-        );
+        var movementVec =
+            Input.GetVector(
+                GameActions.PlayerStrafeLeft,
+                GameActions.PlayerStrafeRight,
+                GameActions.PlayerBackward,
+                GameActions.PlayerForward
+            ) * MoveSpeed;
 
         targetPos.X += (float)(movementVec.X * delta);
-        targetPos.Z += (float)(movementVec.Y * delta);
+        targetPos.Z += -(float)(movementVec.Y * delta);
 
-        MainCamera.GlobalPosition = MainCamera.GlobalPosition.Lerp(
-            targetPos,
-            (float)((0.1) * delta)
-        );
+        MainCamera.GlobalPosition = targetPos; //Damp(MainCamera.GlobalPosition, targetPos, 0.9f, (float)delta);
     }
+
+    public static Vector3 Damp(Vector3 a, Vector3 b, float lambda, float dt)
+    {
+        return a.Lerp(b, 1 - Mathf.Exp(-lambda * dt));
+    }
+
+    bool mouseMoving = false;
 
     public override void _UnhandledInput(InputEvent @event)
     {
         if (@event is InputEventMouseButton buttonEvent)
         {
-            switch (buttonEvent.ButtonIndex)
-            {
-                case MouseButton.WheelUp:
-                    targetPos.Y -= ZoomSpeed;
-                    break;
-                // make it go down
-                case MouseButton.WheelDown:
-                    // go up
+            if (buttonEvent.Pressed)
+                switch (buttonEvent.ButtonIndex)
+                {
+                    case MouseButton.WheelUp:
+                        if (targetPos.Y > ZoomSpeed)
+                            // make it go down
+                            targetPos.Y -= ZoomSpeed;
+                        break;
 
-                    targetPos.Y += ZoomSpeed;
-                    break;
+                    case MouseButton.WheelDown:
+                        // go up
+                        targetPos.Y += ZoomSpeed;
+                        break;
+                    case MouseButton.Middle:
+                        mouseMoving = true;
+                        break;
+                }
+            else if (buttonEvent.ButtonIndex == MouseButton.Middle)
+            {
+                mouseMoving = false;
             }
+        }
+
+        if (mouseMoving && @event is InputEventMouseMotion motion)
+        {
+            var sensitivity = Manager.Instance.Config.MouseSensitivity * targetPos.Y;
+
+            var movement = new Vector3(
+                -motion.Relative.X * sensitivity,
+                0,
+                -motion.Relative.Y * sensitivity
+            );
+
+            targetPos += movement;
         }
     }
 }
