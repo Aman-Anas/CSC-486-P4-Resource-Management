@@ -6,6 +6,9 @@ namespace Game.Entities;
 [GlobalClass]
 public partial class UnitBehavior : Resource
 {
+    [Export]
+    public int InitialHealth { get; set; } = 100;
+
     /// <summary>
     /// Scene used for instancing projectile
     /// </summary>
