@@ -1,0 +1,161 @@
+[gd_scene format=3 uid="uid://cqb51yewaq87i"]
+
+[ext_resource type="Texture2D" uid="uid://ci8bfllrjbc23" path="res://assets/textures/herringbone_brick_03_diff_1k.jpg" id="1_8jti3"]
+[ext_resource type="Material" uid="uid://cfls41uebm78j" path="res://assets/mats/test_material.tres" id="1_mat"]
+[ext_resource type="PackedScene" uid="uid://cgv3ggu25ffs1" path="res://Scenes/Entities/old/Farmer.tscn" id="3_tni2a"]
+[ext_resource type="Texture2D" uid="uid://c2hpr7qh5hcm7" path="res://assets/textures/rusty_painted_metal_diff_1k.jpg" id="3_wd4xp"]
+[ext_resource type="PackedScene" uid="uid://d0oskqwlkupl" path="res://assets/Furniture/GLTF format/doorway.glb" id="4_botuf"]
+[ext_resource type="PackedScene" uid="uid://bt0wy5gn6jtv7" path="res://assets/Furniture/GLTF format/doorwayOpen.glb" id="5_r7cod"]
+[ext_resource type="PackedScene" uid="uid://dfpv5ty5v5qc1" path="res://assets/Furniture/GLTF format/loungeChair.glb" id="6_uy4sj"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_council"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_council"]
+sky_material = SubResource("ProceduralSkyMaterial_council")
+
+[sub_resource type="Environment" id="Environment_council"]
+background_mode = 2
+sky = SubResource("Sky_council")
+tonemap_mode = 4
+tonemap_exposure = 1.7
+tonemap_agx_white = 2.56
+tonemap_agx_contrast = 1.46
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i4t6l"]
+albedo_texture = ExtResource("1_8jti3")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_noahw"]
+albedo_texture = ExtResource("3_wd4xp")
+roughness = 0.0
+uv1_scale = Vector3(2.965, 2.965, 2.965)
+uv1_triplanar = true
+
+[node name="CouncilRoom" type="Node3D" unique_id=412822193]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1300621646]
+environment = SubResource("Environment_council")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1236856621]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="RoomShell" type="CSGCombiner3D" parent="." unique_id=953920408]
+use_collision = true
+
+[node name="Floor" type="CSGCylinder3D" parent="RoomShell" unique_id=993673735]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.761279, 0)
+material_override = SubResource("StandardMaterial3D_i4t6l")
+radius = 13.5
+height = 6.3225584
+sides = 32
+material = ExtResource("1_mat")
+
+[node name="Floor2" type="CSGCylinder3D" parent="RoomShell" unique_id=1325489323]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.616345, -1.6109428)
+operation = 2
+radius = 11.505371
+height = 5.148267
+sides = 32
+material = SubResource("StandardMaterial3D_noahw")
+
+[node name="CenterDais" type="CSGCylinder3D" parent="RoomShell" unique_id=168865944]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3218887, 0.15, -1.3868842)
+radius = 3.2
+height = 0.3
+sides = 24
+material = ExtResource("1_mat")
+
+[node name="Ceiling" type="CSGCylinder3D" parent="RoomShell" unique_id=2003194707]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.2, 0)
+radius = 13.5
+height = 0.4
+sides = 32
+material = ExtResource("1_mat")
+
+[node name="Ceiling2" type="CSGCylinder3D" parent="RoomShell" unique_id=970606381]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.14759874, 0)
+radius = 13.5
+height = 0.4
+sides = 32
+material = ExtResource("1_mat")
+
+[node name="WestWall" type="CSGBox3D" parent="RoomShell" unique_id=1510643363]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.2, 2.3, 0)
+size = Vector3(0.6, 4.8, 20)
+material = ExtResource("1_mat")
+
+[node name="EastWall" type="CSGBox3D" parent="RoomShell" unique_id=565576261]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.2, 2.3, 0)
+size = Vector3(0.6, 4.8, 20)
+material = ExtResource("1_mat")
+
+[node name="SouthWall" type="CSGBox3D" parent="RoomShell" unique_id=831540455]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3, 13.2)
+size = Vector3(20, 4.8, 0.6)
+material = ExtResource("1_mat")
+
+[node name="DoorPillarA" type="CSGBox3D" parent="RoomShell" unique_id=894764066]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1.95, -13.2)
+size = Vector3(1, 3.9, 1)
+material = ExtResource("1_mat")
+
+[node name="DoorPillarB" type="CSGBox3D" parent="RoomShell" unique_id=826850320]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1.95, -13.2)
+size = Vector3(1, 3.9, 1)
+material = ExtResource("1_mat")
+
+[node name="DoorLintel" type="CSGBox3D" parent="RoomShell" unique_id=699183263]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.95, -13.2)
+size = Vector3(5, 1, 1)
+material = ExtResource("1_mat")
+
+[node name="BackWallLeft" type="CSGBox3D" parent="RoomShell" unique_id=1263779460]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.8, 2.3, -13.2)
+size = Vector3(8.2, 4.8, 0.6)
+material = ExtResource("1_mat")
+
+[node name="BackWallRight" type="CSGBox3D" parent="RoomShell" unique_id=925418051]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.098908186, 1.8433785, -13.171893)
+operation = 2
+size = Vector3(3.6034575, 3.7171535, 1.595)
+material = ExtResource("1_mat")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=2097583097]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9372556, 0)
+light_energy = 16.0
+omni_range = 4096.0
+
+[node name="doorway2" parent="." unique_id=28327181 instance=ExtResource("4_botuf")]
+transform = Transform3D(-3.645, 0, -5.503797e-07, 0, 3.645, 0, 5.503797e-07, 0, -3.645, 1.6944926, -0.0679422, -13.468504)
+
+[node name="doorway3" parent="." unique_id=465711747 instance=ExtResource("4_botuf")]
+transform = Transform3D(3.645, 0, 0, 0, 3.645, 0, 0, 0, 3.645, -1.8421407, -0.0679422, -13.202448)
+
+[node name="doorwayOpen" parent="." unique_id=1749326616 instance=ExtResource("5_r7cod")]
+transform = Transform3D(7.715, 0, 0, 0, 3.668, 0, 0, 0, 3.635, -1.7825614, -0.015199184, -12.969863)
+
+[node name="loungeChair" parent="." unique_id=683266747 instance=ExtResource("6_uy4sj")]
+transform = Transform3D(-1.4234633, 0, -2.8771253, 0, 3.2099996, 0, 2.8771253, 0, -1.4234633, 7.013806, 0.05240202, 0.5007014)
+
+[node name="loungeChair2" parent="." unique_id=561145414 instance=ExtResource("6_uy4sj")]
+transform = Transform3D(-2.2531128, 0, -2.28639, 0, 3.2099996, 0, 2.28639, 0, -2.2531128, 5.4635816, 0.0524019, 3.005784)
+
+[node name="loungeChair3" parent="." unique_id=435539750 instance=ExtResource("6_uy4sj")]
+transform = Transform3D(-3.20506, 0, 0.17801201, 0, 3.2099996, 0, -0.17801201, 0, -3.20506, -0.036207795, 0.052402735, 5.523437)
+
+[node name="loungeChair4" parent="." unique_id=884964646 instance=ExtResource("6_uy4sj")]
+transform = Transform3D(-2.9125307, 0, -1.3495431, 0, 3.2099996, 0, 1.3495431, 0, -2.9125307, 3.1055584, 0.052402735, 4.3381696)
+
+[node name="loungeChair5" parent="." unique_id=1621640639 instance=ExtResource("6_uy4sj")]
+transform = Transform3D(-2.3613164, 0, 2.1744614, 0, 3.2099998, 0, -2.1744614, 0, -2.3613164, -3.4651575, 0.052401543, 4.417029)
+
+[node name="loungeChair6" parent="." unique_id=599842661 instance=ExtResource("6_uy4sj")]
+transform = Transform3D(-1.2337432, 0, 2.9634395, 0, 3.2099996, 0, -2.9634395, 0, -1.2337432, -5.3610106, 0.0524019, 2.2270246)
+
+[node name="loungeChair7" parent="." unique_id=1242323534 instance=ExtResource("6_uy4sj")]
+transform = Transform3D(-0.11449146, 0, 3.2079575, 0, 3.2099993, 0, -3.2079575, 0, -0.11449146, -5.6747184, 0.052402735, -0.46316314)
+
+[node name="Farmer" parent="." unique_id=483625553 instance=ExtResource("3_tni2a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.1728678, 0.8030424, -1.5388665)
