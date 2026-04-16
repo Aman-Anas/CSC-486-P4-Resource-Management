@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://csud2m5uya5c3"]
+
+[ext_resource type="Script" uid="uid://cayqafo0doebm" path="res://Game/Entities/UnitBase.cs" id="1_1gnui"]
+[ext_resource type="Resource" uid="uid://dlega63srm54u" path="res://Scenes/Battlefield/Soldier.tres" id="2_t3vay"]
+[ext_resource type="Material" path="res://assets/mats/cheese/cheese.tres" id="3_yc7gq"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_5r4pn"]
+top_radius = 0.3
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_5r4pn"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_1gnui"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_2ohoe"]
+material = ExtResource("3_yc7gq")
+top_radius = 0.0
+
+[node name="TestUnit" type="RigidBody3D" unique_id=1702035136 node_paths=PackedStringArray("DetectionArea", "DetectionShape")]
+script = ExtResource("1_1gnui")
+DetectionArea = NodePath("Area3D")
+DetectionShape = NodePath("Area3D/CollisionShape3D")
+Behavior = ExtResource("2_t3vay")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=240025093]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CylinderMesh_5r4pn")
+skeleton = NodePath("../CollisionShape3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1833209406]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CylinderShape3D_5r4pn")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=1390074896]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1300659438]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("SphereShape3D_1gnui")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=1379242053]
+transform = Transform3D(0.39999998, 0, 0, 0, -1.7484554e-08, 0.39999998, 0, -0.39999998, -1.7484554e-08, 0, 2, -0.2)
+mesh = SubResource("CylinderMesh_2ohoe")

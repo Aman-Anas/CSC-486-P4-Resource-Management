@@ -13,10 +13,9 @@ public partial class FancyProgressBar : TextureProgressBar
     {
         this.Value = value;
         this.SetLabelValue($"{value}");
-        //percentLabel.Text = $"{value}";
     }
-    
-    public void SetLabelValue(String value)
+
+    public void SetLabelValue(string value)
     {
         percentLabel.Text = value;
     }
