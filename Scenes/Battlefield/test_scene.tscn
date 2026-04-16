@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://nc67aoy6r7d" path="res://Game/Entities/BattlefieldCamera.cs" id="1_l4s1p"]
 [ext_resource type="Material" uid="uid://cfls41uebm78j" path="res://assets/mats/test_material.tres" id="2_hbbsw"]
+[ext_resource type="PackedScene" uid="uid://cgg3c05j1ydwq" path="res://Scenes/Battlefield/marker.tscn" id="2_ktycj"]
+[ext_resource type="Texture2D" uid="uid://b4h4j82h0nu1c" path="res://assets/selection.svg" id="3_ov317"]
 [ext_resource type="Material" path="res://assets/mats/cheese/cheese.tres" id="3_ruy5n"]
 [ext_resource type="PackedScene" uid="uid://csud2m5uya5c3" path="res://Scenes/Battlefield/TestUnit.tscn" id="4_qq8og"]
 
@@ -27,12 +29,30 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2135597081]
 environment = SubResource("Environment_ktycj")
 
-[node name="BattlefieldCamera" type="Node3D" parent="." unique_id=56516224 node_paths=PackedStringArray("MainCamera")]
+[node name="BattlefieldCamera" type="Node3D" parent="." unique_id=56516224 node_paths=PackedStringArray("MainCamera", "dragRect")]
 script = ExtResource("1_l4s1p")
 MainCamera = NodePath("Camera3D")
+PanSpeed = 0.005
+markerMesh = ExtResource("2_ktycj")
+dragRect = NodePath("NinePatchRect")
 
 [node name="Camera3D" type="Camera3D" parent="BattlefieldCamera" unique_id=1740565842]
-transform = Transform3D(1, 0, 0, 0, 0.12238897, 0.99248224, 0, -0.99248224, 0.12238897, 0, 7.501013, 0)
+transform = Transform3D(0.9999568, -0.0087711755, 0.0030723368, -0.00033829059, 0.2960117, 0.9551843, -0.009287538, -0.955144, 0.2959959, 0, 7.501013, 0)
+fov = 67.5
+
+[node name="NinePatchRect" type="NinePatchRect" parent="BattlefieldCamera" unique_id=797228228]
+visible = false
+offset_left = 250.0
+offset_top = 202.0
+offset_right = 861.9658
+offset_bottom = 612.25635
+scale = Vector2(0.585, 0.585)
+texture = ExtResource("3_ov317")
+region_rect = Rect2(16, 16, 480, 480)
+patch_margin_left = 70
+patch_margin_top = 70
+patch_margin_right = 70
+patch_margin_bottom = 70
 
 [node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1184037486]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
@@ -51,10 +71,10 @@ use_collision = true
 material = ExtResource("3_ruy5n")
 
 [node name="TestUnit" parent="." unique_id=1702035136 instance=ExtResource("4_qq8og")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.220915, 2.8155298, -2.593461)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.884085, 0, -4.150667)
 
 [node name="TestUnit5" parent="." unique_id=102189309 instance=ExtResource("4_qq8og")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.10456, 5.7511454, -6.5884647)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.119545, 1.9073486e-06, -4.8849707)
 FactionID = "fwawafaw"
 
 [node name="TestUnit2" parent="." unique_id=871502345 instance=ExtResource("4_qq8og")]

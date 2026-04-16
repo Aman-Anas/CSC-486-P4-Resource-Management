@@ -2,12 +2,19 @@
 
 [ext_resource type="Script" uid="uid://cayqafo0doebm" path="res://Game/Entities/UnitBase.cs" id="1_1gnui"]
 [ext_resource type="Resource" uid="uid://dlega63srm54u" path="res://Scenes/Battlefield/Soldier.tres" id="2_t3vay"]
+[ext_resource type="PackedScene" uid="uid://g87jjh46c5ic" path="res://Scenes/Battlefield/Cheese.tscn" id="3_deksg"]
 [ext_resource type="Material" path="res://assets/mats/cheese/cheese.tres" id="3_yc7gq"]
+[ext_resource type="PackedScene" uid="uid://bp37w4rh4ucg7" path="res://Scenes/UI/HealthBar.tscn" id="4_2ohoe"]
+[ext_resource type="Material" uid="uid://cfls41uebm78j" path="res://assets/mats/test_material.tres" id="4_xhvu4"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_deksg"]
+friction = 0.08
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_5r4pn"]
+material = ExtResource("4_xhvu4")
 top_radius = 0.3
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_5r4pn"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2ohoe"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_1gnui"]
 
@@ -15,11 +22,22 @@ top_radius = 0.3
 material = ExtResource("3_yc7gq")
 top_radius = 0.0
 
-[node name="TestUnit" type="RigidBody3D" unique_id=1702035136 node_paths=PackedStringArray("DetectionArea", "DetectionShape")]
+[sub_resource type="ViewportTexture" id="ViewportTexture_deksg"]
+viewport_path = NodePath("SubViewport")
+
+[node name="TestUnit" type="RigidBody3D" unique_id=1702035136 node_paths=PackedStringArray("healthBar", "DetectionArea", "DetectionShape", "shootPoint")]
+axis_lock_angular_x = true
+axis_lock_angular_z = true
+physics_material_override = SubResource("PhysicsMaterial_deksg")
+contact_monitor = true
+max_contacts_reported = 2
 script = ExtResource("1_1gnui")
+healthBar = NodePath("SubViewport/HealthBar/TextureProgressBar")
 DetectionArea = NodePath("Area3D")
 DetectionShape = NodePath("Area3D/CollisionShape3D")
 Behavior = ExtResource("2_t3vay")
+Projectile = ExtResource("3_deksg")
+shootPoint = NodePath("MeshInstance3D2")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=240025093]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -28,7 +46,7 @@ skeleton = NodePath("../CollisionShape3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1833209406]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("CylinderShape3D_5r4pn")
+shape = SubResource("CapsuleShape3D_2ohoe")
 
 [node name="Area3D" type="Area3D" parent="." unique_id=1390074896]
 
@@ -37,5 +55,28 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("SphereShape3D_1gnui")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=1379242053]
-transform = Transform3D(0.39999998, 0, 0, 0, -1.7484554e-08, 0.39999998, 0, -0.39999998, -1.7484554e-08, 0, 2, -0.2)
+transform = Transform3D(-0.39999998, 3.496911e-08, 1.5285482e-15, 0, -1.7484554e-08, 0.39999998, 3.496911e-08, 0.39999998, 1.7484554e-08, 0, 1.4108427, -0.86576164)
 mesh = SubResource("CylinderMesh_2ohoe")
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=1168678911]
+transform = Transform3D(-0.7429198, 0, -6.494811e-08, 0, 0.7429198, 0, 6.494811e-08, 0, -0.7429198, 0, 2.554029, 0)
+billboard = 1
+texture = SubResource("ViewportTexture_deksg")
+
+[node name="SubViewport" type="SubViewport" parent="." unique_id=1520366125]
+disable_3d = true
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(255, 152)
+render_target_update_mode = 4
+
+[node name="HealthBar" parent="SubViewport" unique_id=834127113 instance=ExtResource("4_2ohoe")]
+
+[node name="TextureProgressBar" parent="SubViewport/HealthBar" index="0" unique_id=811441812]
+offset_left = -93.0
+offset_top = -16.0
+offset_right = 93.0
+offset_bottom = 16.0
+
+[editable path="SubViewport/HealthBar"]
+[editable path="SubViewport/HealthBar/TextureProgressBar"]
