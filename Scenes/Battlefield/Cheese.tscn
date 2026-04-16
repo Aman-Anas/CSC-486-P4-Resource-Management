@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://g87jjh46c5ic"]
+
+[ext_resource type="Script" uid="uid://c2ifk4k4fylkq" path="res://Game/Entities/Projectile.cs" id="1_sb3x4"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uuhav"]
+albedo_color = Color(1, 0.44313726, 0.23137255, 1)
+emission_enabled = true
+emission = Color(0.8039216, 0.3254902, 0, 1)
+emission_energy_multiplier = 5.54
+
+[sub_resource type="BoxMesh" id="BoxMesh_uuhav"]
+material = SubResource("StandardMaterial3D_uuhav")
+size = Vector3(0.1, 0.1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uuhav"]
+size = Vector3(0.1, 0.1, 1)
+
+[node name="Cheese" type="RigidBody3D" unique_id=1861269376]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
+mass = 0.027
+script = ExtResource("1_sb3x4")
+Damage = 10
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=525714355]
+mesh = SubResource("BoxMesh_uuhav")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1989195360]
+shape = SubResource("BoxShape3D_uuhav")

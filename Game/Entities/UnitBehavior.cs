@@ -32,4 +32,10 @@ public partial class UnitBehavior : Resource
     /// </summary>
     [Export]
     public float MoveSpeed { get; set; } = 1.0f;
+
+    [Export]
+    public float MoveForce { get; set; } = 15f;
+
+    [Export]
+    public float StopDistance { get; set; } = 3f;
 }
