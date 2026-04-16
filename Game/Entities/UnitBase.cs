@@ -117,6 +117,7 @@ public partial class UnitBase : RigidBody3D
                     }
                 }
                 intendedVelocity = Vector3.Zero;
+                state.LinearVelocity = Vector3.Zero with { Y = state.LinearVelocity.Y };
                 break;
 
             case State.Engaged:
