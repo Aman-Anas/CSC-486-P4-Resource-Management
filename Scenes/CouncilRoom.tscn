@@ -2,6 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://ci8bfllrjbc23" path="res://assets/textures/herringbone_brick_03_diff_1k.jpg" id="1_8jti3"]
 [ext_resource type="Material" uid="uid://cfls41uebm78j" path="res://assets/mats/test_material.tres" id="1_mat"]
+[ext_resource type="Resource" uid="uid://c0ur0hafyky08" path="res://Dialogue/Intro.dialogue" id="2_intro_dialogue"]
+[ext_resource type="Script" uid="uid://cxk1rkfo78rvg" path="res://Game/Scenes/CouncilRoomIntroTrigger.cs" id="2_intro_script"]
 [ext_resource type="PackedScene" uid="uid://cgv3ggu25ffs1" path="res://Scenes/Entities/old/Farmer.tscn" id="3_tni2a"]
 [ext_resource type="Texture2D" uid="uid://c2hpr7qh5hcm7" path="res://assets/textures/rusty_painted_metal_diff_1k.jpg" id="3_wd4xp"]
 [ext_resource type="PackedScene" uid="uid://d0oskqwlkupl" path="res://assets/Furniture/GLTF format/doorway.glb" id="4_botuf"]
@@ -33,6 +35,8 @@ uv1_scale = Vector3(2.965, 2.965, 2.965)
 uv1_triplanar = true
 
 [node name="CouncilRoom" type="Node3D" unique_id=412822193]
+script = ExtResource("2_intro_script")
+IntroDialogue = ExtResource("2_intro_dialogue")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1300621646]
 environment = SubResource("Environment_council")
@@ -158,4 +162,4 @@ transform = Transform3D(-1.2337432, 0, 2.9634395, 0, 3.2099996, 0, -2.9634395, 0
 transform = Transform3D(-0.11449146, 0, 3.2079575, 0, 3.2099993, 0, -3.2079575, 0, -0.11449146, -5.6747184, 0.052402735, -0.46316314)
 
 [node name="Farmer" parent="." unique_id=483625553 instance=ExtResource("3_tni2a")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.1728678, 0.8030424, -1.5388665)
+transform = Transform3D(-0.9990618, 0, -0.043305427, 0, 1, 0, 0.043305427, 0, -0.9990618, -0.50343525, 0.8030424, -2.7362838)

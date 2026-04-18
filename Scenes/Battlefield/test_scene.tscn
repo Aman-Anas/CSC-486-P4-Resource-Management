@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://delxi0u3icmgy"]
 
 [ext_resource type="Script" uid="uid://nc67aoy6r7d" path="res://Game/Entities/BattlefieldCamera.cs" id="1_l4s1p"]
+[ext_resource type="Script" path="res://Game/Scenes/BattlefieldAftermathDialogue.cs" id="1_aftermath_script"]
+[ext_resource type="Resource" path="res://Dialogue/Intro.dialogue" id="1_aftermath_dialogue"]
 [ext_resource type="Material" uid="uid://cfls41uebm78j" path="res://assets/mats/test_material.tres" id="2_hbbsw"]
 [ext_resource type="PackedScene" uid="uid://cgg3c05j1ydwq" path="res://Scenes/Battlefield/marker.tscn" id="2_ktycj"]
 [ext_resource type="Texture2D" uid="uid://b4h4j82h0nu1c" path="res://assets/selection.svg" id="3_ov317"]
@@ -21,6 +23,9 @@ tonemap_mode = 2
 glow_enabled = true
 
 [node name="TestScene" type="Node3D" unique_id=1339897910]
+script = ExtResource("1_aftermath_script")
+IntroDialogue = ExtResource("1_aftermath_dialogue")
+StartTitle = "battlefield_aftermath"
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1657979808]
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)

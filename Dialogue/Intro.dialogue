@@ -1,0 +1,25 @@
+~ start
+Burger Guard: "Don't you move!"
+Master Patty-wan: "What is the meaning of this interruption of the council"
+Burger Guard: "These two snuck in, making ridiculous claims!"
+Bob: "We mean no harm, we come with important news, Oh Council!"
+Burger Guard: "You speak when spoken to, human!"
+Grand Master Soda: "Hear him out, we shall..."
+Ahsauca Tomato: "What news do you have for us?"
+Bob: "The Human-Burger War is all a lie! A secret nation, the Hotdogs, have been pulling the strings this whole time! They want to us wipe each other out so they can take over once we're all destroyed!"
+Ahsauca Tomato: "How dare you come to us with this non-sauce!"
+Bob: "It's true, we discovered the truth in the Ancient Sandwich Temple on Tatertoine!"
+Grand Master Soda: "True then, the legends are..."
+Ahsauca Tomato: "Wait Grand Master, are we really going to trust these humans?!? After all they..."
+Master Patty-wan: "Control yourself, Ahsauca!"
+Ahsauca Tomato: "I'm sorry, Master Patty-wan, please excuse my manners"
+SFX: **Bzzzzz**
+Bob: "Huh?"
+Intercom: "WARNING, UNIDENTIFIED SHIP ENTERED FROM HYPERSPACE, STRIKES IMMINENT! TAKE COV-"
+do Manager.PlayBombardmentSfx(4, 0.2)
+do Manager.get_tree().change_scene_to_file("res://Scenes/Battlefield/test_scene.tscn")
+=> END
+
+~ battlefield_aftermath
+Bob: "Hey! Wake up! The Hotdogs are launching an all out assault! The Council didn't seem to make it, we need to organize the defenses before the Sandwich Killer Base is fully activated and fries us all!"
+=> END

@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Game.Utilities;
 using Godot;
 
@@ -19,6 +20,8 @@ public partial class Manager : Node
     PackedScene titleScene = null!;
 
     public GameData Data { get; set; } = new();
+    private AudioStreamPlayer? bombardmentPlayer;
+    private AudioStream? bombardmentStream;
 
     public Manager()
     {
@@ -93,5 +96,29 @@ public partial class Manager : Node
     public void SaveConfig()
     {
         DataUtils.SaveData(configPath, Config);
+    }
+
+    public async Task PlayBombardmentSfx(int blasts = 3, float intervalSeconds = 0.22f)
+    {
+        bombardmentStream ??= ResourceLoader.Load<AudioStream>("res://assets/sounds/pulse.wav");
+        if (bombardmentStream == null)
+        {
+            return;
+        }
+
+        if (!GodotObject.IsInstanceValid(bombardmentPlayer))
+        {
+            bombardmentPlayer = new AudioStreamPlayer();
+            AddChild(bombardmentPlayer);
+        }
+
+        bombardmentPlayer.Stream = bombardmentStream;
+        for (int i = 0; i < blasts; i++)
+        {
+            // Slight pitch variation helps the sequence feel less repetitive.
+            bombardmentPlayer.PitchScale = 0.85f + (i * 0.08f);
+            bombardmentPlayer.Play();
+            await ToSignal(GetTree().CreateTimer(intervalSeconds), SceneTreeTimer.SignalName.Timeout);
+        }
     }
 }
