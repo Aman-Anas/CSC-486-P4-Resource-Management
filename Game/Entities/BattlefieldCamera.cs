@@ -92,15 +92,17 @@ public partial class BattlefieldCamera : Node3D
                             buttonEvent.Position,
                             MainCamera.GlobalPosition.Y
                         );
-                        int idx = 0;
-                        foreach (var unit in SelectedUnits)
+                        for (int idx = 0; idx < SelectedUnits.Count; idx++)
                         {
+                            var unit = SelectedUnits[idx];
+                            if (!unit.CanReceiveMoveOrders)
+                                continue;
+
                             unit.SetTargetPos(clickPos with { Y = unit.GlobalPosition.Y });
                             Markers[idx].GlobalPosition = clickPos with
                             {
                                 Y = unit.GlobalPosition.Y + 0.02f
                             };
-                            idx++;
                         }
                         break;
                 }

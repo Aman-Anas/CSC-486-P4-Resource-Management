@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://c6mtmqxs4gjpc"]
+
+[ext_resource type="PackedScene" uid="uid://csud2m5uya5c3" path="res://Scenes/Battlefield/TestUnit.tscn" id="1_hvhnl"]
+[ext_resource type="Resource" path="res://Scenes/Battlefield/StandardTurret.tres" id="2_hxgod"]
+[ext_resource type="PackedScene" uid="uid://d2g16qfh3lwd0" path="res://assets/Ultimate Food Pack - Oct 2019/FBX/Burger.fbx" id="3_gbhcm"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_hnvwy"]
+viewport_path = NodePath("SubViewport")
+
+[node name="StandardTurret" unique_id=656529794 instance=ExtResource("1_hvhnl")]
+Behavior = ExtResource("2_hxgod")
+CanReceiveMoveOrders = false
+
+[node name="Sprite3D" parent="." index="4" unique_id=1168678911]
+texture = SubResource("ViewportTexture_hnvwy")
+
+[node name="Model" parent="." index="6" unique_id=1891237008]
+visible = false
+
+[node name="Burger" parent="." index="9" unique_id=2012500422 instance=ExtResource("3_gbhcm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5736449, 0)
+
+[editable path="SubViewport/HealthBar"]
+[editable path="SubViewport/HealthBar/TextureProgressBar"]
+[editable path="Model"]
