@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://fid7fluwo6g5"]
+
+[ext_resource type="Script" uid="uid://covh0ko5irtt5" path="res://Game/Entities/LettuceGenerator.cs" id="1_5xg8h"]
+[ext_resource type="Script" uid="uid://qtim71845dg0" path="res://Game/Entities/LettuceShieldBubble.cs" id="2_x3ycw"]
+[ext_resource type="Texture2D" uid="uid://ddhpi3p6hsd3m" path="res://assets/mats/cheese/cheese_normal.png" id="3_ix61x"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_h2v2k"]
+top_radius = 0.6
+bottom_radius = 0.75
+height = 1.2
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_w6mp8"]
+radius = 6.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v64c2"]
+transparency = 1
+albedo_color = Color(0.43529412, 0.827451, 0.23529412, 0.101960786)
+normal_enabled = true
+normal_texture = ExtResource("3_ix61x")
+
+[sub_resource type="SphereMesh" id="SphereMesh_80l0d"]
+material = SubResource("StandardMaterial3D_v64c2")
+radius = 6.0
+height = 12.0
+
+[node name="LettuceGenerator" type="Node3D" unique_id=610110192 node_paths=PackedStringArray("ShieldBubble")]
+script = ExtResource("1_5xg8h")
+ShieldBubble = NodePath("ShieldBubble")
+
+[node name="GeneratorBody" type="MeshInstance3D" parent="." unique_id=1074064543]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+mesh = SubResource("CylinderMesh_h2v2k")
+
+[node name="ShieldBubble" type="Area3D" parent="." unique_id=642732012 node_paths=PackedStringArray("CollisionShape")]
+script = ExtResource("2_x3ycw")
+CollisionShape = NodePath("CollisionShape3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ShieldBubble" unique_id=1244923359]
+shape = SubResource("SphereShape3D_w6mp8")
+
+[node name="BubbleVisual" type="MeshInstance3D" parent="ShieldBubble" unique_id=991130572]
+mesh = SubResource("SphereMesh_80l0d")
