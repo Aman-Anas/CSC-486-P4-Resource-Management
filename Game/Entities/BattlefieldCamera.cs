@@ -24,6 +24,7 @@ public partial class BattlefieldCamera : Node3D
     public override void _Ready()
     {
         targetPos = MainCamera.GlobalPosition;
+        Input.MouseMode = Input.MouseModeEnum.Visible;
     }
 
     public override void _Process(double delta)

@@ -163,3 +163,4 @@ transform = Transform3D(-0.11449146, 0, 3.2079575, 0, 3.2099993, 0, -3.2079575, 
 
 [node name="Farmer" parent="." unique_id=483625553 instance=ExtResource("3_tni2a")]
 transform = Transform3D(-0.9990618, 0, -0.043305427, 0, 1, 0, 0.043305427, 0, -0.9990618, -0.50343525, 0.8030424, -2.7362838)
+freeze = true
