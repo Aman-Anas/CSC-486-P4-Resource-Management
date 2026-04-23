@@ -23,6 +23,12 @@ public partial class UnitBase : RigidBody3D
     [Export]
     public string FactionID { get; set; } = "";
 
+    [Export]
+    public bool CanReceiveMoveOrders { get; set; } = true;
+
+    [Export]
+    public int TargetPriority { get; set; } = 0;
+
     public int Health { get; set; }
 
     UnitBase? followingEnemy = null;
@@ -95,6 +101,9 @@ public partial class UnitBase : RigidBody3D
 
     public void SetTargetPos(in Vector3 pos)
     {
+        if (!CanReceiveMoveOrders)
+            return;
+
         targetPosition = pos;
         currentState = State.MovingToPos;
     }
@@ -107,14 +116,30 @@ public partial class UnitBase : RigidBody3D
         {
             case State.Idle:
                 // Scan the surroundings for enemies if we don't have a target yet
+                UnitBase? bestTarget = null;
+                var bestPriority = int.MinValue;
+                var bestDistance = float.MaxValue;
                 foreach (var obj in DetectionArea.GetOverlappingBodies())
                 {
                     if (obj is UnitBase unit && unit.FactionID != this.FactionID)
                     {
-                        followingEnemy = unit;
-                        currentState = State.Engaged;
-                        break;
+                        var distance = GlobalPosition.DistanceTo(unit.GlobalPosition);
+                        if (
+                            bestTarget == null
+                            || unit.TargetPriority > bestPriority
+                            || (unit.TargetPriority == bestPriority && distance < bestDistance)
+                        )
+                        {
+                            bestTarget = unit;
+                            bestPriority = unit.TargetPriority;
+                            bestDistance = distance;
+                        }
                     }
+                }
+                if (bestTarget != null)
+                {
+                    followingEnemy = bestTarget;
+                    currentState = State.Engaged;
                 }
                 intendedVelocity = Vector3.Zero;
                 state.LinearVelocity = Vector3.Zero with { Y = state.LinearVelocity.Y };

@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://h6gixnb53rlm"]
+
+[ext_resource type="PackedScene" uid="uid://csud2m5uya5c3" path="res://Scenes/Battlefield/TestUnit.tscn" id="1_1mpsf"]
+[ext_resource type="Resource" path="res://Scenes/Battlefield/ShadowBurgerTurret.tres" id="2_7kbl8"]
+[ext_resource type="PackedScene" uid="uid://br4vbm7rh5r5v" path="res://assets/Ultimate Food Pack - Oct 2019/FBX/Carrot.fbx" id="3_3jqka"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_x7y3a"]
+viewport_path = NodePath("SubViewport")
+
+[node name="ShadowBurgerTurret" unique_id=1252072139 instance=ExtResource("1_1mpsf")]
+Behavior = ExtResource("2_7kbl8")
+CanReceiveMoveOrders = false
+TargetPriority = -100
+
+[node name="Sprite3D" parent="." index="4" unique_id=1168678911]
+texture = SubResource("ViewportTexture_x7y3a")
+
+[node name="Model" parent="." index="6" unique_id=1891237008]
+visible = false
+
+[node name="Carrot" parent="." index="9" unique_id=973685697 instance=ExtResource("3_3jqka")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6290829, 0)
+
+[editable path="SubViewport/HealthBar"]
+[editable path="SubViewport/HealthBar/TextureProgressBar"]
+[editable path="Model"]

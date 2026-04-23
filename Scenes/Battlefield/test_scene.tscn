@@ -8,6 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://b4h4j82h0nu1c" path="res://assets/selection.svg" id="3_ov317"]
 [ext_resource type="Material" path="res://assets/mats/cheese/cheese.tres" id="3_ruy5n"]
 [ext_resource type="PackedScene" uid="uid://csud2m5uya5c3" path="res://Scenes/Battlefield/TestUnit.tscn" id="4_qq8og"]
+[ext_resource type="PackedScene" uid="uid://c6mtmqxs4gjpc" path="res://Scenes/Battlefield/StandardTurret.tscn" id="5_kcbm8"]
+[ext_resource type="PackedScene" uid="uid://h6gixnb53rlm" path="res://Scenes/Battlefield/ShadowBurgerTurret.tscn" id="6_a4gmp"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ruy5n"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -131,3 +133,9 @@ text = "Scroll to zoom
 Middle mouse to pan
 Left click to select
 Right click to command"
+
+[node name="StandardTurret" parent="." unique_id=1161865611 instance=ExtResource("5_kcbm8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.244595, 0, -10.456356)
+
+[node name="ShadowBurgerTurret" parent="." unique_id=455362236 instance=ExtResource("6_a4gmp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75791025, 0, -10.456356)
