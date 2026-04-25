@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="UnitBehavior" format=3]
+
+[ext_resource type="PackedScene" uid="uid://g87jjh46c5ic" path="res://Scenes/Battlefield/Cheese.tscn" id="1_82l5c"]
+[ext_resource type="Script" uid="uid://4l3d0lt6mmij" path="res://Game/Entities/UnitBehavior.cs" id="2_jyvdm"]
+
+[resource]
+script = ExtResource("2_jyvdm")
+InitialHealth = 10
+Projectile = ExtResource("1_82l5c")
+ResponseRadius = 10.0
+ReloadTime = 10.0
+MoveSpeed = 0.0
+MoveForce = 0.0
+StopDistance = 0.0

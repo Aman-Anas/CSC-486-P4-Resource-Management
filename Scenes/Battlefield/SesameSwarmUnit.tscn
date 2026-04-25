@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://bekkn4c5pq1mj"]
+
+[ext_resource type="PackedScene" uid="uid://csud2m5uya5c3" path="res://Scenes/Battlefield/TestUnit.tscn" id="1_hu5ne"]
+[ext_resource type="Resource" path="res://Scenes/Battlefield/SesameSwarmUnitBehavior.tres" id="2_u4jlo"]
+[ext_resource type="Script" uid="uid://bw7mhfglinplp" path="res://Game/Entities/SesameSwarmUnit.cs" id="3_0ooxh"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_8bjif"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xuivj"]
+albedo_color = Color(0.83137256, 0.7607843, 0.4509804, 1)
+emission_enabled = true
+emission = Color(0.49803922, 0.44705883, 0.24313726, 1)
+emission_energy_multiplier = 1.3
+
+[sub_resource type="SphereMesh" id="SphereMesh_hn0n4"]
+material = SubResource("StandardMaterial3D_xuivj")
+radius = 0.25
+height = 0.5
+
+[node name="SesameSwarmUnit" unique_id=1834111829 instance=ExtResource("1_hu5ne")]
+script = ExtResource("3_0ooxh")
+Damage = 2
+HomingForce = 30.0
+MoveSpeed = 6.0
+LifetimeSeconds = 10.0
+Behavior = ExtResource("2_u4jlo")
+CanReceiveMoveOrders = false
+TargetPriority = 40
+
+[node name="MeshInstance3D2" parent="." index="3" unique_id=1379242053]
+visible = false
+
+[node name="Sprite3D" parent="." index="4" unique_id=1168678911]
+texture = SubResource("ViewportTexture_8bjif")
+
+[node name="Model" parent="." index="6" unique_id=1891237008]
+visible = false
+
+[node name="SesameVisual" type="MeshInstance3D" parent="." index="9" unique_id=320918296]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+mesh = SubResource("SphereMesh_hn0n4")
+
+[editable path="SubViewport/HealthBar"]
+[editable path="SubViewport/HealthBar/TextureProgressBar"]
+[editable path="Model"]

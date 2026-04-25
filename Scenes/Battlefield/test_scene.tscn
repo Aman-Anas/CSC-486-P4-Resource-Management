@@ -9,9 +9,10 @@
 [ext_resource type="PackedScene" uid="uid://csud2m5uya5c3" path="res://Scenes/Battlefield/TestUnit.tscn" id="4_qq8og"]
 [ext_resource type="PackedScene" uid="uid://c6mtmqxs4gjpc" path="res://Scenes/Battlefield/StandardTurret.tscn" id="5_kcbm8"]
 [ext_resource type="PackedScene" uid="uid://h6gixnb53rlm" path="res://Scenes/Battlefield/ShadowBurgerTurret.tscn" id="6_a4gmp"]
+[ext_resource type="Material" path="res://Scenes/Battlefield/ground.tres" id="6_fm513"]
 [ext_resource type="PackedScene" path="res://Scenes/Battlefield/LightLettuceGenerator.tscn" id="7_f1spa"]
 [ext_resource type="PackedScene" path="res://Scenes/Battlefield/HeavyLettuceGenerator.tscn" id="8_wonvy"]
-[ext_resource type="Material" uid="uid://be0ot6ou5sgga" path="res://Scenes/Battlefield/ground.tres" id="6_fm513"]
+[ext_resource type="PackedScene" uid="uid://dckp0227dp7fm" path="res://Scenes/Battlefield/SesameSwarmPod.tscn" id="9_7gqhh"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ruy5n"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -154,3 +155,29 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.357272, 0, -9.653889)
 
 [node name="HeavyLettuceGenerator" parent="." unique_id=1370195070 instance=ExtResource("8_wonvy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.343414, 0, -8.714406)
+
+[node name="SesameSwarmPod" parent="." unique_id=1418843782 instance=ExtResource("9_7gqhh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.967533, 1.3294313, 6.308876)
+SpawnIntervalSeconds = 0.1
+RepeatSpawnSessions = true
+SpawnSessionIntervalSeconds = 6.0
+
+[node name="SesameSwarmPod2" parent="." unique_id=1202411729 instance=ExtResource("9_7gqhh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.967533, 1.3294313, 10.7208805)
+SpawnIntervalSeconds = 0.1
+RepeatSpawnSessions = true
+SpawnSessionIntervalSeconds = 6.0
+
+[node name="SesameSwarmPod3" parent="." unique_id=1835786753 instance=ExtResource("9_7gqhh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.967533, 1.3294313, 14.535303)
+SpawnIntervalSeconds = 0.1
+RepeatSpawnSessions = true
+SpawnSessionIntervalSeconds = 6.0
+TargetPriority = -100
+
+[node name="SesameSwarmPod4" parent="." unique_id=1200246370 instance=ExtResource("9_7gqhh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.698538, 0.4968803, -8.796396)
+SpawnCount = 26
+RepeatSpawnSessions = true
+SpawnSessionIntervalSeconds = 4.625
+TargetPriority = -100
