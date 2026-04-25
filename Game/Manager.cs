@@ -118,7 +118,10 @@ public partial class Manager : Node
             // Slight pitch variation helps the sequence feel less repetitive.
             bombardmentPlayer.PitchScale = 0.85f + (i * 0.08f);
             bombardmentPlayer.Play();
-            await ToSignal(GetTree().CreateTimer(intervalSeconds), SceneTreeTimer.SignalName.Timeout);
+            await ToSignal(
+                GetTree().CreateTimer(intervalSeconds),
+                SceneTreeTimer.SignalName.Timeout
+            );
         }
     }
 }

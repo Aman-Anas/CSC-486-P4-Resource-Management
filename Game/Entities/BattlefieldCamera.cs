@@ -21,10 +21,29 @@ public partial class BattlefieldCamera : Node3D
 
     Vector3 targetPos;
 
+    [Export]
+    Button losePrompt = null!;
+
+    [Export]
+    Button winPrompt = null!;
+
+    [Export]
+    string nextScene = "";
+
     public override void _Ready()
     {
         targetPos = MainCamera.GlobalPosition;
         Input.MouseMode = Input.MouseModeEnum.Visible;
+
+        winPrompt.Pressed += () =>
+        {
+            GetTree().ChangeSceneToFile(nextScene);
+        };
+
+        losePrompt.Pressed += () =>
+        {
+            GetTree().ReloadCurrentScene();
+        };
     }
 
     public override void _Process(double delta)

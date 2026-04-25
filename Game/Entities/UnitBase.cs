@@ -52,6 +52,12 @@ public partial class UnitBase : RigidBody3D
     [Export]
     Node3D shootPoint = null!;
 
+    [Export]
+    AnimationPlayer player = null!;
+
+    [Export]
+    public StringName[] AnimationList { get; set; } = ["RESET", "Walk"];
+
     public async GDTaskVoid Shoot()
     {
         canShoot = false;

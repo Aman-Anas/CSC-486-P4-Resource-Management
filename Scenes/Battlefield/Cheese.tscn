@@ -16,13 +16,14 @@ size = Vector3(0.1, 0.1, 1)
 size = Vector3(0.1, 0.1, 1)
 
 [node name="Cheese" type="RigidBody3D" unique_id=1861269376]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
 mass = 0.027
 script = ExtResource("1_sb3x4")
 Damage = 10
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=525714355]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.002115965, -0.0039311647, -0.50067115)
 mesh = SubResource("BoxMesh_uuhav")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1989195360]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
 shape = SubResource("BoxShape3D_uuhav")

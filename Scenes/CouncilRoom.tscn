@@ -79,7 +79,7 @@ sides = 32
 material = ExtResource("1_mat")
 
 [node name="Ceiling2" type="CSGCylinder3D" parent="RoomShell" unique_id=970606381]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.14759874, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3518298, 2.6054316, 2.965716)
 radius = 13.5
 height = 0.4
 sides = 32
