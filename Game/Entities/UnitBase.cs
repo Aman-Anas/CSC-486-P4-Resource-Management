@@ -65,6 +65,7 @@ public partial class UnitBase : RigidBody3D
         GetTree().CurrentScene.AddChild(newProj);
         newProj.GlobalPosition = shootPoint.GlobalPosition;
         newProj.GlobalRotation = this.GlobalRotation;
+        newProj.SourceFactionID = FactionID;
         newProj.LinearVelocity = GlobalBasis * new Vector3(0, 0, -20);
         RemoveShot(newProj).Forget();
 

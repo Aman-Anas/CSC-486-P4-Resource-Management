@@ -1,0 +1,22 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://Scenes/Battlefield/LettuceGenerator.tscn" id="1_h7hsy"]
+[ext_resource type="Texture2D" uid="uid://ddhpi3p6hsd3m" path="res://assets/mats/cheese/cheese_normal.png" id="2_n57pw"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_heavy"]
+transparency = 1
+albedo_color = Color(0.21960784, 0.5686275, 0.16078432, 0.13333334)
+normal_enabled = true
+normal_texture = ExtResource("2_n57pw")
+
+[sub_resource type="SphereMesh" id="SphereMesh_heavy"]
+material = SubResource("StandardMaterial3D_heavy")
+radius = 8.0
+height = 16.0
+
+[node name="HeavyLettuceGenerator" instance=ExtResource("1_h7hsy")]
+MaxShieldHealth = 160
+BubbleRadius = 8.0
+
+[node name="BubbleVisual" parent="ShieldBubble" index="1"]
+mesh = SubResource("SphereMesh_heavy")
