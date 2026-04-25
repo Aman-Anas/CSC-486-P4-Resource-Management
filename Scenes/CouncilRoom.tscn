@@ -8,7 +8,9 @@
 [ext_resource type="Texture2D" uid="uid://c2hpr7qh5hcm7" path="res://assets/textures/rusty_painted_metal_diff_1k.jpg" id="3_wd4xp"]
 [ext_resource type="PackedScene" uid="uid://d0oskqwlkupl" path="res://assets/Furniture/GLTF format/doorway.glb" id="4_botuf"]
 [ext_resource type="PackedScene" uid="uid://bt0wy5gn6jtv7" path="res://assets/Furniture/GLTF format/doorwayOpen.glb" id="5_r7cod"]
+[ext_resource type="Material" uid="uid://bqojwc168v4eo" path="res://assets/batch_exports/dungeonwalls/Dungeonwall.tres" id="6_i4t6l"]
 [ext_resource type="PackedScene" uid="uid://dfpv5ty5v5qc1" path="res://assets/Furniture/GLTF format/loungeChair.glb" id="6_uy4sj"]
+[ext_resource type="Material" uid="uid://dacgrm68qacw0" path="res://assets/batch_exports/dungeonwalls/ScratchMetal.tres" id="7_noahw"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_council"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -49,10 +51,10 @@ shadow_enabled = true
 use_collision = true
 
 [node name="Floor" type="CSGCylinder3D" parent="RoomShell" unique_id=993673735]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.761279, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.478247, 0)
 material_override = SubResource("StandardMaterial3D_i4t6l")
 radius = 13.5
-height = 6.3225584
+height = 11.7564945
 sides = 32
 material = ExtResource("1_mat")
 
@@ -69,21 +71,21 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3218887, 0.15, -1.3868842)
 radius = 3.2
 height = 0.3
 sides = 24
-material = ExtResource("1_mat")
+material = ExtResource("6_i4t6l")
 
 [node name="Ceiling" type="CSGCylinder3D" parent="RoomShell" unique_id=2003194707]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.586108, 0)
 radius = 13.5
 height = 0.4
 sides = 32
 material = ExtResource("1_mat")
 
 [node name="Ceiling2" type="CSGCylinder3D" parent="RoomShell" unique_id=970606381]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3518298, 2.6054316, 2.965716)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3518298, 9.87554, 2.965716)
 radius = 13.5
-height = 0.4
+height = 10.036695
 sides = 32
-material = ExtResource("1_mat")
+material = ExtResource("7_noahw")
 
 [node name="WestWall" type="CSGBox3D" parent="RoomShell" unique_id=1510643363]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.2, 2.3, 0)
