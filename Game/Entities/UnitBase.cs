@@ -8,6 +8,12 @@ namespace Game.Entities;
 [GlobalClass]
 public partial class UnitBase : RigidBody3D
 {
+    /// <summary>
+    /// Whether or not this unit is a "command post" type.
+    /// </summary>
+    [Export]
+    public bool IsPrimaryTarget { get; set; }
+
     [Export]
     FancyProgressBar healthBar = null!;
 
