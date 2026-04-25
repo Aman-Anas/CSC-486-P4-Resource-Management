@@ -2,17 +2,14 @@
 
 [ext_resource type="Resource" uid="uid://c0ur0hafyky08" path="res://Dialogue/Intro.dialogue" id="1_aftermath_dialogue"]
 [ext_resource type="Script" uid="uid://cne3uvr6s50mt" path="res://Game/Scenes/BattlefieldAftermathDialogue.cs" id="1_aftermath_script"]
-[ext_resource type="Script" uid="uid://nc67aoy6r7d" path="res://Game/Entities/BattlefieldCamera.cs" id="1_l4s1p"]
-[ext_resource type="PackedScene" uid="uid://cgg3c05j1ydwq" path="res://Scenes/Battlefield/marker.tscn" id="2_ktycj"]
-[ext_resource type="Texture2D" uid="uid://b4h4j82h0nu1c" path="res://assets/selection.svg" id="3_ov317"]
+[ext_resource type="PackedScene" uid="uid://lh2mbbh4jere" path="res://Scenes/Battlefield/battlefield_camera.tscn" id="3_hkgdd"]
 [ext_resource type="Material" path="res://assets/mats/cheese/cheese.tres" id="3_ruy5n"]
 [ext_resource type="PackedScene" uid="uid://csud2m5uya5c3" path="res://Scenes/Battlefield/TestUnit.tscn" id="4_qq8og"]
 [ext_resource type="PackedScene" uid="uid://c6mtmqxs4gjpc" path="res://Scenes/Battlefield/StandardTurret.tscn" id="5_kcbm8"]
 [ext_resource type="PackedScene" uid="uid://h6gixnb53rlm" path="res://Scenes/Battlefield/ShadowBurgerTurret.tscn" id="6_a4gmp"]
-[ext_resource type="Material" path="res://Scenes/Battlefield/ground.tres" id="6_fm513"]
 [ext_resource type="PackedScene" path="res://Scenes/Battlefield/LightLettuceGenerator.tscn" id="7_f1spa"]
 [ext_resource type="PackedScene" path="res://Scenes/Battlefield/HeavyLettuceGenerator.tscn" id="8_wonvy"]
-[ext_resource type="PackedScene" uid="uid://dckp0227dp7fm" path="res://Scenes/Battlefield/SesameSwarmPod.tscn" id="9_7gqhh"]
+[ext_resource type="Material" uid="uid://be0ot6ou5sgga" path="res://Scenes/Battlefield/ground.tres" id="6_fm513"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ruy5n"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -38,30 +35,7 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2135597081]
 environment = SubResource("Environment_ktycj")
 
-[node name="BattlefieldCamera" type="Node3D" parent="." unique_id=56516224 node_paths=PackedStringArray("MainCamera", "dragRect")]
-script = ExtResource("1_l4s1p")
-MainCamera = NodePath("Camera3D")
-PanSpeed = 0.005
-markerMesh = ExtResource("2_ktycj")
-dragRect = NodePath("NinePatchRect")
-
-[node name="Camera3D" type="Camera3D" parent="BattlefieldCamera" unique_id=1740565842]
-transform = Transform3D(0.9999568, -0.0087711755, 0.0030723368, -0.00033829059, 0.2960117, 0.9551843, -0.009287538, -0.955144, 0.2959959, 0, 7.501013, 0)
-fov = 67.5
-
-[node name="NinePatchRect" type="NinePatchRect" parent="BattlefieldCamera" unique_id=797228228]
-visible = false
-offset_left = 250.0
-offset_top = 202.0
-offset_right = 861.9658
-offset_bottom = 612.25635
-scale = Vector2(0.585, 0.585)
-texture = ExtResource("3_ov317")
-region_rect = Rect2(16, 16, 480, 480)
-patch_margin_left = 70
-patch_margin_top = 70
-patch_margin_right = 70
-patch_margin_bottom = 70
+[node name="BattlefieldCamera" parent="." unique_id=491425794 instance=ExtResource("3_hkgdd")]
 
 [node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1184037486]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.01418972, -0.24901903, 0)
