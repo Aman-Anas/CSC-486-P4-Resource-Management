@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://h6gixnb53rlm" path="res://Scenes/Battlefield/ShadowBurgerTurret.tscn" id="6_a4gmp"]
 [ext_resource type="PackedScene" path="res://Scenes/Battlefield/LightLettuceGenerator.tscn" id="7_f1spa"]
 [ext_resource type="PackedScene" path="res://Scenes/Battlefield/HeavyLettuceGenerator.tscn" id="8_wonvy"]
+[ext_resource type="PackedScene" path="res://Scenes/Battlefield/SesameSwarmPod.tscn" id="9_7gqhh"]
 [ext_resource type="Material" uid="uid://be0ot6ou5sgga" path="res://Scenes/Battlefield/ground.tres" id="6_fm513"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ruy5n"]
