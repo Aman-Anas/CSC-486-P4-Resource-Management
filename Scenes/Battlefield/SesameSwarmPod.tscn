@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://dckp0227dp7fm"]
+
+[ext_resource type="PackedScene" uid="uid://csud2m5uya5c3" path="res://Scenes/Battlefield/TestUnit.tscn" id="1_8oswg"]
+[ext_resource type="Resource" path="res://Scenes/Battlefield/SesameSwarmPodBehavior.tres" id="2_ti8r6"]
+[ext_resource type="Script" uid="uid://bico7m8gb0j02" path="res://Game/Entities/SesameSwarmPod.cs" id="3_gyj0y"]
+[ext_resource type="PackedScene" uid="uid://bekkn4c5pq1mj" path="res://Scenes/Battlefield/SesameSwarmUnit.tscn" id="4_x5td2"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_kt45b"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6wip0"]
+albedo_color = Color(0.5647059, 0.43529412, 0.3019608, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_08hgj"]
+material = SubResource("StandardMaterial3D_6wip0")
+top_radius = 0.45
+bottom_radius = 0.55
+height = 0.6
+
+[node name="SesameSwarmPod" unique_id=1202411729 instance=ExtResource("1_8oswg")]
+script = ExtResource("3_gyj0y")
+SwarmUnitScene = ExtResource("4_x5td2")
+SpawnCount = 5
+SpawnIntervalSeconds = 0.4
+RepeatSpawnSessions = true
+SpawnSessionIntervalSeconds = 15.17
+SpawnRadius = 1.8
+Behavior = ExtResource("2_ti8r6")
+CanReceiveMoveOrders = false
+TargetPriority = 20
+
+[node name="MeshInstance3D2" parent="." index="3" unique_id=1379242053]
+visible = false
+
+[node name="Sprite3D" parent="." index="4" unique_id=1168678911]
+texture = SubResource("ViewportTexture_kt45b")
+
+[node name="Model" parent="." index="6" unique_id=1891237008]
+visible = false
+
+[node name="PodVisual" type="MeshInstance3D" parent="." index="9" unique_id=1444387201]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
+mesh = SubResource("CylinderMesh_08hgj")
+
+[editable path="SubViewport/HealthBar"]
+[editable path="SubViewport/HealthBar/TextureProgressBar"]
+[editable path="Model"]

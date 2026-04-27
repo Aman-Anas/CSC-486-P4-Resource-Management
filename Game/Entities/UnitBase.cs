@@ -93,6 +93,9 @@ public partial class UnitBase : RigidBody3D
 
     private void DetectedCollision(Node body)
     {
+        if (body is SesameSwarmUnit sesame && sesame.FactionID == FactionID)
+            return;
+
         if (body is ICauseDamage proj)
         {
             Health -= proj.Damage;

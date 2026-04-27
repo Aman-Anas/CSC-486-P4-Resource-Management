@@ -61,6 +61,9 @@ public partial class LettuceShieldBubble : Area3D
 
         if (body is ICauseDamage source)
         {
+            if (body is UnitBase unit && unit.FactionID == Generator.FactionID)
+                return;
+
             Generator.ApplyShieldDamage(source.Damage);
             body.QueueFree();
         }

@@ -12,7 +12,12 @@
 [ext_resource type="Material" uid="uid://be0ot6ou5sgga" path="res://Scenes/Battlefield/ground.tres" id="6_fm513"]
 [ext_resource type="PackedScene" path="res://Scenes/Battlefield/LightLettuceGenerator.tscn" id="7_f1spa"]
 [ext_resource type="PackedScene" path="res://Scenes/Battlefield/HeavyLettuceGenerator.tscn" id="8_wonvy"]
+[ext_resource type="PackedScene" uid="uid://dckp0227dp7fm" path="res://Scenes/Battlefield/SesameSwarmPod.tscn" id="9_7gqhh"]
+[ext_resource type="Script" uid="uid://bqvv4ub6sdhp6" path="res://Game/Entities/BattlefieldEconomy.cs" id="10_econ"]
 [ext_resource type="PackedScene" uid="uid://dd4tq8rdvk3rq" path="res://Scenes/Battlefield/CommandPost.tscn" id="11_fm513"]
+[ext_resource type="Script" uid="uid://b5xuu1vgo6r17" path="res://Game/Entities/BuildPlacer.cs" id="14_placer"]
+[ext_resource type="Script" uid="uid://b8c6aejavekhi" path="res://Game/Entities/BattlefieldEconomyHud.cs" id="15_hud"]
+[ext_resource type="Script" path="res://Game/Entities/BattlefieldBuildHud.cs" id="16_buildhud"]
 [ext_resource type="PackedScene" uid="uid://cx5dpqytonces" path="res://Scenes/Battlefield/EnemyUnits/EnemyOne.tscn" id="13_6mpok"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ruy5n"]
@@ -32,6 +37,7 @@ glow_intensity = 1.26
 [node name="TestScene" type="Node3D" unique_id=1339897910]
 script = ExtResource("1_aftermath_script")
 IntroDialogue = ExtResource("1_aftermath_dialogue")
+ShowIntroDialogue = false
 
 [node name="Pause" parent="." unique_id=272402731 instance=ExtResource("3_vnku4")]
 
@@ -74,13 +80,14 @@ material = ExtResource("3_ruy5n")
 
 [node name="Label" type="Label" parent="." unique_id=1853652211]
 offset_left = 12.0
-offset_top = 18.0
+offset_top = 42.0
 offset_right = 291.0
-offset_bottom = 91.0
+offset_bottom = 141.0
 text = "Scroll to zoom
 Middle mouse to pan
 Left click to select
-Right click to command"
+Right click to command
+1–5: build, B to place at mouse, Esc cancel, F9 end round (dev)"
 
 [node name="Node3D" type="Node3D" parent="." unique_id=805106776]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.400702, 0.0009803772, -36.561127)
@@ -199,3 +206,67 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.536963, 0.31240618, -7.766
 
 [node name="Enemy3" parent="Enemies" unique_id=143980648 instance=ExtResource("13_6mpok")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.2082806, 0.31240523, -20.396904)
+
+[node name="HeavyLettuceGenerator" parent="." unique_id=1370195071 instance=ExtResource("8_wonvy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.343414, 0, -8.714406)
+
+[node name="SesameSwarmPod" parent="." unique_id=1418843782 instance=ExtResource("9_7gqhh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.967533, 1.3294313, 6.308876)
+SpawnIntervalSeconds = 0.1
+SpawnSessionIntervalSeconds = 6.0
+
+[node name="SesameSwarmPod2" parent="." unique_id=1202411729 instance=ExtResource("9_7gqhh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.967533, 1.3294313, 10.7208805)
+SpawnIntervalSeconds = 0.1
+SpawnSessionIntervalSeconds = 6.0
+
+[node name="SesameSwarmPod3" parent="." unique_id=1835786753 instance=ExtResource("9_7gqhh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.967533, 1.3294313, 14.535303)
+SpawnIntervalSeconds = 0.1
+SpawnSessionIntervalSeconds = 6.0
+TargetPriority = -100
+
+[node name="SesameSwarmPod4" parent="." unique_id=1200246370 instance=ExtResource("9_7gqhh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.698538, 0.4968803, -8.796396)
+SpawnCount = 26
+SpawnSessionIntervalSeconds = 4.625
+TargetPriority = -100
+
+[node name="BattlefieldEconomy" type="Node" parent="." unique_id=2000001]
+script = ExtResource("10_econ")
+
+[node name="EconomyCanvas" type="CanvasLayer" parent="." unique_id=2000003]
+
+[node name="EconomyHud" type="RichTextLabel" parent="EconomyCanvas" unique_id=2000004]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -440.0
+offset_top = 10.0
+offset_right = -18.0
+offset_bottom = 50.0
+grow_horizontal = 0
+text = "Round 1  $ 80"
+bbcode_enabled = true
+script = ExtResource("15_hud")
+
+[node name="BuildHud" type="RichTextLabel" parent="EconomyCanvas" unique_id=2000005]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -440.0
+offset_top = 52.0
+offset_right = -18.0
+offset_bottom = 220.0
+grow_horizontal = 0
+text = "Build: (loading)"
+bbcode_enabled = true
+script = ExtResource("16_buildhud")
+BuildPlacerPath = NodePath("../../BuildPlacer")
+
+[node name="BuildPlacer" type="Node" parent="." unique_id=2000002]
+script = ExtResource("14_placer")
+MainCamera = NodePath("../BattlefieldCamera/Camera3D")
+PlayerFactionId = ""
