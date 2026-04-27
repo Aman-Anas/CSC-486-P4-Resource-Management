@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://lh2mbbh4jere" path="res://Scenes/Battlefield/battlefield_camera.tscn" id="3_hkgdd"]
 [ext_resource type="Material" path="res://assets/mats/cheese/cheese.tres" id="3_ruy5n"]
 [ext_resource type="PackedScene" uid="uid://csud2m5uya5c3" path="res://Scenes/Battlefield/TestUnit.tscn" id="4_qq8og"]
+[ext_resource type="Material" uid="uid://cfls41uebm78j" path="res://assets/mats/test_material.tres" id="5_jmnwt"]
 [ext_resource type="PackedScene" uid="uid://c6mtmqxs4gjpc" path="res://Scenes/Battlefield/StandardTurret.tscn" id="5_kcbm8"]
 [ext_resource type="PackedScene" uid="uid://h6gixnb53rlm" path="res://Scenes/Battlefield/ShadowBurgerTurret.tscn" id="6_a4gmp"]
 [ext_resource type="Material" uid="uid://be0ot6ou5sgga" path="res://Scenes/Battlefield/ground.tres" id="6_fm513"]
@@ -12,9 +13,11 @@
 [ext_resource type="PackedScene" path="res://Scenes/Battlefield/HeavyLettuceGenerator.tscn" id="8_wonvy"]
 [ext_resource type="PackedScene" uid="uid://dckp0227dp7fm" path="res://Scenes/Battlefield/SesameSwarmPod.tscn" id="9_7gqhh"]
 [ext_resource type="Script" uid="uid://bqvv4ub6sdhp6" path="res://Game/Entities/BattlefieldEconomy.cs" id="10_econ"]
-[ext_resource type="Script" uid="uid://b5xuu1vgo6r17" path="res://Game/Entities/BuildPlacer.cs" id="11_placer"]
-[ext_resource type="Script" uid="uid://b8c6aejavekhi" path="res://Game/Entities/BattlefieldEconomyHud.cs" id="12_hud"]
-[ext_resource type="Script" path="res://Game/Entities/BattlefieldBuildHud.cs" id="13_buildhud"]
+[ext_resource type="PackedScene" uid="uid://dd4tq8rdvk3rq" path="res://Scenes/Battlefield/CommandPost.tscn" id="11_fm513"]
+[ext_resource type="Script" uid="uid://b5xuu1vgo6r17" path="res://Game/Entities/BuildPlacer.cs" id="14_placer"]
+[ext_resource type="Script" uid="uid://b8c6aejavekhi" path="res://Game/Entities/BattlefieldEconomyHud.cs" id="15_hud"]
+[ext_resource type="Script" path="res://Game/Entities/BattlefieldBuildHud.cs" id="16_buildhud"]
+[ext_resource type="PackedScene" uid="uid://cx5dpqytonces" path="res://Scenes/Battlefield/EnemyUnits/EnemyOne.tscn" id="13_6mpok"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ruy5n"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -28,11 +31,18 @@ background_mode = 2
 sky = SubResource("Sky_qq8og")
 tonemap_mode = 2
 glow_enabled = true
+glow_intensity = 1.26
 
 [node name="TestScene" type="Node3D" unique_id=1339897910]
 script = ExtResource("1_aftermath_script")
 IntroDialogue = ExtResource("1_aftermath_dialogue")
 ShowIntroDialogue = false
+
+[node name="BattlefieldCamera" parent="." unique_id=491425794 node_paths=PackedStringArray("OurPosts", "EnemyPosts", "EnemyParent") instance=ExtResource("3_hkgdd")]
+nextScene = "uid://bld0tajvege06"
+OurPosts = [NodePath("../Node3D2/CommandUnit15"), NodePath("../Node3D2/CommandUnit16"), NodePath("../Node3D2/CommandUnit18"), NodePath("../Node3D2/CommandUnit17")]
+EnemyPosts = [NodePath("../Node3D/CommandUnit15"), NodePath("../Node3D/CommandUnit16"), NodePath("../Node3D/CommandUnit18"), NodePath("../Node3D/CommandUnit17")]
+EnemyParent = NodePath("../Enemies")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1657979808]
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 1.9226952, 0, -2.0389302)
@@ -41,19 +51,19 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2135597081]
 environment = SubResource("Environment_ktycj")
 
-[node name="BattlefieldCamera" parent="." unique_id=491425794 instance=ExtResource("3_hkgdd")]
-
 [node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1184037486]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.01418972, -0.24901903, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 use_collision = true
 size = Vector3(80, 0.5, 80)
 material = ExtResource("6_fm513")
+metadata/_edit_lock_ = true
 
 [node name="CSGBox3D3" type="CSGBox3D" parent="." unique_id=1660232493]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.9371834, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.011932373, -3.937069, -0.1405878)
 use_collision = true
 size = Vector3(1286, 0.5, 430)
-material = ExtResource("6_fm513")
+material = ExtResource("5_jmnwt")
+metadata/_edit_lock_ = true
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="." unique_id=1180267709]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.9117677, 0.5, -7.3412213)
@@ -64,54 +74,6 @@ material = ExtResource("3_ruy5n")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7329898, 0.5, -15.982244)
 use_collision = true
 material = ExtResource("3_ruy5n")
-
-[node name="TestUnit" parent="." unique_id=1702035136 instance=ExtResource("4_qq8og")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.884085, 0, -4.150667)
-
-[node name="TestUnit5" parent="." unique_id=102189309 instance=ExtResource("4_qq8og")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.119545, 1.9073486e-06, -4.8849707)
-FactionID = "fwawafaw"
-
-[node name="TestUnit10" parent="." unique_id=1134261199 instance=ExtResource("4_qq8og")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.117119, 1.9073486e-06, -14.241396)
-FactionID = "fwawafaw"
-
-[node name="TestUnit11" parent="." unique_id=1680408539 instance=ExtResource("4_qq8og")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.748322, 1.9073486e-06, -28.110865)
-FactionID = "fwawafaw"
-
-[node name="TestUnit12" parent="." unique_id=1108909092 instance=ExtResource("4_qq8og")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.192013, 1.9073486e-06, 4.127371)
-FactionID = "fwawafaw"
-
-[node name="TestUnit13" parent="." unique_id=1021910867 instance=ExtResource("4_qq8og")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.165113, 0.5624014, 8.697301)
-FactionID = "fwawafaw"
-
-[node name="TestUnit14" parent="." unique_id=1789214843 instance=ExtResource("4_qq8og")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.215523, 0.5624052, -13.851706)
-FactionID = "fwawafaw"
-
-[node name="TestUnit2" parent="." unique_id=871502345 instance=ExtResource("4_qq8og")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.7926593, 0.87087154, 9.14691)
-
-[node name="TestUnit3" parent="." unique_id=1604671176 instance=ExtResource("4_qq8og")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.072592, 9.536743e-07, -19.928265)
-
-[node name="TestUnit4" parent="." unique_id=24786945 instance=ExtResource("4_qq8og")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.41722417, 0, 13.019927)
-
-[node name="TestUnit6" parent="." unique_id=345145084 instance=ExtResource("4_qq8og")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.143492, 0.56240714, 7.240489)
-
-[node name="TestUnit7" parent="." unique_id=592584649 instance=ExtResource("4_qq8og")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.2830005, 0.5624052, 5.5023565)
-
-[node name="TestUnit8" parent="." unique_id=1835357611 instance=ExtResource("4_qq8og")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0991077, 0.5624052, 8.274865)
-
-[node name="TestUnit9" parent="." unique_id=614164165 instance=ExtResource("4_qq8og")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1708868, 0.5624052, 9.694977)
 
 [node name="Label" type="Label" parent="." unique_id=1853652211]
 offset_left = 12.0
@@ -124,17 +86,113 @@ Left click to select
 Right click to command
 1–5: build, B to place at mouse, Esc cancel, F9 end round (dev)"
 
-[node name="StandardTurret" parent="." unique_id=1161865611 instance=ExtResource("5_kcbm8")]
+[node name="Node3D" type="Node3D" parent="." unique_id=805106776]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.400702, 0.0009803772, -36.561127)
+
+[node name="CommandUnit15" parent="Node3D" unique_id=128568595 instance=ExtResource("11_fm513")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7751513, -0.2519617, 2.635666)
+
+[node name="CommandUnit16" parent="Node3D" unique_id=959538655 instance=ExtResource("11_fm513")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.545371, -0.25196218, 15.646612)
+
+[node name="CommandUnit18" parent="Node3D" unique_id=1170664512 instance=ExtResource("11_fm513")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.151947, -0.25195885, 13.070869)
+
+[node name="CommandUnit17" parent="Node3D" unique_id=1587961354 instance=ExtResource("11_fm513")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.492672, -0.25196075, 5.5935555)
+
+[node name="Node3D2" type="Node3D" parent="." unique_id=1740174127]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 13.142293, 0.0009803772, 36.214878)
+
+[node name="CommandUnit15" parent="Node3D2" unique_id=470370658 instance=ExtResource("11_fm513")]
+
+[node name="CommandUnit16" parent="Node3D2" unique_id=1382199524 instance=ExtResource("11_fm513")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.939332, 0, 15.780853)
+
+[node name="CommandUnit18" parent="Node3D2" unique_id=569845989 instance=ExtResource("11_fm513")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.681423, 1.9073486e-06, 10.851324)
+
+[node name="CommandUnit17" parent="Node3D2" unique_id=1164714290 instance=ExtResource("11_fm513")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.737993, -0.251961, 1.0054512)
+
+[node name="Allies" type="Node3D" parent="." unique_id=871180784]
+
+[node name="TestUnit3" parent="Allies" unique_id=1604671176 instance=ExtResource("4_qq8og")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.239089, 0.5633856, 29.93725)
+
+[node name="TestUnit4" parent="Allies" unique_id=24786945 instance=ExtResource("4_qq8og")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.21112013, -0.017726898, 35.376114)
+
+[node name="TestUnit6" parent="Allies" unique_id=345145084 instance=ExtResource("4_qq8og")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.9373882, 0.54468024, 29.596676)
+
+[node name="TestUnit7" parent="Allies" unique_id=592584649 instance=ExtResource("4_qq8og")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4891043, 0.54467833, 27.858543)
+
+[node name="TestUnit8" parent="Allies" unique_id=1835357611 instance=ExtResource("4_qq8og")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3052118, 0.54467833, 30.63105)
+
+[node name="TestUnit10" parent="Allies" unique_id=1702035136 instance=ExtResource("4_qq8og")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.386877, 0.54468024, 28.312073)
+
+[node name="TestUnit11" parent="Allies" unique_id=1326301809 instance=ExtResource("4_qq8og")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.144278, 0.54467833, 29.346447)
+
+[node name="TestUnit12" parent="Allies" unique_id=1965021782 instance=ExtResource("4_qq8og")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.769625, 0.54468024, 30.579594)
+
+[node name="TestUnit14" parent="Allies" unique_id=903141533 instance=ExtResource("4_qq8og")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.468067, 0.54467833, 26.77494)
+
+[node name="TestUnit15" parent="Allies" unique_id=928813883 instance=ExtResource("4_qq8og")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.374119, 0.5446774, 32.162502)
+
+[node name="TestUnit13" parent="Allies" unique_id=458888624 instance=ExtResource("4_qq8og")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.012224, 0.54467833, 31.613968)
+
+[node name="TestUnit9" parent="Allies" unique_id=614164165 instance=ExtResource("4_qq8og")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9647827, 0.54467833, 32.051163)
+
+[node name="TestUnit5" parent="Allies" unique_id=1889089257 instance=ExtResource("4_qq8og")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.069311, -0.017726898, 35.180298)
+
+[node name="TestUnit16" parent="Allies" unique_id=1562604162 instance=ExtResource("4_qq8og")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.822973, 0.54467833, 31.855347)
+
+[node name="LightLettuceGenerator" parent="Allies" unique_id=1937204509 instance=ExtResource("7_f1spa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.772403, -0.2782755, 18.171406)
+
+[node name="HeavyLettuceGenerator" parent="Allies" unique_id=1370195070 instance=ExtResource("8_wonvy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.87825, 0.34786034, 21.352335)
+
+[node name="HeavyLettuceGenerator2" parent="Allies" unique_id=1872434437 instance=ExtResource("8_wonvy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2959278, 0.5162592, 21.630291)
+
+[node name="HeavyLettuceGenerator3" parent="Allies" unique_id=974011801 instance=ExtResource("8_wonvy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.833975, 0.5162592, 18.193794)
+
+[node name="Enemies" type="Node3D" parent="." unique_id=1059709806]
+
+[node name="StandardTurret" parent="Enemies" unique_id=1161865611 instance=ExtResource("5_kcbm8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.244595, 0, -10.456356)
 CanReceiveMoveOrders = true
 
-[node name="ShadowBurgerTurret" parent="." unique_id=455362236 instance=ExtResource("6_a4gmp")]
+[node name="ShadowBurgerTurret" parent="Enemies" unique_id=455362236 instance=ExtResource("6_a4gmp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75791025, 0, -10.456356)
 
-[node name="LightLettuceGenerator" parent="." unique_id=1937204509 instance=ExtResource("7_f1spa")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.357272, 0, -9.653889)
+[node name="TestUnit3" parent="Enemies" unique_id=2091143933 instance=ExtResource("13_6mpok")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.594543, 0.31240427, -6.2740917)
 
-[node name="HeavyLettuceGenerator" parent="." unique_id=1370195070 instance=ExtResource("8_wonvy")]
+[node name="Enemy1" parent="Enemies" unique_id=1758426672 instance=ExtResource("13_6mpok")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.729868, 0.31240523, -15.862118)
+
+[node name="Enemy2" parent="Enemies" unique_id=1783380488 instance=ExtResource("13_6mpok")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.536963, 0.31240618, -7.766926)
+
+[node name="Enemy3" parent="Enemies" unique_id=143980648 instance=ExtResource("13_6mpok")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.2082806, 0.31240523, -20.396904)
+
+[node name="HeavyLettuceGenerator" parent="." unique_id=1370195071 instance=ExtResource("8_wonvy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.343414, 0, -8.714406)
 
 [node name="SesameSwarmPod" parent="." unique_id=1418843782 instance=ExtResource("9_7gqhh")]
@@ -176,7 +234,7 @@ offset_bottom = 50.0
 grow_horizontal = 0
 text = "Round 1  $ 80"
 bbcode_enabled = true
-script = ExtResource("12_hud")
+script = ExtResource("15_hud")
 
 [node name="BuildHud" type="RichTextLabel" parent="EconomyCanvas" unique_id=2000005]
 layout_mode = 1
@@ -190,10 +248,10 @@ offset_bottom = 220.0
 grow_horizontal = 0
 text = "Build: (loading)"
 bbcode_enabled = true
-script = ExtResource("13_buildhud")
+script = ExtResource("16_buildhud")
 BuildPlacerPath = NodePath("../../BuildPlacer")
 
 [node name="BuildPlacer" type="Node" parent="." unique_id=2000002]
-script = ExtResource("11_placer")
+script = ExtResource("14_placer")
 MainCamera = NodePath("../BattlefieldCamera/Camera3D")
 PlayerFactionId = ""

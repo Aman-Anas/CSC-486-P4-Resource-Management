@@ -1,0 +1,7 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://cwgab6eivcom6"]
+
+[ext_resource type="Texture2D" uid="uid://21v8pbjy0ju2" path="res://assets/mats/cheese/cheese_albedo.png" id="1_8yj2r"]
+
+[resource]
+albedo_color = Color(0.86058575, 0.36432564, 0, 1)
+albedo_texture = ExtResource("1_8yj2r")

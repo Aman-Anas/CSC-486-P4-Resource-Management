@@ -30,6 +30,15 @@ public partial class BattlefieldCamera : Node3D
     [Export]
     string nextScene = "";
 
+    [Export]
+    public UnitBase[] OurPosts { get; set; } = [];
+
+    [Export]
+    public UnitBase[] EnemyPosts { get; set; } = [];
+
+    [Export]
+    public Node3D EnemyParent { get; set; } = null!;
+
     public override void _Ready()
     {
         targetPos = MainCamera.GlobalPosition;
@@ -44,6 +53,61 @@ public partial class BattlefieldCamera : Node3D
         {
             GetTree().ReloadCurrentScene();
         };
+
+        foreach (var unitBase in OurPosts)
+        {
+            unitBase.Destroyed += CheckOurPosts;
+        }
+
+        foreach (var unitBase in EnemyPosts)
+        {
+            unitBase.Destroyed += CheckEnemyPosts;
+            unitBase.FactionID = "enemy";
+        }
+
+        foreach (var unit in EnemyParent.GetChildren())
+        {
+            if (unit is UnitBase unitBase)
+            {
+                unitBase.FactionID = "enemy";
+            }
+        }
+    }
+
+    void CheckOurPosts()
+    {
+        bool allDestroyed = true;
+        foreach (var unitBase in OurPosts)
+        {
+            if (GodotObject.IsInstanceValid(unitBase) && unitBase.Alive)
+            {
+                allDestroyed = false;
+                break;
+            }
+        }
+
+        if (allDestroyed)
+        {
+            losePrompt.Show();
+        }
+    }
+
+    void CheckEnemyPosts()
+    {
+        bool allDestroyed = true;
+        foreach (var unitBase in EnemyPosts)
+        {
+            if (GodotObject.IsInstanceValid(unitBase) && unitBase.Alive)
+            {
+                allDestroyed = false;
+                break;
+            }
+        }
+
+        if (allDestroyed)
+        {
+            winPrompt.Show();
+        }
     }
 
     public override void _Process(double delta)
@@ -162,10 +226,14 @@ public partial class BattlefieldCamera : Node3D
                                 node.QueueFree();
                             }
                             Markers.Clear();
-                            foreach (var node in GetTree().CurrentScene.GetChildren())
+                            foreach (
+                                var node in GetTree()
+                                    .CurrentScene.FindChildren("*", recursive: true)
+                            )
                             {
                                 if (
                                     node is UnitBase unit
+                                    && unit.FactionID == ""
                                     && visualShape.HasPoint(
                                         MainCamera.UnprojectPosition(unit.GlobalPosition)
                                     )

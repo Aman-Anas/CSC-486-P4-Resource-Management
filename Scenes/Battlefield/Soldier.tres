@@ -5,6 +5,7 @@
 
 [resource]
 script = ExtResource("1_jjhte")
+InitialHealth = 522
 Projectile = ExtResource("1_gxv6l")
 ResponseRadius = 30.0
 MoveSpeed = 2.0

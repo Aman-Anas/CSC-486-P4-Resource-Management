@@ -4,16 +4,15 @@
 [ext_resource type="Resource" path="res://Scenes/Battlefield/ShadowBurgerTurret.tres" id="2_7kbl8"]
 [ext_resource type="PackedScene" uid="uid://br4vbm7rh5r5v" path="res://assets/Ultimate Food Pack - Oct 2019/FBX/Carrot.fbx" id="3_3jqka"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_x7y3a"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_3jqka"]
 viewport_path = NodePath("SubViewport")
 
 [node name="ShadowBurgerTurret" unique_id=1252072139 instance=ExtResource("1_1mpsf")]
 Behavior = ExtResource("2_7kbl8")
 CanReceiveMoveOrders = false
-TargetPriority = -100
 
 [node name="Sprite3D" parent="." index="4" unique_id=1168678911]
-texture = SubResource("ViewportTexture_x7y3a")
+texture = SubResource("ViewportTexture_3jqka")
 
 [node name="Model" parent="." index="6" unique_id=1891237008]
 visible = false
