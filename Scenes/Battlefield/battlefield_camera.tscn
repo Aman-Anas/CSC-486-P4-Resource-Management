@@ -50,6 +50,7 @@ patch_margin_right = 70
 patch_margin_bottom = 70
 
 [node name="Win" type="Button" parent="." unique_id=1812067937]
+visible = false
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -66,6 +67,7 @@ Next Level "
 icon = SubResource("GradientTexture2D_xc5f4")
 
 [node name="Lose" type="Button" parent="." unique_id=1835781005]
+visible = false
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0

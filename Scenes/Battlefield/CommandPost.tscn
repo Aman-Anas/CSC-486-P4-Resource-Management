@@ -1,0 +1,130 @@
+[gd_scene format=3 uid="uid://dd4tq8rdvk3rq"]
+
+[ext_resource type="Script" uid="uid://cayqafo0doebm" path="res://Game/Entities/UnitBase.cs" id="1_1yfco"]
+[ext_resource type="Script" uid="uid://4l3d0lt6mmij" path="res://Game/Entities/UnitBehavior.cs" id="2_kire7"]
+[ext_resource type="PackedScene" uid="uid://g87jjh46c5ic" path="res://Scenes/Battlefield/Cheese.tscn" id="3_s4h2v"]
+[ext_resource type="Material" uid="uid://cfls41uebm78j" path="res://assets/mats/test_material.tres" id="4_p8jue"]
+[ext_resource type="PackedScene" uid="uid://bp37w4rh4ucg7" path="res://Scenes/UI/HealthBar.tscn" id="6_c4f2p"]
+[ext_resource type="Material" uid="uid://dacgrm68qacw0" path="res://assets/batch_exports/dungeonwalls/ScratchMetal.tres" id="7_kire7"]
+[ext_resource type="AudioStream" uid="uid://dfdwxaf8cuw4n" path="res://assets/sounds/pulse.wav" id="8_rleuj"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_deksg"]
+friction = 0.08
+
+[sub_resource type="Resource" id="Resource_1yfco"]
+script = ExtResource("2_kire7")
+InitialHealth = 400
+MoveSpeed = 0.0
+MoveForce = 10.0
+metadata/_custom_type_script = "uid://4l3d0lt6mmij"
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_5r4pn"]
+material = ExtResource("4_p8jue")
+top_radius = 0.3
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kire7"]
+size = Vector3(1.9, 1.4578125, 2.3)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_1gnui"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_deksg"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="Animation" id="Animation_bidsx"]
+resource_name = "RESET"
+
+[sub_resource type="Animation" id="Animation_5c7gx"]
+resource_name = "hurt"
+length = 0.4
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0m421"]
+_data = {
+&"RESET": SubResource("Animation_bidsx"),
+&"hurt": SubResource("Animation_5c7gx")
+}
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_n745f"]
+material = ExtResource("7_kire7")
+top_radius = 2.5
+bottom_radius = 2.5
+height = 0.496
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kire7"]
+albedo_color = Color(0, 0.35453713, 0.38849923, 1)
+
+[node name="TestUnit" type="RigidBody3D" unique_id=1702035136 node_paths=PackedStringArray("healthBar", "DetectionArea", "DetectionShape")]
+axis_lock_angular_x = true
+axis_lock_angular_z = true
+mass = 90000.0
+physics_material_override = SubResource("PhysicsMaterial_deksg")
+contact_monitor = true
+max_contacts_reported = 2
+script = ExtResource("1_1yfco")
+healthBar = NodePath("SubViewport/HealthBar/TextureProgressBar")
+DetectionArea = NodePath("Area3D")
+DetectionShape = NodePath("Area3D/CollisionShape3D")
+Behavior = SubResource("Resource_1yfco")
+CanReceiveMoveOrders = false
+TargetPriority = -2
+canShoot = false
+Projectile = ExtResource("3_s4h2v")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=240025093]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+visible = false
+mesh = SubResource("CylinderMesh_5r4pn")
+skeleton = NodePath("../CollisionShape3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1833209406]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7789063, 0)
+shape = SubResource("BoxShape3D_kire7")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=1390074896]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1300659438]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("SphereShape3D_1gnui")
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=1168678911]
+transform = Transform3D(-0.7429198, 0, -6.494811e-08, 0, 0.7429198, 0, 6.494811e-08, 0, -0.7429198, 0, 2.554029, 0)
+billboard = 1
+texture = SubResource("ViewportTexture_deksg")
+
+[node name="SubViewport" type="SubViewport" parent="." unique_id=1520366125]
+disable_3d = true
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(255, 152)
+render_target_update_mode = 4
+
+[node name="HealthBar" parent="SubViewport" unique_id=834127113 instance=ExtResource("6_c4f2p")]
+
+[node name="TextureProgressBar" parent="SubViewport/HealthBar" index="0" unique_id=811441812]
+offset_left = -93.0
+offset_top = -16.0
+offset_right = 93.0
+offset_bottom = 16.0
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=1329110609]
+stream = ExtResource("8_rleuj")
+max_db = 1.52
+pitch_scale = 0.69
+
+[node name="hurtPlayer" type="AnimationPlayer" parent="." unique_id=1777027631]
+libraries/ = SubResource("AnimationLibrary_0m421")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=696243339]
+transform = Transform3D(0.76496595, 0, 0, 0, 0.76496595, 0, 0, 0, 0.76496595, 0, 0.19999999, 0)
+mesh = SubResource("CylinderMesh_n745f")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="." unique_id=530014777]
+transform = Transform3D(0.53547615, 0, 0, 0, 0.53547615, 0, 0, 0, 0.53547615, 0, 1.361552, 0)
+mesh = SubResource("CylinderMesh_n745f")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="." unique_id=1508882765]
+transform = Transform3D(0.6, 0, 0, 0, 1.7856114, 0, 0, 0, 0.6, 0, 0.8, 0)
+material_override = SubResource("StandardMaterial3D_kire7")
+mesh = SubResource("CylinderMesh_n745f")
+
+[editable path="SubViewport/HealthBar"]
+[editable path="SubViewport/HealthBar/TextureProgressBar"]

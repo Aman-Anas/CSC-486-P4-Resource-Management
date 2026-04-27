@@ -39,6 +39,8 @@ public partial class UnitBase : RigidBody3D
 
     UnitBase? followingEnemy = null;
 
+    public event Action? Destroyed;
+
     public override void _Ready()
     {
         this.DetectionShape.Shape = new SphereShape3D() { Radius = Behavior.ResponseRadius };
@@ -50,6 +52,7 @@ public partial class UnitBase : RigidBody3D
         this.BodyEntered += DetectedCollision;
     }
 
+    [Export]
     bool canShoot = true;
 
     [Export]
@@ -62,7 +65,7 @@ public partial class UnitBase : RigidBody3D
     AnimationPlayer player = null!;
 
     [Export]
-    public StringName[] AnimationList { get; set; } = ["RESET", "Walk"];
+    public StringName[] AnimationList { get; set; } = ["RESET", "BAKED_Walk"];
 
     public async GDTaskVoid Shoot()
     {
@@ -86,6 +89,8 @@ public partial class UnitBase : RigidBody3D
             proj.QueueFree();
     }
 
+    public bool Alive { get; set; } = true;
+
     private void DetectedCollision(Node body)
     {
         if (body is ICauseDamage proj)
@@ -93,10 +98,11 @@ public partial class UnitBase : RigidBody3D
             Health -= proj.Damage;
             healthBar.SetCoolValue(Health);
 
-            body.QueueFree();
             if (Health <= 0)
             {
                 this.QueueFree();
+                Alive = false;
+                Destroyed?.Invoke();
             }
         }
     }
@@ -128,6 +134,8 @@ public partial class UnitBase : RigidBody3D
         switch (currentState)
         {
             case State.Idle:
+                player?.Play(AnimationList[0]);
+
                 // Scan the surroundings for enemies if we don't have a target yet
                 UnitBase? bestTarget = null;
                 var bestPriority = int.MinValue;
@@ -159,6 +167,7 @@ public partial class UnitBase : RigidBody3D
                 break;
 
             case State.Engaged:
+                player?.Play(AnimationList[1]);
                 // Make sure the follow target is valid. If the enemy died etc.
                 // then we should go back to idle.
                 if (
@@ -189,6 +198,7 @@ public partial class UnitBase : RigidBody3D
                 break;
 
             case State.MovingToPos:
+                player?.Play(AnimationList[1]);
                 if (this.GlobalPosition.DistanceTo(targetPosition) < 0.2)
                 {
                     currentState = State.Idle;

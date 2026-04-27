@@ -1,6 +1,7 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://lg43f26o1r80"]
 
 [ext_resource type="Script" uid="uid://c2ifk4k4fylkq" path="res://Game/Entities/Projectile.cs" id="1_5al83"]
+[ext_resource type="PackedScene" uid="uid://6q6kpog2fcgy" path="res://Scenes/Battlefield/effect.tscn" id="2_nsjfl"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x8sh7"]
 albedo_color = Color(0.38039216, 0.24705882, 0.48235294, 1)
@@ -15,14 +16,18 @@ size = Vector3(0.1, 0.1, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_x8sh7"]
 size = Vector3(0.1, 0.1, 1)
 
-[node name="ShadowCheese" type="RigidBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
+[node name="ShadowCheese" type="RigidBody3D" unique_id=1702826843]
 mass = 0.027
+contact_monitor = true
+max_contacts_reported = 2
 script = ExtResource("1_5al83")
 Damage = 6
+explosion = ExtResource("2_nsjfl")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=855869654]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
 mesh = SubResource("BoxMesh_x8sh7")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=147225109]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
 shape = SubResource("BoxShape3D_x8sh7")
