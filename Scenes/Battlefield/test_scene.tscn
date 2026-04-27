@@ -15,10 +15,10 @@
 [ext_resource type="PackedScene" uid="uid://dckp0227dp7fm" path="res://Scenes/Battlefield/SesameSwarmPod.tscn" id="9_7gqhh"]
 [ext_resource type="Script" uid="uid://bqvv4ub6sdhp6" path="res://Game/Entities/BattlefieldEconomy.cs" id="10_econ"]
 [ext_resource type="PackedScene" uid="uid://dd4tq8rdvk3rq" path="res://Scenes/Battlefield/CommandPost.tscn" id="11_fm513"]
+[ext_resource type="PackedScene" uid="uid://cx5dpqytonces" path="res://Scenes/Battlefield/EnemyUnits/EnemyOne.tscn" id="13_6mpok"]
 [ext_resource type="Script" uid="uid://b5xuu1vgo6r17" path="res://Game/Entities/BuildPlacer.cs" id="14_placer"]
 [ext_resource type="Script" uid="uid://b8c6aejavekhi" path="res://Game/Entities/BattlefieldEconomyHud.cs" id="15_hud"]
-[ext_resource type="Script" path="res://Game/Entities/BattlefieldBuildHud.cs" id="16_buildhud"]
-[ext_resource type="PackedScene" uid="uid://cx5dpqytonces" path="res://Scenes/Battlefield/EnemyUnits/EnemyOne.tscn" id="13_6mpok"]
+[ext_resource type="Script" uid="uid://7xf3ohtux23t" path="res://Game/Entities/BattlefieldBuildHud.cs" id="16_buildhud"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ruy5n"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -37,7 +37,6 @@ glow_intensity = 1.26
 [node name="TestScene" type="Node3D" unique_id=1339897910]
 script = ExtResource("1_aftermath_script")
 IntroDialogue = ExtResource("1_aftermath_dialogue")
-ShowIntroDialogue = false
 
 [node name="Pause" parent="." unique_id=272402731 instance=ExtResource("3_vnku4")]
 
@@ -238,7 +237,6 @@ script = ExtResource("10_econ")
 [node name="EconomyCanvas" type="CanvasLayer" parent="." unique_id=2000003]
 
 [node name="EconomyHud" type="RichTextLabel" parent="EconomyCanvas" unique_id=2000004]
-layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -247,12 +245,11 @@ offset_top = 10.0
 offset_right = -18.0
 offset_bottom = 50.0
 grow_horizontal = 0
-text = "Round 1  $ 80"
 bbcode_enabled = true
+text = "Round 1  $ 80"
 script = ExtResource("15_hud")
 
 [node name="BuildHud" type="RichTextLabel" parent="EconomyCanvas" unique_id=2000005]
-layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -261,12 +258,12 @@ offset_top = 52.0
 offset_right = -18.0
 offset_bottom = 220.0
 grow_horizontal = 0
-text = "Build: (loading)"
 bbcode_enabled = true
+text = "Build: (loading)"
 script = ExtResource("16_buildhud")
-BuildPlacerPath = NodePath("../../BuildPlacer")
 
-[node name="BuildPlacer" type="Node" parent="." unique_id=2000002]
+[node name="BuildPlacer" type="Node" parent="." unique_id=2000002 node_paths=PackedStringArray("MainCamera")]
 script = ExtResource("14_placer")
 MainCamera = NodePath("../BattlefieldCamera/Camera3D")
-PlayerFactionId = ""
+
+[editable path="BattlefieldCamera"]
