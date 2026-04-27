@@ -35,6 +35,11 @@ public partial class SesameSwarmPod : UnitBase
 
     async GDTaskVoid SpawnSwarmLoop()
     {
+        // Don't AddChild to CurrentScene during the same _Ready/enter-tree pass (parent is "busy setting up children").
+        var tree = GetTree();
+        if (tree != null)
+            await ToSignal(tree, SceneTree.SignalName.ProcessFrame);
+
         var rng = new RandomNumberGenerator();
         while (!destroyed && GodotObject.IsInstanceValid(this))
         {

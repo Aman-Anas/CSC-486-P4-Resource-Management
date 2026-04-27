@@ -1,0 +1,83 @@
+[gd_scene format=3 uid="uid://lh2mbbh4jere"]
+
+[ext_resource type="Script" uid="uid://nc67aoy6r7d" path="res://Game/Entities/BattlefieldCamera.cs" id="1_ycd3x"]
+[ext_resource type="PackedScene" uid="uid://cgg3c05j1ydwq" path="res://Scenes/Battlefield/marker.tscn" id="2_xc5f4"]
+[ext_resource type="Texture2D" uid="uid://b4h4j82h0nu1c" path="res://assets/selection.svg" id="3_4h7ml"]
+
+[sub_resource type="Gradient" id="Gradient_ycd3x"]
+offsets = PackedFloat32Array(0, 0.21254355, 0.35191637, 0.46341464, 0.5017422, 0.5365854)
+colors = PackedColorArray(9.62615e-07, 0.6395241, 0.34971684, 1, 1.7155514e-07, 0.11397457, 0.062325776, 1, 0, 0, 0, 1, 0, 0.71967924, 0.79411334, 1, 0, 0.7616545, 0.40948635, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_xc5f4"]
+gradient = SubResource("Gradient_ycd3x")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_xc5f4"]
+offsets = PackedFloat32Array(0, 0.21254355, 0.35191637, 0.46341464, 0.5017422, 0.5365854)
+colors = PackedColorArray(0.9785468, 0, 0.38386017, 1, 1.7155514e-07, 0.11397457, 0.062325776, 1, 0, 0, 0, 1, 1, 0.45267367, 0.106724, 1, 0.9887845, 0.21616057, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_4h7ml"]
+gradient = SubResource("Gradient_xc5f4")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="BattlefieldCamera" type="Node3D" unique_id=491425794 node_paths=PackedStringArray("MainCamera", "losePrompt", "winPrompt", "dragRect")]
+script = ExtResource("1_ycd3x")
+MainCamera = NodePath("Camera3D")
+PanSpeed = 0.005
+losePrompt = NodePath("Lose")
+winPrompt = NodePath("Win")
+markerMesh = ExtResource("2_xc5f4")
+dragRect = NodePath("NinePatchRect")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1866910883]
+transform = Transform3D(0.9999568, -0.0087711755, 0.0030723368, -0.00033829059, 0.2960117, 0.9551843, -0.009287538, -0.955144, 0.2959959, 0, 7.501013, 0)
+fov = 67.5
+
+[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=2091828411]
+visible = false
+offset_left = 250.0
+offset_top = 202.0
+offset_right = 861.9658
+offset_bottom = 612.25635
+scale = Vector2(0.585, 0.585)
+texture = ExtResource("3_4h7ml")
+region_rect = Rect2(16, 16, 480, 480)
+patch_margin_left = 70
+patch_margin_top = 70
+patch_margin_right = 70
+patch_margin_bottom = 70
+
+[node name="Win" type="Button" parent="." unique_id=1812067937]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 63.0
+offset_top = -100.0
+offset_right = 253.0
+offset_bottom = -28.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "You Win! >
+Next Level "
+icon = SubResource("GradientTexture2D_xc5f4")
+
+[node name="Lose" type="Button" parent="." unique_id=1835781005]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -234.0
+offset_top = -100.0
+offset_right = -47.0
+offset_bottom = -28.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "You Lost.
+
+Restart?"
+icon = SubResource("GradientTexture2D_4h7ml")

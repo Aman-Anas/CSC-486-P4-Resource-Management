@@ -25,9 +25,51 @@ public partial class GameData
 
     public ulong TimeGameStarted { get; set; }
 
+    /// <summary> Spendable battlefield currency (Burger Bucks). </summary>
+    public int Currency { get; set; } = 80;
+
+    /// <summary> Current round (1-based). Income is granted at round end, then this advances. </summary>
+    public int CurrentRound { get; set; } = 1;
+
+    /// <summary> Base income when a round ends (before per-round scaling). </summary>
+    public int BasePerRoundIncome { get; set; } = 100;
+
+    /// <summary> Added to income each round after the first: income += (CurrentRound - 1) * this. </summary>
+    public int PerRoundIncomeDelta { get; set; } = 20;
+
     public GameData()
     {
         TimeGameStarted = Time.GetTicksMsec();
+    }
+
+    /// <summary> Income granted for completing the current round (before CurrentRound is advanced). </summary>
+    public int ComputeRoundEndIncome()
+    {
+        return BasePerRoundIncome + (CurrentRound - 1) * PerRoundIncomeDelta;
+    }
+
+    public bool TrySpend(int amount)
+    {
+        if (amount <= 0)
+            return true;
+        if (Currency < amount)
+            return false;
+        Currency -= amount;
+        return true;
+    }
+
+    public void GrantCurrency(int amount)
+    {
+        if (amount <= 0)
+            return;
+        Currency += amount;
+    }
+
+    /// <summary> Call when a round ends: grant income for the completed round, then advance round index. </summary>
+    public void ApplyRoundEndIncomeAndAdvance()
+    {
+        GrantCurrency(ComputeRoundEndIncome());
+        CurrentRound += 1;
     }
 
     // public int FinalKilled { get; set; } = 0;
