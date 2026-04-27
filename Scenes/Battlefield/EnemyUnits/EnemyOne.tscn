@@ -13,11 +13,13 @@
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_deksg"]
 friction = 0.08
 
-[sub_resource type="Resource" id="Resource_bnw1m"]
+[sub_resource type="Resource" id="Resource_u73tn"]
 script = ExtResource("3_u73tn")
+InitialHealth = 522
 Projectile = ExtResource("3_hpgpe")
-ResponseRadius = 9000.0
-MoveSpeed = 2.0
+ResponseRadius = 30.0
+ReloadTime = 0.3
+MoveSpeed = 4.0
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_5r4pn"]
 material = ExtResource("4_jd5ra")
@@ -34,307 +36,6 @@ top_radius = 0.0
 [sub_resource type="ViewportTexture" id="ViewportTexture_deksg"]
 viewport_path = NodePath("SubViewport")
 
-[sub_resource type="Animation" id="Animation_bidsx"]
-resource_name = "RESET"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Model/Empty/Icosphere_002:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Model/Empty/Icosphere:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 3.3502278, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Model/Empty/Icosphere_001:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 3.3502278, 0)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Model/Empty/Cylinder_002:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 3.3502278, 0)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Model/Empty/Cylinder_002:rotation")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Model/Empty/Plane:position")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 2.8778539, 0)]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("Model/Empty/Plane:rotation")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("Model/Empty/Icosphere:rotation")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-tracks/8/type = "value"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("Model/Empty/Icosphere_001:rotation")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-tracks/9/type = "value"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("Model/Empty/Icosphere_002:position")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 3.3502278, 0)]
-}
-tracks/10/type = "value"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("Model/Empty/Cylinder:position")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 2.4, 0)]
-}
-tracks/11/type = "value"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("Model/Empty/Cylinder:rotation")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_5c7gx"]
-resource_name = "hurt"
-length = 0.4
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Model/Empty/Icosphere_002:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.4),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(-1.1431906, 0, 0), Vector3(0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Model/Empty/Icosphere:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.36666667),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(8.881784e-16, 3.7649784, -0.30758238), Vector3(0, 3.3502278, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Model/Empty/Icosphere_001:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.33333334),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(-3.5527137e-15, 3.8864264, -0.40258795), Vector3(0, 3.3502278, 0)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Model/Empty/Cylinder_002:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.3, 0.33333334),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(8.881784e-16, 3.7381115, -0.28929052), Vector3(0, 3.3502278, 0), Vector3(0, 3.3502278, 0)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Model/Empty/Cylinder_002:rotation")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.3, 0.33333334),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(-0.48352602, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 0)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Model/Empty/Plane:position")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.36666667),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 3.0905526, -0.05242888), Vector3(0, 2.8778539, 0)]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("Model/Empty/Plane:rotation")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0, 0.4),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(-0.24167573, 0, 0), Vector3(0, 0, 0)]
-}
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("Model/Empty/Icosphere:rotation")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
-"times": PackedFloat32Array(0, 0.36666667),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(-0.49066442, 0, 0), Vector3(0, 0, 0)]
-}
-tracks/8/type = "value"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("Model/Empty/Icosphere_001:rotation")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = {
-"times": PackedFloat32Array(0, 0.4),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(-0.32836622, 0, 0), Vector3(0, 0, 0)]
-}
-tracks/9/type = "value"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("Model/Empty/Icosphere_002:position")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = {
-"times": PackedFloat32Array(0, 0.39186612),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(-1.2680573e-07, 3.5417802, -0.2540057), Vector3(0, 3.3502278, 0)]
-}
-tracks/10/type = "value"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("Model/Empty/Cylinder:position")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/keys = {
-"times": PackedFloat32Array(0, 0.4),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 2.49673, -0.022878494), Vector3(0, 2.4, 0)]
-}
-tracks/11/type = "value"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("Model/Empty/Cylinder:rotation")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/keys = {
-"times": PackedFloat32Array(0, 0.4),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(-0.15678293, 0, 0), Vector3(0, 0, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_0m421"]
-_data = {
-&"RESET": SubResource("Animation_bidsx"),
-&"hurt": SubResource("Animation_5c7gx")
-}
-
 [node name="TestUnit" type="RigidBody3D" unique_id=1702035136 node_paths=PackedStringArray("healthBar", "DetectionArea", "DetectionShape", "shootPoint", "player")]
 axis_lock_angular_x = true
 axis_lock_angular_z = true
@@ -345,7 +46,7 @@ script = ExtResource("1_u73tn")
 healthBar = NodePath("SubViewport/HealthBar/TextureProgressBar")
 DetectionArea = NodePath("Area3D")
 DetectionShape = NodePath("Area3D/CollisionShape3D")
-Behavior = SubResource("Resource_bnw1m")
+Behavior = SubResource("Resource_u73tn")
 Projectile = ExtResource("3_hpgpe")
 shootPoint = NodePath("MeshInstance3D2")
 player = NodePath("Model/AnimationPlayer")
@@ -394,14 +95,14 @@ offset_bottom = 16.0
 transform = Transform3D(-0.4, 0, -3.4969112e-08, 0, 0.4, 0, 3.4969112e-08, 0, -0.4, 0, 0.068365514, 0)
 
 [node name="Cylinder" parent="Model/Empty" parent_id_path=PackedInt32Array(1891237008, 58276225) index="1" unique_id=332635991]
-transform = Transform3D(-1.7, 0, 0, 0, -1.8, 0, 0, 0, -0.99999976, 0, 2.4, 0)
+transform = Transform3D(-1.7, 0, -7.1054274e-15, 0, -1.8, 0, 1.4210855e-14, 0, -0.99999976, 0, 2.6500003, 0)
 
 [node name="Cylinder_001" parent="Model/Empty" parent_id_path=PackedInt32Array(1891237008, 58276225) index="2" unique_id=368553797]
 transform = Transform3D(-4.371141e-08, 0, -1.4212476, 0, 0.99999994, 0, -1.0000001, 0, 6.2124684e-08, 0, 1.9490818, 0)
 material_override = ExtResource("8_1k2up")
 
 [node name="Cylinder_002" parent="Model/Empty" parent_id_path=PackedInt32Array(1891237008, 58276225) index="3" unique_id=777325449]
-transform = Transform3D(-1.0000001, 0, 0, 0, -0.9999999, 0, 0, 0, -1.4212476, 0, 3.3502278, 0)
+transform = Transform3D(-4.3711395e-08, 0, 1.421, 0, 1, 0, -1, 0, -6.21139e-08, 0, 3.3502278, 0)
 material_override = ExtResource("8_1k2up")
 
 [node name="Icosphere_002" parent="Model/Empty" parent_id_path=PackedInt32Array(1891237008, 58276225) index="6" unique_id=1658756574]
@@ -417,9 +118,6 @@ transform = Transform3D(0.35, 0, 1.0658141e-14, 0, 0.35, 0, -1.0658141e-14, 0, 0
 stream = ExtResource("9_noanh")
 max_db = 1.52
 pitch_scale = 0.69
-
-[node name="hurtPlayer" type="AnimationPlayer" parent="." unique_id=1777027631]
-libraries/ = SubResource("AnimationLibrary_0m421")
 
 [editable path="SubViewport/HealthBar"]
 [editable path="SubViewport/HealthBar/TextureProgressBar"]

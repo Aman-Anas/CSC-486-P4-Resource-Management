@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://cne3uvr6s50mt" path="res://Game/Scenes/BattlefieldAftermathDialogue.cs" id="1_aftermath_script"]
 [ext_resource type="PackedScene" uid="uid://lh2mbbh4jere" path="res://Scenes/Battlefield/battlefield_camera.tscn" id="3_hkgdd"]
 [ext_resource type="Material" path="res://assets/mats/cheese/cheese.tres" id="3_ruy5n"]
+[ext_resource type="PackedScene" uid="uid://be68kkhnkgb6u" path="res://Scenes/Pause_Menu/Pause.tscn" id="3_vnku4"]
 [ext_resource type="PackedScene" uid="uid://csud2m5uya5c3" path="res://Scenes/Battlefield/TestUnit.tscn" id="4_qq8og"]
 [ext_resource type="Material" uid="uid://cfls41uebm78j" path="res://assets/mats/test_material.tres" id="5_jmnwt"]
 [ext_resource type="PackedScene" uid="uid://c6mtmqxs4gjpc" path="res://Scenes/Battlefield/StandardTurret.tscn" id="5_kcbm8"]
@@ -31,6 +32,8 @@ glow_intensity = 1.26
 [node name="TestScene" type="Node3D" unique_id=1339897910]
 script = ExtResource("1_aftermath_script")
 IntroDialogue = ExtResource("1_aftermath_dialogue")
+
+[node name="Pause" parent="." unique_id=272402731 instance=ExtResource("3_vnku4")]
 
 [node name="BattlefieldCamera" parent="." unique_id=491425794 node_paths=PackedStringArray("OurPosts", "EnemyPosts", "EnemyParent") instance=ExtResource("3_hkgdd")]
 nextScene = "uid://bld0tajvege06"
@@ -172,6 +175,18 @@ CanReceiveMoveOrders = true
 
 [node name="ShadowBurgerTurret" parent="Enemies" unique_id=455362236 instance=ExtResource("6_a4gmp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75791025, 0, -10.456356)
+
+[node name="ShadowBurgerTurret2" parent="Enemies" unique_id=1252072139 instance=ExtResource("6_a4gmp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.635231, 0.31240904, -10.475584)
+
+[node name="ShadowBurgerTurret3" parent="Enemies" unique_id=241089673 instance=ExtResource("6_a4gmp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.299494, 0.31240523, -10.219059)
+
+[node name="ShadowBurgerTurret4" parent="Enemies" unique_id=1077462860 instance=ExtResource("6_a4gmp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35.365005, 0.31240523, -29.055338)
+
+[node name="ShadowBurgerTurret5" parent="Enemies" unique_id=624859494 instance=ExtResource("6_a4gmp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.972639, 0.31240523, -32.864113)
 
 [node name="TestUnit3" parent="Enemies" unique_id=2091143933 instance=ExtResource("13_6mpok")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.594543, 0.31240427, -6.2740917)

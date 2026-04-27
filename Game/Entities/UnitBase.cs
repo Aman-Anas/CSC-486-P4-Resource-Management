@@ -75,7 +75,7 @@ public partial class UnitBase : RigidBody3D
         newProj.GlobalPosition = shootPoint.GlobalPosition;
         newProj.GlobalRotation = this.GlobalRotation;
         newProj.SourceFactionID = FactionID;
-        newProj.LinearVelocity = GlobalBasis * new Vector3(0, 0, -20);
+        newProj.LinearVelocity = GlobalBasis * new Vector3(0, 0, -25);
         RemoveShot(newProj).Forget();
 
         await GDTask.Delay(TimeSpan.FromSeconds(Behavior.ReloadTime));
@@ -101,6 +101,7 @@ public partial class UnitBase : RigidBody3D
             if (Health <= 0)
             {
                 this.QueueFree();
+                followingEnemy = null;
                 Alive = false;
                 Destroyed?.Invoke();
             }
