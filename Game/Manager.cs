@@ -124,4 +124,14 @@ public partial class Manager : Node
             );
         }
     }
+
+    public void SwitchCouncilRoomIntroToCloseCamera()
+    {
+        var triggerNode = GetTree()
+            .CurrentScene?
+            .GetTree()
+            .GetFirstNodeInGroup("council_room_intro_trigger") as Node;
+
+        triggerNode?.Call("SwitchToCloseCamera");
+    }
 }

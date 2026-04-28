@@ -1,5 +1,6 @@
 ~ start
-Burger Guard: "Don't you move!"
+Burger Guard: "Don't you move! By order of the Council, state your business!"
+do Manager.SwitchCouncilRoomIntroToCloseCamera()
 Master Patty-wan: "What is the meaning of this interruption of the council"
 Burger Guard: "These two snuck in, making ridiculous claims!"
 Bob: "We mean no harm, we come with important news, Oh Council!"
