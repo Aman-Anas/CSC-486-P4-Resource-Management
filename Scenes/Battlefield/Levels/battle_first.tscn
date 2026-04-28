@@ -150,7 +150,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.772403, -0.2782755, 18.171
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.87825, 0.34786034, 21.352335)
 
 [node name="HeavyLettuceGenerator2" parent="Allies" unique_id=1872434437 instance=ExtResource("9_lk6yt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2959278, 0.5162592, 21.630291)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.523877, -0.2052536, 21.662464)
 
 [node name="HeavyLettuceGenerator3" parent="Allies" unique_id=974011801 instance=ExtResource("9_lk6yt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.833975, 0.5162592, 18.193794)

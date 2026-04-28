@@ -11,7 +11,7 @@ namespace Game.Entities;
 public partial class BattlefieldEconomy : Node
 {
     [Export]
-    public Key EndRoundKey { get; set; } = Key.F9;
+    public Key EndRoundKey { get; set; } = Key.Key9;
 
     public override void _Ready()
     {
@@ -36,7 +36,9 @@ public partial class BattlefieldEconomy : Node
         var data = Manager.Instance.Data;
         var earned = data.ComputeRoundEndIncome();
         data.ApplyRoundEndIncomeAndAdvance();
-        GD.Print($"[BattlefieldEconomy] Round end: +{earned}  ->  $={data.Currency}  (now round {data.CurrentRound})");
+        GD.Print(
+            $"[BattlefieldEconomy] Round end: +{earned}  ->  $={data.Currency}  (now round {data.CurrentRound})"
+        );
         GetViewport().SetInputAsHandled();
     }
 }
