@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://bi7x4xxiksr88"]
+
+[ext_resource type="PackedScene" uid="uid://dfpv5ty5v5qc1" path="res://assets/Furniture/GLTF format/loungeChair.glb" id="1_2msxs"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2msxs"]
+albedo_color = Color(0.16089547, 0.1646829, 0.1952132, 1)
+metallic = 0.35
+metallic_specular = 0.57
+roughness = 0.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0jxaw"]
+albedo_color = Color(0, 0, 0, 1)
+
+[node name="Chair" unique_id=657953242 instance=ExtResource("1_2msxs")]
+
+[node name="loungeChair(Clone)" parent="." index="0" unique_id=1857940877]
+surface_material_override/0 = SubResource("StandardMaterial3D_2msxs")
+surface_material_override/1 = SubResource("StandardMaterial3D_0jxaw")
