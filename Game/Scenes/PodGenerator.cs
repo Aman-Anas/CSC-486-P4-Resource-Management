@@ -71,6 +71,6 @@ public partial class PodGenerator : Node3D
 
         }
 
-        GD.Print("[PodGenerator] Rebuilt {0} seats.", numSeats);
+        GD.Print("[PodGenerator] Rebuilt " + numSeats.ToString() + " seats.");
     }
 }
