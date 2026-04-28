@@ -5,7 +5,7 @@ using Godot;
 namespace Game.Entities;
 
 /// <summary>
-/// Below money on the right: 1 – 5 with unit names; selected key line is yellow, others off-white.
+/// Below money on the right: 1–6 with unit names; selected key line is yellow, others off-white.
 /// </summary>
 [GlobalClass]
 public partial class BattlefieldBuildHud : RichTextLabel
@@ -14,8 +14,6 @@ public partial class BattlefieldBuildHud : RichTextLabel
     [Export]
     public NodePath BuildPlacerPath { get; set; } = new("../../BuildPlacer");
 
-    const int BuildSlotCount = 5;
-
     /// <summary> Unselected: readable light text (not dim gray). </summary>
     const string LineUnselected = "[color=#e8eaef]{0} - {1}  $ {2}[/color]";
 
@@ -23,10 +21,10 @@ public partial class BattlefieldBuildHud : RichTextLabel
     const string LineSelected = "[color=#ffdd44][b]{0} - {1}  $ {2}[/b][/color]";
 
     /// <summary> Footer: choose + controls (no gray). </summary>
-    const string HintNoSelection = "[color=#b3d9ff]1–5: choose  ·  B: place  ·  Esc: cancel[/color]";
+    const string HintNoSelection = "[color=#b3d9ff]1–6: choose  ·  B: place  ·  Esc: cancel[/color]";
 
     /// <summary> Shown when a slot is armed — same info as <see cref="HintNoSelection"/>, with Esc/B always visible. </summary>
-    const string HintWhenArmed = "[color=#b3d9ff]1–5: switch  ·  B: place  ·  Esc: cancel[/color]";
+    const string HintWhenArmed = "[color=#b3d9ff]1–6: switch  ·  B: place  ·  Esc: cancel[/color]";
 
     /// <summary> Unaffordable line — cyan reads clearly on warm brown ~#9e6434. </summary>
     const string CantAffordColor = "#22d3ee";
@@ -61,7 +59,7 @@ public partial class BattlefieldBuildHud : RichTextLabel
         int? selected = _placer != null ? _placer.SelectedBuildIndex : null;
 
         var sb = new StringBuilder();
-        for (var n = 0; n < BuildSlotCount; n++)
+        for (var n = 0; n < BuildPlacer.BuildOptionCount; n++)
         {
             var name = BuildPlacer.GetBuildOptionName(n);
             var cost = BuildPlacer.GetBuildOptionCost(n);

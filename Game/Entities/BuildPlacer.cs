@@ -5,7 +5,7 @@ using Godot;
 namespace Game.Entities;
 
 /// <summary>
-/// Hotkey build (1-5) + <see cref="PlaceConfirmKey"/> or <see cref="PlaceButton"/> to confirm at cursor.
+/// Hotkey build (1–6) + <see cref="PlaceConfirmKey"/> or <see cref="PlaceButton"/> to confirm at cursor.
 /// Uses <see cref="Node._Input"/> and a <see cref="Node._Process"/> fallback so input is not lost to other nodes.
 /// </summary>
 [GlobalClass]
@@ -20,11 +20,13 @@ public partial class BuildPlacer : Node
         Key.Key3,
         Key.Key4,
         Key.Key5,
+        Key.Key6,
         Key.Kp1,
         Key.Kp2,
         Key.Kp3,
         Key.Kp4,
-        Key.Kp5
+        Key.Kp5,
+        Key.Kp6
     };
 
     static readonly (string Path, int Cost)[] s_buildOptions =
@@ -33,24 +35,35 @@ public partial class BuildPlacer : Node
         ("res://Scenes/Battlefield/ShadowBurgerTurret.tscn", 110),
         ("res://Scenes/Battlefield/SesameSwarmPod.tscn", 60),
         ("res://Scenes/Battlefield/LightLettuceGenerator.tscn", 90),
-        ("res://Scenes/Battlefield/HeavyLettuceGenerator.tscn", 150)
+        ("res://Scenes/Battlefield/HeavyLettuceGenerator.tscn", 150),
+        ("res://Scenes/Battlefield/SandwichATST.tscn", 125)
     };
 
-    /// <summary> HUD / tools: label for slot <c>i</c> (0–4). </summary>
+    /// <summary> Matches <see cref="s_buildOptions"/>. </summary>
+    public static int BuildOptionCount => s_buildOptions.Length;
+
+    /// <summary> HUD / tools: label for slot <c>i</c> (0–5). </summary>
     public static readonly string[] BuildOptionNames =
     {
         "Standard Turret",
         "Shadowburger Turret",
         "Sesame Pod",
         "Light Lettuce Gen",
-        "Heavy Lettuce Gen"
+        "Heavy Lettuce Gen",
+        "Sandwich ATST"
     };
 
-    /// <summary> HUD / tools: display name for slot <paramref name="index"/> (0–4). </summary>
+    /// <summary> HUD / tools: display name for slot <paramref name="index"/> (0–5). </summary>
     public static string GetBuildOptionName(int index) => BuildOptionNames[index];
 
-    /// <summary> Cost for <paramref name="index"/> (0–4). </summary>
+    /// <summary> Cost for <paramref name="index"/> (0–5). </summary>
     public static int GetBuildOptionCost(int index) => s_buildOptions[index].Cost;
+
+    static BuildPlacer()
+    {
+        if (s_digitKeys.Length != 2 * s_buildOptions.Length)
+            GD.PrintErr("[BuildPlacer] s_digitKeys must be twice s_buildOptions (row + keypad).");
+    }
 
     [Export]
     public Camera3D MainCamera { get; set; } = null!;
@@ -71,7 +84,7 @@ public partial class BuildPlacer : Node
     [Export]
     public Key PlaceConfirmKey { get; set; } = Key.B;
 
-    /// <summary> 0–4 when a build is selected; <see langword="null"/> if none. </summary>
+    /// <summary> 0–5 when a build is selected; <see langword="null"/> if none. </summary>
     public int? SelectedBuildIndex => _selectedIndex;
 
     int? _selectedIndex;
@@ -185,19 +198,20 @@ public partial class BuildPlacer : Node
         GetViewport().SetInputAsHandled();
     }
 
-    static bool MatchesDigitUnicode(InputEventKey k, int slot0to4)
+    static bool MatchesDigitUnicode(InputEventKey k, int slot0toN)
     {
         if (k.Unicode is 0u)
             return false;
         var u = (char)k.Unicode;
-        var expect = (char)('1' + slot0to4);
+        var expect = (char)('1' + slot0toN);
         return u == expect;
     }
 
-    static bool MatchesBuildHotkey(InputEventKey k, int slot0to4)
+    static bool MatchesBuildHotkey(InputEventKey k, int slot)
     {
-        var a = s_digitKeys[slot0to4];
-        var b = s_digitKeys[slot0to4 + 5];
+        var half = s_digitKeys.Length / 2;
+        var a = s_digitKeys[slot];
+        var b = s_digitKeys[slot + half];
         return k.Keycode == a || k.PhysicalKeycode == a || k.Keycode == b || k.PhysicalKeycode == b;
     }
 
