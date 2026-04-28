@@ -46,19 +46,30 @@ height = 0.08583984
 sides = 20
 material = SubResource("StandardMaterial3D_65dp7")
 
-[node name="CSGCylinder3D5" type="CSGCylinder3D" parent="Base" unique_id=1662517500]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7117323, -0.077, -0.56884533)
+[node name="CSGCylinder3D6" type="CSGCylinder3D" parent="Base" unique_id=1489436769]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7868305, -0.077, -0.569)
 radius = 0.32470703
 height = 0.8581543
 sides = 16
 material = SubResource("StandardMaterial3D_65dp7")
 
-[node name="CSGCylinder3D6" type="CSGCylinder3D" parent="Base" unique_id=1489436769]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.712, -0.077, -0.569)
+[node name="CSGCylinder3D7" type="CSGCylinder3D" parent="Base" unique_id=322547022]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.787, -0.077, -0.569)
 radius = 0.32470703
 height = 0.8581543
 sides = 16
 material = SubResource("StandardMaterial3D_65dp7")
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="Base" unique_id=1112708388]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.25, 0.067, 1.798)
+polygon = PackedVector2Array(0.059727192, 0.63235855, 0.21939015, 0.65173745, 0.29923177, 0.3521541, 0.53038764, 0.3434511, 0.38071287, -0.18730551, 0, 0)
+depth = 0.5
+material = SubResource("StandardMaterial3D_65dp7")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Base" unique_id=1538939601]
+transform = Transform3D(1, 0, 0, 0, 0.9702957, -0.2419219, 0, 0.2419219, 0.9702957, 0, 0.542, 1.533)
+size = Vector3(0.4, 0.31, 0.024)
+material = SubResource("StandardMaterial3D_0oe1u")
 
 [node name="Chair" parent="." unique_id=657953242 instance=ExtResource("2_65dp7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0044577, -0.137389, -0.13500711)
