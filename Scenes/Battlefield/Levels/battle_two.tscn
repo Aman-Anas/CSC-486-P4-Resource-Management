@@ -1,0 +1,246 @@
+[gd_scene format=3 uid="uid://cnl1w8vkduww4"]
+
+[ext_resource type="Script" uid="uid://cne3uvr6s50mt" path="res://Game/Scenes/BattlefieldAftermathDialogue.cs" id="1_c5h1p"]
+[ext_resource type="Resource" uid="uid://c0ur0hafyky08" path="res://Dialogue/Intro.dialogue" id="2_oupko"]
+[ext_resource type="PackedScene" uid="uid://lh2mbbh4jere" path="res://Scenes/Battlefield/battlefield_camera.tscn" id="3_hfynk"]
+[ext_resource type="Material" uid="uid://cfls41uebm78j" path="res://assets/mats/test_material.tres" id="4_07ef5"]
+[ext_resource type="Material" path="res://assets/mats/cheese/cheese.tres" id="5_ng000"]
+[ext_resource type="PackedScene" uid="uid://dd4tq8rdvk3rq" path="res://Scenes/Battlefield/CommandPost.tscn" id="6_26uiy"]
+[ext_resource type="PackedScene" uid="uid://csud2m5uya5c3" path="res://Scenes/Battlefield/TestUnit.tscn" id="7_mb4li"]
+[ext_resource type="PackedScene" path="res://Scenes/Battlefield/LightLettuceGenerator.tscn" id="8_0qs7q"]
+[ext_resource type="PackedScene" path="res://Scenes/Battlefield/HeavyLettuceGenerator.tscn" id="9_tsxle"]
+[ext_resource type="PackedScene" uid="uid://c6mtmqxs4gjpc" path="res://Scenes/Battlefield/StandardTurret.tscn" id="10_2s4rl"]
+[ext_resource type="PackedScene" uid="uid://h6gixnb53rlm" path="res://Scenes/Battlefield/ShadowBurgerTurret.tscn" id="11_fj5pd"]
+[ext_resource type="PackedScene" uid="uid://cx5dpqytonces" path="res://Scenes/Battlefield/EnemyUnits/EnemyOne.tscn" id="12_s5cwc"]
+[ext_resource type="PackedScene" uid="uid://duhvbyltodfbf" path="res://assets/batch_exports/terrain/Landscape2.gltf" id="13_c5h1p"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ruy5n"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_qq8og"]
+sky_material = SubResource("ProceduralSkyMaterial_ruy5n")
+
+[sub_resource type="Environment" id="Environment_ktycj"]
+background_mode = 2
+sky = SubResource("Sky_qq8og")
+tonemap_mode = 2
+glow_enabled = true
+glow_intensity = 1.26
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p72go"]
+resource_name = "Material.001"
+cull_mode = 2
+albedo_color = Color(0.38965523, 0.6054463, 0.90652454, 1)
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_c421h"]
+_surfaces = [{
+"aabb": AABB(-8.715463, 0.01, -8.715463, 17.430925, 1e-05, 17.430925),
+"format": 34896613377,
+"index_count": 6,
+"index_data": PackedByteArray(0, 0, 1, 0, 2, 0, 0, 0, 3, 0, 1, 0),
+"name": "Material.001",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 4,
+"vertex_data": PackedByteArray(255, 255, 0, 0, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 0, 0)
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_dasbx"]
+resource_name = "Landscape_Landscape_plane"
+_surfaces = [{
+"aabb": AABB(-8.715463, 0.01, -8.715463, 17.430925, 1e-05, 17.430925),
+"format": 34896613383,
+"index_count": 6,
+"index_data": PackedByteArray(0, 0, 1, 0, 2, 0, 0, 0, 3, 0, 1, 0),
+"material": SubResource("StandardMaterial3D_p72go"),
+"name": "Material.001",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 4,
+"vertex_data": PackedByteArray(255, 255, 0, 0, 255, 255, 255, 255, 0, 0, 0, 0, 0, 0, 255, 255, 255, 255, 0, 0, 0, 0, 255, 255, 0, 0, 0, 0, 255, 255, 255, 255, 255, 127, 255, 191, 255, 127, 255, 191, 255, 127, 255, 191, 255, 127, 255, 191)
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_c421h")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_c5h1p"]
+size = Vector3(22, 9000, 558.6875)
+
+[node name="TestScene" type="Node3D" unique_id=1339897910]
+script = ExtResource("1_c5h1p")
+IntroDialogue = ExtResource("2_oupko")
+
+[node name="BattlefieldCamera" parent="." unique_id=491425794 node_paths=PackedStringArray("OurPosts", "EnemyPosts", "EnemyParent") instance=ExtResource("3_hfynk")]
+OurPosts = [NodePath("../Node3D2/CommandUnit15"), NodePath("../Node3D2/CommandUnit16"), NodePath("../Node3D2/CommandUnit18"), NodePath("../Node3D2/CommandUnit17")]
+EnemyPosts = [NodePath("../Node3D/CommandUnit15"), NodePath("../Node3D/CommandUnit16"), NodePath("../Node3D/CommandUnit18"), NodePath("../Node3D/CommandUnit17")]
+EnemyParent = NodePath("../Enemies")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1657979808]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 1.9226952, 0, -2.0389302)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2135597081]
+environment = SubResource("Environment_ktycj")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="." unique_id=1660232493]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.011932373, -54.078796, -0.1405878)
+use_collision = true
+size = Vector3(1286, 0.5, 430)
+material = ExtResource("4_07ef5")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="." unique_id=1180267709]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.9117677, 0.5, -7.3412213)
+use_collision = true
+material = ExtResource("5_ng000")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="." unique_id=230853896]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.458248, 2.4197092, -155.24118)
+use_collision = true
+material = ExtResource("5_ng000")
+
+[node name="Label" type="Label" parent="." unique_id=1853652211]
+offset_left = 12.0
+offset_top = 18.0
+offset_right = 291.0
+offset_bottom = 91.0
+text = "Scroll to zoom
+Middle mouse to pan
+Left click to select
+Right click to command"
+
+[node name="Node3D" type="Node3D" parent="." unique_id=805106776]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.400702, 0.0009803772, -36.561127)
+
+[node name="CommandUnit15" parent="Node3D" unique_id=128568595 instance=ExtResource("6_26uiy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.661895, 1.0713286, -111.32495)
+
+[node name="CommandUnit16" parent="Node3D" unique_id=959538655 instance=ExtResource("6_26uiy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.9213204, 1.071331, -117.918945)
+
+[node name="CommandUnit18" parent="Node3D" unique_id=1170664512 instance=ExtResource("6_26uiy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.32036, 1.071331, -100.10545)
+
+[node name="CommandUnit17" parent="Node3D" unique_id=1587961354 instance=ExtResource("6_26uiy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.477322, 1.0713272, -96.98306)
+
+[node name="Node3D2" type="Node3D" parent="." unique_id=1740174127]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 13.142293, 0.0009803772, 36.214878)
+
+[node name="CommandUnit15" parent="Node3D2" unique_id=470370658 instance=ExtResource("6_26uiy")]
+
+[node name="CommandUnit16" parent="Node3D2" unique_id=1382199524 instance=ExtResource("6_26uiy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.939332, 0, 15.780853)
+
+[node name="CommandUnit18" parent="Node3D2" unique_id=569845989 instance=ExtResource("6_26uiy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.681423, 1.9073486e-06, 10.851324)
+
+[node name="CommandUnit17" parent="Node3D2" unique_id=1164714290 instance=ExtResource("6_26uiy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.747248, -0.0015583038, -4.9903984)
+
+[node name="Allies" type="Node3D" parent="." unique_id=871180784]
+
+[node name="TestUnit3" parent="Allies" unique_id=1604671176 instance=ExtResource("7_mb4li")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.239089, 0.5633856, 29.93725)
+
+[node name="TestUnit4" parent="Allies" unique_id=24786945 instance=ExtResource("7_mb4li")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.21112013, -0.017726898, 35.376114)
+
+[node name="TestUnit6" parent="Allies" unique_id=345145084 instance=ExtResource("7_mb4li")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.9373882, 0.54468024, 29.596676)
+
+[node name="TestUnit7" parent="Allies" unique_id=592584649 instance=ExtResource("7_mb4li")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4891043, 0.54467833, 27.858543)
+
+[node name="TestUnit8" parent="Allies" unique_id=1835357611 instance=ExtResource("7_mb4li")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3052118, 0.54467833, 30.63105)
+
+[node name="TestUnit10" parent="Allies" unique_id=1702035136 instance=ExtResource("7_mb4li")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.386877, 0.54468024, 28.312073)
+
+[node name="TestUnit11" parent="Allies" unique_id=1326301809 instance=ExtResource("7_mb4li")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.144278, 0.54467833, 29.346447)
+
+[node name="TestUnit12" parent="Allies" unique_id=1965021782 instance=ExtResource("7_mb4li")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.769625, 0.54468024, 30.579594)
+
+[node name="TestUnit14" parent="Allies" unique_id=903141533 instance=ExtResource("7_mb4li")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.468067, 0.54467833, 26.77494)
+
+[node name="TestUnit15" parent="Allies" unique_id=928813883 instance=ExtResource("7_mb4li")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.374119, 0.5446774, 32.162502)
+
+[node name="TestUnit13" parent="Allies" unique_id=458888624 instance=ExtResource("7_mb4li")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.012224, 0.54467833, 31.613968)
+
+[node name="TestUnit9" parent="Allies" unique_id=614164165 instance=ExtResource("7_mb4li")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9647827, 0.54467833, 32.051163)
+
+[node name="TestUnit5" parent="Allies" unique_id=1889089257 instance=ExtResource("7_mb4li")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.069311, -0.017726898, 35.180298)
+
+[node name="TestUnit16" parent="Allies" unique_id=1562604162 instance=ExtResource("7_mb4li")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.822973, 0.54467833, 31.855347)
+
+[node name="LightLettuceGenerator" parent="Allies" unique_id=1937204509 instance=ExtResource("8_0qs7q")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.772403, -0.2782755, 18.171406)
+
+[node name="HeavyLettuceGenerator" parent="Allies" unique_id=1370195070 instance=ExtResource("9_tsxle")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.87825, 0.34786034, 21.352335)
+
+[node name="HeavyLettuceGenerator2" parent="Allies" unique_id=1872434437 instance=ExtResource("9_tsxle")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2959278, 0.5162592, 21.630291)
+
+[node name="HeavyLettuceGenerator3" parent="Allies" unique_id=974011801 instance=ExtResource("9_tsxle")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.833975, 0.5162592, 18.193794)
+
+[node name="Enemies" type="Node3D" parent="." unique_id=1059709806]
+
+[node name="StandardTurret" parent="Enemies" unique_id=1161865611 instance=ExtResource("10_2s4rl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.4806633, 1.9197092, -149.7153)
+CanReceiveMoveOrders = true
+
+[node name="ShadowBurgerTurret" parent="Enemies" unique_id=455362236 instance=ExtResource("11_fj5pd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.483168, 1.9197092, -149.7153)
+
+[node name="TestUnit3" parent="Enemies" unique_id=2091143933 instance=ExtResource("12_s5cwc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.8692856, 2.2321134, -145.53302)
+
+[node name="Enemy1" parent="Enemies" unique_id=1758426672 instance=ExtResource("12_s5cwc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.99539, 2.2321143, -155.12106)
+
+[node name="Enemy2" parent="Enemies" unique_id=1783380488 instance=ExtResource("12_s5cwc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.188295, 2.2321153, -147.02586)
+
+[node name="Enemy3" parent="Enemies" unique_id=143980648 instance=ExtResource("12_s5cwc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.516977, 2.2321143, -159.65585)
+
+[node name="Landscape_plane2" type="MeshInstance3D" parent="." unique_id=2079000750]
+transform = Transform3D(2202.2441, 0, 0, 0, 167.65414, 0, 0, 0, 6192.92, -1.5026588, -23.519867, 3.6818504)
+mesh = SubResource("ArrayMesh_dasbx")
+skeleton = NodePath("")
+metadata/_edit_lock_ = true
+
+[node name="Landscape3" parent="." unique_id=1380317819 instance=ExtResource("13_c5h1p")]
+transform = Transform3D(-8.553633e-06, 0, 195.68431, 0, 195.68431, 0, -195.68431, 0, -8.553633e-06, -3.0534973, -25.43856, -62.1149)
+metadata/_edit_lock_ = true
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1330057944]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=2037868169]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -141.70654, 0, -60.57114)
+shape = SubResource("BoxShape3D_c5h1p")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D" unique_id=2122977698]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 3.5928192, 0, 75.47328)
+shape = SubResource("BoxShape3D_c5h1p")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="StaticBody3D" unique_id=1493664233]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 128.8528, 0, -62.226563)
+shape = SubResource("BoxShape3D_c5h1p")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="StaticBody3D" unique_id=1865075340]
+transform = Transform3D(-1.1920929e-07, 0, -1, 0, 1, 0, 1, 0, -1.1920929e-07, -7.3540115, 0, -206.83397)
+shape = SubResource("BoxShape3D_c5h1p")
+
+[editable path="BattlefieldCamera"]

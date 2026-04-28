@@ -4,7 +4,6 @@
 [ext_resource type="PackedScene" uid="uid://g87jjh46c5ic" path="res://Scenes/Battlefield/Cheese.tscn" id="3_hpgpe"]
 [ext_resource type="Script" uid="uid://4l3d0lt6mmij" path="res://Game/Entities/UnitBehavior.cs" id="3_u73tn"]
 [ext_resource type="Material" uid="uid://cfls41uebm78j" path="res://assets/mats/test_material.tres" id="4_jd5ra"]
-[ext_resource type="Material" path="res://assets/mats/cheese/cheese.tres" id="5_qe1ng"]
 [ext_resource type="PackedScene" uid="uid://bp37w4rh4ucg7" path="res://Scenes/UI/HealthBar.tscn" id="6_2baj4"]
 [ext_resource type="PackedScene" uid="uid://ded50nkld8k0r" path="res://assets/batch_exports/burger_enemy/Empty.gltf" id="7_xq7ho"]
 [ext_resource type="Material" uid="uid://cwgab6eivcom6" path="res://Scenes/Battlefield/EnemyUnits/red.tres" id="8_1k2up"]
@@ -29,9 +28,16 @@ top_radius = 0.3
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_1gnui"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_stfxl"]
+albedo_color = Color(0.5409905, 0.5409905, 0.5409905, 1)
+metallic = 1.0
+roughness = 0.35
+
 [sub_resource type="CylinderMesh" id="CylinderMesh_2ohoe"]
-material = ExtResource("5_qe1ng")
-top_radius = 0.0
+material = SubResource("StandardMaterial3D_stfxl")
+top_radius = 0.4
+bottom_radius = 0.15
+height = 1.0
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_deksg"]
 viewport_path = NodePath("SubViewport")
@@ -48,7 +54,7 @@ DetectionArea = NodePath("Area3D")
 DetectionShape = NodePath("Area3D/CollisionShape3D")
 Behavior = SubResource("Resource_u73tn")
 Projectile = ExtResource("3_hpgpe")
-shootPoint = NodePath("MeshInstance3D2")
+shootPoint = NodePath("ShootPoint")
 player = NodePath("Model/AnimationPlayer")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=240025093]
@@ -67,9 +73,13 @@ shape = SubResource("CapsuleShape3D_2ohoe")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("SphereShape3D_1gnui")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=1379242053]
+[node name="ShootPoint" type="Node3D" parent="." unique_id=1582376919]
 transform = Transform3D(-0.39999998, 3.496911e-08, 1.5285482e-15, 0, -1.7484554e-08, 0.39999998, 3.496911e-08, 0.39999998, 1.7484554e-08, 0, 0.71084267, -1.0657617)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="ShootPoint" unique_id=1379242053]
+transform = Transform3D(1, 0, -2.9646153e-21, 0, 1, 0, 0, 0, 1, 1.3113419e-07, 1.4999993, 0.8710356)
 mesh = SubResource("CylinderMesh_2ohoe")
+skeleton = NodePath("../..")
 
 [node name="Sprite3D" type="Sprite3D" parent="." unique_id=1168678911]
 transform = Transform3D(-0.7429198, 0, -6.494811e-08, 0, 0.7429198, 0, 6.494811e-08, 0, -0.7429198, 0, 2.554029, 0)
