@@ -1,0 +1,88 @@
+[gd_scene format=3 uid="uid://bxiehbpmgxjb1"]
+
+[ext_resource type="PackedScene" uid="uid://csud2m5uya5c3" path="res://Scenes/Battlefield/TestUnit.tscn" id="1_rshjl"]
+[ext_resource type="ArrayMesh" uid="uid://bn7kmo0hc6qiy" path="res://assets/Ultimate Food Pack - Oct 2019/OBJ/Bacon_Cooked.obj" id="2_rf8pk"]
+[ext_resource type="ArrayMesh" uid="uid://bfrwhbv4mktv" path="res://assets/Ultimate Food Pack - Oct 2019/OBJ/Tomato_Slice.obj" id="3_4x6q2"]
+[ext_resource type="ArrayMesh" uid="uid://ms0ctgjvkfek" path="res://assets/Ultimate Food Pack - Oct 2019/OBJ/Lettuce.obj" id="4_vyfun"]
+[ext_resource type="ArrayMesh" uid="uid://c8faragvgrjqw" path="res://assets/Ultimate Food Pack - Oct 2019/OBJ/Bread_Slice.obj" id="5_jffto"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ccssq"]
+viewport_path = NodePath("SubViewport")
+
+[node name="TestUnit" unique_id=1702035136 instance=ExtResource("1_rshjl")]
+
+[node name="Sprite3D" parent="." index="4" unique_id=1168678911]
+texture = SubResource("ViewportTexture_ccssq")
+
+[node name="Model" parent="." index="6" unique_id=1891237008]
+visible = false
+
+[node name="sandwich model" type="Node3D" parent="." index="9" unique_id=413701761]
+
+[node name="BaconCooked" type="MeshInstance3D" parent="sandwich model" index="0" unique_id=214283548]
+transform = Transform3D(-0.4370197, 8.969663e-08, 1.5547471, 1.5547471, -6.796016e-08, 0.4370197, 8.969663e-08, 1.615, -6.796016e-08, 1.6290421, -0.17755353, 1.2684323)
+mesh = ExtResource("2_rf8pk")
+skeleton = NodePath("../..")
+
+[node name="TomatoSlice" type="MeshInstance3D" parent="sandwich model" index="1" unique_id=856440028]
+transform = Transform3D(3.70673e-15, 8.480009e-08, -1.94, 1.94, -8.480009e-08, 0, -8.480009e-08, -1.94, -8.480009e-08, 0.8564664, -0.42535943, 1.3043237)
+mesh = ExtResource("3_4x6q2")
+skeleton = NodePath("../..")
+
+[node name="Lettuce" type="MeshInstance3D" parent="sandwich model" index="2" unique_id=898689131]
+transform = Transform3D(1.5858689e-15, 3.628045e-08, 0.83, 0.83, -3.628045e-08, 0, 3.628045e-08, 0.83, -3.628045e-08, 1.1574718, -0.07711738, 1.3224323)
+mesh = ExtResource("4_vyfun")
+skeleton = NodePath("../..")
+
+[node name="BreadSlice2" type="MeshInstance3D" parent="sandwich model" index="3" unique_id=1056080198]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 1.54, 1.1639917, 0, 1.4926596)
+mesh = ExtResource("5_jffto")
+skeleton = NodePath("../..")
+
+[node name="BreadSlice3" type="MeshInstance3D" parent="sandwich model" index="4" unique_id=1551875877]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 0.63, 1.1494622, 0.0032746494, 1.1882689)
+mesh = ExtResource("5_jffto")
+
+[node name="Lettuce2" type="MeshInstance3D" parent="sandwich model" index="5" unique_id=912107134]
+transform = Transform3D(0.8035625, 1.1556189e-09, 0.20781535, 0.20781535, -9.083897e-09, -0.8035625, 1.1556189e-09, 0.83, -9.083897e-09, 1.1574718, -0.07711738, 1.3470803)
+mesh = ExtResource("4_vyfun")
+skeleton = NodePath("../..")
+
+[node name="BaconCooked2" type="MeshInstance3D" parent="sandwich model" index="6" unique_id=1196923026]
+transform = Transform3D(3.0857573e-15, 7.059389e-08, 1.615, 1.615, -7.059389e-08, -2.746904e-22, 7.059389e-08, 1.615, -7.059389e-08, 0.91779804, -0.22382855, 1.2684323)
+mesh = ExtResource("2_rf8pk")
+skeleton = NodePath("../..")
+
+[node name="BaconCooked3" type="MeshInstance3D" parent="sandwich model" index="7" unique_id=1605531181]
+transform = Transform3D(3.0857571e-15, 7.059389e-08, 1.615, 1.615, -7.059389e-08, 0, 7.059389e-08, 1.615, -7.059389e-08, 1.5370004, -0.18567109, 0.97842956)
+mesh = ExtResource("2_rf8pk")
+skeleton = NodePath("../..")
+
+[node name="TomatoSlice2" type="MeshInstance3D" parent="sandwich model" index="8" unique_id=1789375788]
+transform = Transform3D(-0.52496487, 1.07747034e-07, -1.867622, 1.867622, -8.163635e-08, -0.52496487, -1.07747034e-07, -1.94, -8.163635e-08, 0.9519932, -0.42535943, 1.0241559)
+mesh = ExtResource("3_4x6q2")
+skeleton = NodePath("../..")
+
+[node name="Lettuce3" type="MeshInstance3D" parent="sandwich model" index="9" unique_id=591489050]
+transform = Transform3D(0.5786471, 1.0986986e-08, 0.5950358, 0.5950358, -2.6009841e-08, -0.5786471, 1.0986986e-08, 0.83, -2.6009841e-08, 1.1574718, -0.07711738, 1.0260715)
+mesh = ExtResource("4_vyfun")
+skeleton = NodePath("../..")
+
+[node name="BreadSlice4" type="MeshInstance3D" parent="sandwich model" index="10" unique_id=159023486]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 1.54, 1.1639917, 0, 0.85954654)
+mesh = ExtResource("5_jffto")
+skeleton = NodePath("../..")
+
+[node name="Lettuce4" type="MeshInstance3D" parent="sandwich model" index="11" unique_id=201473542]
+transform = Transform3D(0.5786471, 1.0986986e-08, 0.5950358, 0.5950358, -2.6009841e-08, -0.5786471, 1.0986986e-08, 0.83, -2.6009841e-08, 1.1574718, -0.07711738, 1.055863)
+mesh = ExtResource("4_vyfun")
+skeleton = NodePath("../..")
+
+[node name="BaconCooked4" type="MeshInstance3D" parent="sandwich model" index="12" unique_id=597032075]
+transform = Transform3D(-0.22197296, 8.029664e-08, 1.5996729, 1.5996729, -6.9923914e-08, 0.22197296, 8.0296644e-08, 1.615, -6.992392e-08, 1.136327, -0.22382855, 0.9881507)
+mesh = ExtResource("2_rf8pk")
+skeleton = NodePath("../..")
+
+[editable path="SubViewport/HealthBar"]
+[editable path="SubViewport/HealthBar/TextureProgressBar"]
+[editable path="Model"]
