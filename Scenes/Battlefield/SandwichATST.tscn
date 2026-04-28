@@ -38,40 +38,42 @@ visible = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.046275973, 0)
 
 [node name="BreadSlice2" type="MeshInstance3D" parent="sandwich model" index="0" unique_id=1056080198]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 1.54, 0.023232937, 0.98515594, 0.3179574)
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 1.54, 0.023232937, 0.98515594, 0.2716384)
 mesh = ExtResource("5_jffto")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_rshjl")
 surface_material_override/1 = SubResource("StandardMaterial3D_rf8pk")
 
 [node name="TomatoSlice" type="MeshInstance3D" parent="sandwich model" index="1" unique_id=856440028]
-transform = Transform3D(3.70673e-15, 8.480009e-08, -1.94, 1.94, -8.480009e-08, 0, -8.480009e-08, -1.94, -8.480009e-08, -0.28429234, 0.5597965, 0.1296215)
+transform = Transform3D(3.70673e-15, 8.480009e-08, -1.94, 1.94, -8.480009e-08, 0, -8.480009e-08, -1.94, -8.480009e-08, -0.28429234, 0.5597965, 0.107167125)
 mesh = ExtResource("3_4x6q2")
 skeleton = NodePath("../..")
 
 [node name="Lettuce2" type="MeshInstance3D" parent="sandwich model" index="2" unique_id=912107134]
-transform = Transform3D(0.8035625, 1.1556189e-09, 0.20781535, 0.20781535, -9.083897e-09, -0.8035625, 1.1556189e-09, 0.83, -9.083897e-09, 0.016713023, 0.90803856, 0.17237818)
+transform = Transform3D(0.8035625, 1.1556189e-09, 0.20781535, 0.20781535, -9.083897e-09, -0.8035625, 1.1556189e-09, 0.83, -9.083897e-09, 0.016713023, 0.90803856, 0.13155103)
 mesh = ExtResource("4_vyfun")
 skeleton = NodePath("../..")
 
 [node name="Lettuce" type="MeshInstance3D" parent="sandwich model" index="3" unique_id=898689131]
-transform = Transform3D(1.5858689e-15, 3.628045e-08, 0.83, 0.83, -3.628045e-08, 0, 3.628045e-08, 0.83, -3.628045e-08, 0.016713023, 0.90803856, 0.14773011)
+transform = Transform3D(1.5858689e-15, 3.628045e-08, 0.83, 0.83, -3.628045e-08, 0, 3.628045e-08, 0.83, -3.628045e-08, 0.016713023, 0.90803856, 0.10690296)
 mesh = ExtResource("4_vyfun")
 skeleton = NodePath("../..")
 
 [node name="BaconCooked" type="MeshInstance3D" parent="sandwich model" index="4" unique_id=214283548]
-transform = Transform3D(-0.4370197, 8.969663e-08, 1.5547471, 1.5547471, -6.796016e-08, 0.4370197, 8.969663e-08, 1.615, -6.796016e-08, 0.4882834, 0.8076024, 0.09373009)
+transform = Transform3D(-0.4370197, 8.969663e-08, 1.5547471, 1.5547471, -6.796016e-08, 0.4370197, 8.969663e-08, 1.615, -6.796016e-08, 0.4882834, 0.8076024, 0.07937908)
 mesh = ExtResource("2_rf8pk")
 skeleton = NodePath("../..")
 
 [node name="BaconCooked2" type="MeshInstance3D" parent="sandwich model" index="5" unique_id=1196923026]
-transform = Transform3D(3.0857573e-15, 7.059389e-08, 1.615, 1.615, -7.059389e-08, -2.746904e-22, 7.059389e-08, 1.615, -7.059389e-08, -0.22296071, 0.7613274, 0.09373009)
+transform = Transform3D(3.0857573e-15, 7.059389e-08, 1.615, 1.615, -7.059389e-08, -2.746904e-22, 7.059389e-08, 1.615, -7.059389e-08, -0.22296071, 0.7613274, 0.07937908)
 mesh = ExtResource("2_rf8pk")
 skeleton = NodePath("../..")
 
 [node name="BreadSlice3" type="MeshInstance3D" parent="sandwich model" index="6" unique_id=1551875877]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 0.63, 0.00870347, 0.9884306, 0.013566732)
 mesh = ExtResource("5_jffto")
+surface_material_override/0 = SubResource("StandardMaterial3D_rshjl")
+surface_material_override/1 = SubResource("StandardMaterial3D_rf8pk")
 
 [node name="Lettuce3" type="MeshInstance3D" parent="sandwich model" index="7" unique_id=591489050]
 transform = Transform3D(-0.79457515, 7.101244e-08, 0.23989642, 0.23989642, -1.0486206e-08, 0.79457515, 7.101244e-08, 0.83, -1.0486206e-08, 0.016713023, 0.90803856, -0.10396099)
@@ -102,6 +104,8 @@ skeleton = NodePath("../..")
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 1.54, 0.023232937, 0.9864781, -0.26692307)
 mesh = ExtResource("5_jffto")
 skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_rshjl")
+surface_material_override/1 = SubResource("StandardMaterial3D_rf8pk")
 
 [editable path="SubViewport/HealthBar"]
 [editable path="SubViewport/HealthBar/TextureProgressBar"]
