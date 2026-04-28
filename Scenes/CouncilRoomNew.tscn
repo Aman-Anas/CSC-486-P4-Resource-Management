@@ -1,8 +1,10 @@
 [gd_scene format=3 uid="uid://mgpkwnl3gddv"]
 
 [ext_resource type="Script" uid="uid://dj0e4boyui81" path="res://Game/Scenes/CouncilRoomNewIntroTrigger.cs" id="1_nx8cc"]
+[ext_resource type="Resource" uid="uid://cco4mdo8lbqb8" path="res://Dialogue/IntroModified.dialogue" id="2_4bw2q"]
 [ext_resource type="Script" uid="uid://capalm0nb4c36" path="res://Game/Scenes/PodGenerator.cs" id="2_qfhw2"]
 [ext_resource type="PackedScene" uid="uid://dlfhrmn3bqr5d" path="res://Scenes/Council/SeatPod.tscn" id="3_0avhl"]
+[ext_resource type="PackedScene" uid="uid://dbi28u8ytw1e2" path="res://Scenes/Entities/old/Bob.tscn" id="4_mxnnu"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_puu7n"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -19,6 +21,9 @@ tonemap_mode = 4
 tonemap_exposure = 1.7
 tonemap_agx_white = 2.56
 tonemap_agx_contrast = 1.46
+fog_light_color = Color(0.13569662, 0.15140036, 0.17583618, 1)
+volumetric_fog_density = 0.02
+volumetric_fog_albedo = Color(0.66931534, 0.6693154, 0.6693153, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0avhl"]
 albedo_color = Color(0.085983776, 0.08598376, 0.08598376, 1)
@@ -35,18 +40,27 @@ emission_enabled = true
 emission = Color(0.9173663, 0.915932, 1.540184e-06, 1)
 emission_energy_multiplier = 1.67
 
-[node name="CouncilRoomNew" type="Node3D" unique_id=1475931990 node_paths=PackedStringArray("StartCamera")]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4bw2q"]
+radius = 0.45
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_gctwc"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yeu25"]
+albedo_color = Color(0.2088, 0.36308017, 0.87, 1)
+
+[node name="CouncilRoomNew" type="Node3D" unique_id=1475931990]
 script = ExtResource("1_nx8cc")
-StartCamera = NodePath("Camera3D")
+IntroDialogue = ExtResource("2_4bw2q")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1584352247]
 environment = SubResource("Environment_nx8cc")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1296092437]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.835581, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 13.9402075, 0)
+visible = false
 light_energy = 13.875
 omni_range = 44.996
-omni_attenuation = 0.748
+omni_attenuation = 2.019
 
 [node name="PodGenerator" type="Node3D" parent="." unique_id=42836075 node_paths=PackedStringArray("SeatContainer")]
 script = ExtResource("2_qfhw2")
@@ -55,19 +69,20 @@ SeatContainer = NodePath("../PodContainer")
 RowHorizontalSpacing = 1.2
 NumRows = 15
 
-[node name="Camera Wide" type="Camera3D" parent="." unique_id=646422567]
-transform = Transform3D(0.9033353, -0.21576293, 0.37071782, 0, 0.8642748, 0.5030199, -0.42893514, -0.45439565, 0.7807299, 19.732477, 21.266249, 20.241982)
-
-[node name="Camera Close" type="Camera3D" parent="." unique_id=1754549722]
-transform = Transform3D(0.30569535, -0.35204673, 0.8846544, 0, 0.9291326, 0.36974674, -0.95212936, -0.11302986, 0.2840315, 4.403982, 10.563548, 1.681874)
-
-[node name="Camera3D" type="Camera3D" parent="." unique_id=292373827]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.478262, 0)
-
 [node name="DirectionalLight3D2" type="DirectionalLight3D" parent="." unique_id=320837533]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
 light_energy = 1.099
 shadow_enabled = true
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="." unique_id=935569485]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7103751, 7.9107094, 0)
+
+[node name="Camera Wide" type="Camera3D" parent="." unique_id=646422567]
+transform = Transform3D(0.70710677, -0.3556888, 0.6111346, 0, 0.8642748, 0.5030199, -0.70710677, -0.3556888, 0.6111346, 19.732477, 21.266249, 20.241982)
+current = true
+
+[node name="Camera Close" type="Camera3D" parent="." unique_id=1754549722]
+transform = Transform3D(0.30569535, -0.35204673, 0.88465446, 0, 0.9291326, 0.36974677, -0.95212936, -0.11302986, 0.28403154, 4.403982, 10.563548, 1.681874)
 
 [node name="CSGCombiner3D" type="CSGCombiner3D" parent="." unique_id=1201097296]
 
@@ -93,7 +108,7 @@ sides = 20
 material = SubResource("StandardMaterial3D_0avhl")
 
 [node name="CSGTorus3D" type="CSGTorus3D" parent="CSGCombiner3D" unique_id=878260302]
-transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, 7.7360935, 0)
+transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, -0.002748251, 7.7399225, -0.0013018847)
 inner_radius = 1.298612
 outer_radius = 1.9248893
 sides = 6
@@ -1203,3 +1218,20 @@ transform = Transform3D(0.4999996, 0, -0.8660256, 0, 1, 0, 0.8660256, 0, 0.49999
 
 [node name="Seat360" type="Node3D" parent="PodContainer" unique_id=593390090 instance=ExtResource("3_0avhl")]
 transform = Transform3D(0.25881913, 0, -0.9659258, 0, 1, 0, 0.9659258, 0, 0.25881913, 35.54607, 28, -9.52455)
+
+[node name="Bob" parent="." unique_id=54794360 instance=ExtResource("4_mxnnu")]
+transform = Transform3D(-0.2520694, 0, -0.9677092, 0, 1, 0, 0.9677092, 0, -0.2520694, -0.2664504, 7.685588, -0.7074903)
+freeze = true
+
+[node name="Farmer" type="RigidBody3D" parent="." unique_id=615564835]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.28653774, 8.843595, 0)
+freeze = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Farmer" unique_id=1606261673]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.110343695, -0.23903847, 0.7075976)
+shape = SubResource("CapsuleShape3D_4bw2q")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Farmer" unique_id=2010694924]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.110343695, -0.23903847, 0.7075976)
+mesh = SubResource("CapsuleMesh_gctwc")
+surface_material_override/0 = SubResource("StandardMaterial3D_yeu25")
