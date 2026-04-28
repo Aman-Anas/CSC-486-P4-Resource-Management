@@ -14,7 +14,7 @@ height = 1.9345703
 viewport_path = NodePath("SubViewport")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rshjl"]
-albedo_color = Color(0.44705883, 0.3019608, 0.21568628, 1)
+albedo_color = Color(0.27551165, 0.18318164, 0.0879652, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rf8pk"]
 albedo_color = Color(0.61960787, 0.4392157, 0.29411766, 1)
