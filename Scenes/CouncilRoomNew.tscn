@@ -40,6 +40,9 @@ emission_enabled = true
 emission = Color(0.9173663, 0.915932, 1.540184e-06, 1)
 emission_energy_multiplier = 1.67
 
+[sub_resource type="ViewportTexture" id="ViewportTexture_4bw2q"]
+viewport_path = NodePath("SubViewport")
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4bw2q"]
 radius = 0.45
 
@@ -48,9 +51,12 @@ radius = 0.45
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yeu25"]
 albedo_color = Color(0.2088, 0.36308017, 0.87, 1)
 
-[node name="CouncilRoomNew" type="Node3D" unique_id=1475931990]
+[node name="CouncilRoomNew" type="Node3D" unique_id=1475931990 node_paths=PackedStringArray("WideCamera", "CloseCamera", "BobAnimPlayer")]
 script = ExtResource("1_nx8cc")
 IntroDialogue = ExtResource("2_4bw2q")
+WideCamera = NodePath("Camera Wide")
+CloseCamera = NodePath("Camera Close")
+BobAnimPlayer = NodePath("Bob/RetargetedAnims")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1584352247]
 environment = SubResource("Environment_nx8cc")
@@ -76,6 +82,7 @@ shadow_enabled = true
 
 [node name="OmniLight3D2" type="OmniLight3D" parent="." unique_id=935569485]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7103751, 7.9107094, 0)
+light_energy = 0.625
 
 [node name="Camera Wide" type="Camera3D" parent="." unique_id=646422567]
 transform = Transform3D(0.70710677, -0.3556888, 0.6111346, 0, 0.8642748, 0.5030199, -0.70710677, -0.3556888, 0.6111346, 19.732477, 21.266249, 20.241982)
@@ -1223,6 +1230,9 @@ transform = Transform3D(0.25881913, 0, -0.9659258, 0, 1, 0, 0.9659258, 0, 0.2588
 transform = Transform3D(-0.2520694, 0, -0.9677092, 0, 1, 0, 0.9677092, 0, -0.2520694, -0.2664504, 7.685588, -0.7074903)
 freeze = true
 
+[node name="Sprite3D" parent="Bob" index="3" unique_id=1026884857]
+texture = SubResource("ViewportTexture_4bw2q")
+
 [node name="Farmer" type="RigidBody3D" parent="." unique_id=615564835]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.28653774, 8.843595, 0)
 freeze = true
@@ -1235,3 +1245,7 @@ shape = SubResource("CapsuleShape3D_4bw2q")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.110343695, -0.23903847, 0.7075976)
 mesh = SubResource("CapsuleMesh_gctwc")
 surface_material_override/0 = SubResource("StandardMaterial3D_yeu25")
+
+[editable path="Bob"]
+[editable path="Bob/BobRig2"]
+[editable path="Bob/Interface2"]

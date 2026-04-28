@@ -11,11 +11,15 @@ public partial class CouncilRoomNewIntroTrigger : Node3D
 
     [Export] private Camera3D WideCamera = null!;
     [Export] private Camera3D CloseCamera = null!;
+    [Export] private AnimationPlayer BobAnimPlayer = null!;
+    [Export] private StringName BobIdleAnimation = "UAL1_Standard/Idle";
 
     public override void _Ready()
     {
         AddToGroup("council_room_intro_trigger");
         SwitchToWideCamera();
+
+        BobAnimPlayer.Play(BobIdleAnimation);
 
         var dialogueManager = Engine.GetSingleton("DialogueManager");
         if (dialogueManager == null || IntroDialogue == null) return;
