@@ -92,8 +92,10 @@ public partial class BuildPlacer : Node
         SetProcessInput(true);
         SetProcess(true);
         ResolveMainCamera();
-        if (MainCamera == null)
-            GD.PrintErr("[BuildPlacer] MainCamera is not set; link Camera3D in the inspector on BuildPlacer.");
+        // if (MainCamera == null)
+        //     GD.PrintErr(
+        //         "[BuildPlacer] MainCamera is not set; link Camera3D in the inspector on BuildPlacer."
+        //     );
     }
 
     public override void _EnterTree()
@@ -103,11 +105,12 @@ public partial class BuildPlacer : Node
 
     void ResolveMainCamera()
     {
-        if (MainCamera != null && GodotObject.IsInstanceValid(MainCamera))
-            return;
-        var c = GetNodeOrNull<Camera3D>(new NodePath("../BattlefieldCamera/Camera3D"));
-        if (c != null)
-            MainCamera = c;
+        MainCamera = GetTree().Root.GetCamera3D();
+        // if (MainCamera != null && GodotObject.IsInstanceValid(MainCamera))
+        // return;
+        // var c = GetNodeOrNull<Camera3D>(new NodePath("../BattlefieldCamera/Camera3D"));
+        // if (c != null)
+        // MainCamera = c;
     }
 
     public override void _Process(double delta)
@@ -195,17 +198,18 @@ public partial class BuildPlacer : Node
     {
         var a = s_digitKeys[slot0to4];
         var b = s_digitKeys[slot0to4 + 5];
-        return k.Keycode == a
-            || k.PhysicalKeycode == a
-            || k.Keycode == b
-            || k.PhysicalKeycode == b;
+        return k.Keycode == a || k.PhysicalKeycode == a || k.Keycode == b || k.PhysicalKeycode == b;
     }
 
     bool TryPlaceAtScreen(Vector2 screenPos, out bool consumeEvent)
     {
         consumeEvent = false;
         ResolveMainCamera();
-        if (MainCamera == null || !GodotObject.IsInstanceValid(MainCamera) || _selectedIndex is not { } idx)
+        if (
+            MainCamera == null
+            || !GodotObject.IsInstanceValid(MainCamera)
+            || _selectedIndex is not { } idx
+        )
             return false;
         if (Manager.Instance == null || _scenes == null)
             return false;

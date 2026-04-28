@@ -3,6 +3,10 @@
 [ext_resource type="Script" uid="uid://cdtf7b73i8f6t" path="res://Game/Manager.cs" id="1_n6fj3"]
 [ext_resource type="PackedScene" uid="uid://c24o0rqq3onj" path="res://Scenes/TitleInterface.tscn" id="2_7xwus"]
 [ext_resource type="AudioStream" uid="uid://btx5ur23187q8" path="res://assets/sounds/dungeoncrawler.wav" id="3_un7ls"]
+[ext_resource type="Script" uid="uid://bqvv4ub6sdhp6" path="res://Game/Entities/BattlefieldEconomy.cs" id="4_nywyx"]
+[ext_resource type="Script" uid="uid://b8c6aejavekhi" path="res://Game/Entities/BattlefieldEconomyHud.cs" id="5_p8rtt"]
+[ext_resource type="Script" uid="uid://7xf3ohtux23t" path="res://Game/Entities/BattlefieldBuildHud.cs" id="6_oup8u"]
+[ext_resource type="Script" uid="uid://b5xuu1vgo6r17" path="res://Game/Entities/BuildPlacer.cs" id="7_7s4bu"]
 
 [node name="Manager" type="Node" unique_id=884699410]
 script = ExtResource("1_n6fj3")
@@ -12,3 +16,39 @@ titleScene = ExtResource("2_7xwus")
 stream = ExtResource("3_un7ls")
 volume_db = -9.495
 autoplay = true
+
+[node name="BattlefieldEconomy" type="Node" parent="." unique_id=60278301]
+script = ExtResource("4_nywyx")
+
+[node name="EconomyCanvas" type="CanvasLayer" parent="." unique_id=1424092371]
+
+[node name="EconomyHud" type="RichTextLabel" parent="EconomyCanvas" unique_id=2016428393]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -440.0
+offset_top = 10.0
+offset_right = -18.0
+offset_bottom = 50.0
+grow_horizontal = 0
+bbcode_enabled = true
+text = "Round 1  $ 80"
+script = ExtResource("5_p8rtt")
+metadata/_edit_use_anchors_ = true
+
+[node name="BuildHud" type="RichTextLabel" parent="EconomyCanvas" unique_id=1212881399]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -440.0
+offset_top = 52.0
+offset_right = -18.0
+offset_bottom = 220.0
+grow_horizontal = 0
+bbcode_enabled = true
+text = "Build: (loading)"
+script = ExtResource("6_oup8u")
+metadata/_edit_use_anchors_ = true
+
+[node name="BuildPlacer" type="Node" parent="." unique_id=203526033]
+script = ExtResource("7_7s4bu")
