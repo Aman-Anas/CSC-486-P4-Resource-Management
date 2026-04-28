@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://b8c6aejavekhi" path="res://Game/Entities/BattlefieldEconomyHud.cs" id="5_p8rtt"]
 [ext_resource type="Script" uid="uid://7xf3ohtux23t" path="res://Game/Entities/BattlefieldBuildHud.cs" id="6_oup8u"]
 [ext_resource type="Script" uid="uid://b5xuu1vgo6r17" path="res://Game/Entities/BuildPlacer.cs" id="7_7s4bu"]
+[ext_resource type="PackedScene" uid="uid://be68kkhnkgb6u" path="res://Scenes/Pause_Menu/Pause.tscn" id="8_p8rtt"]
 
 [node name="Manager" type="Node" unique_id=884699410]
 script = ExtResource("1_n6fj3")
@@ -52,3 +53,8 @@ metadata/_edit_use_anchors_ = true
 
 [node name="BuildPlacer" type="Node" parent="." unique_id=203526033]
 script = ExtResource("7_7s4bu")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1319071268]
+layer = 2555
+
+[node name="Pause" parent="CanvasLayer" unique_id=272402731 instance=ExtResource("8_p8rtt")]
