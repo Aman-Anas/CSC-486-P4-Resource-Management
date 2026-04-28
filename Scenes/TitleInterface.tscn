@@ -32,7 +32,7 @@ HomeButton = NodePath("Home")
 MainMenuRoot = NodePath("TitleMargin")
 HelpMenu = NodePath("Help")
 SettingsMenu = NodePath("Settings")
-gameScene = "uid://cqb51yewaq87i"
+gameScene = "res://Scenes/CouncilRoomNew.tscn"
 metadata/_edit_lock_ = true
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1239575510]

@@ -18,7 +18,7 @@ SFX: **Bzzzzz**
 Bob: "Huh?"
 Intercom: "WARNING, UNIDENTIFIED SHIP ENTERED FROM HYPERSPACE, STRIKES IMMINENT! TAKE COV-"
 do Manager.PlayBombardmentSfx(4, 0.2)
-do Manager.get_tree().change_scene_to_file("res://Scenes/Battlefield/test_scene.tscn")
+do Manager.get_tree().change_scene_to_file("res://Scenes/Battlefield/Levels/battle_first.tscn")
 => END
 
 ~ battlefield_aftermath
