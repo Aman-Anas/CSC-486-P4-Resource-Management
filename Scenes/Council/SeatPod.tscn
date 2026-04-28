@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://dlfhrmn3bqr5d"]
+
+[ext_resource type="PackedScene" uid="uid://bi7x4xxiksr88" path="res://Scenes/Council/Chair.tscn" id="2_65dp7"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_65dp7"]
+albedo_color = Color(0.25565878, 0.25565878, 0.25565878, 1)
+metallic = 0.89
+metallic_specular = 0.12
+roughness = 0.75
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0oe1u"]
+emission_enabled = true
+emission = Color(0.9173663, 0.915932, 1.540184e-06, 1)
+emission_energy_multiplier = 1.67
+
+[node name="SeatPod" type="Node3D" unique_id=1831248171]
+
+[node name="Base" type="CSGCombiner3D" parent="." unique_id=1735922018]
+
+[node name="CSGTorus3D" type="CSGTorus3D" parent="Base" unique_id=744628147]
+inner_radius = 1.298612
+outer_radius = 1.9248893
+sides = 20
+smooth_faces = false
+material = SubResource("StandardMaterial3D_65dp7")
+
+[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="Base" unique_id=658596869]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0049438477, 0)
+radius = 1.925293
+height = 0.07116699
+sides = 20
+material = SubResource("StandardMaterial3D_0oe1u")
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="Base" unique_id=101285278]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.042683974, 0)
+operation = 2
+radius = 1.5
+height = 0.35772094
+sides = 20
+material = SubResource("StandardMaterial3D_0oe1u")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Base" unique_id=880162555]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.14462067, 0)
+radius = 1.715332
+height = 0.08583984
+sides = 20
+material = SubResource("StandardMaterial3D_65dp7")
+
+[node name="CSGCylinder3D5" type="CSGCylinder3D" parent="Base" unique_id=1662517500]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7117323, -0.077, -0.56884533)
+radius = 0.32470703
+height = 0.8581543
+sides = 16
+material = SubResource("StandardMaterial3D_65dp7")
+
+[node name="CSGCylinder3D6" type="CSGCylinder3D" parent="Base" unique_id=1489436769]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.712, -0.077, -0.569)
+radius = 0.32470703
+height = 0.8581543
+sides = 16
+material = SubResource("StandardMaterial3D_65dp7")
+
+[node name="Chair" parent="." unique_id=657953242 instance=ExtResource("2_65dp7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0044577, -0.137389, -0.13500711)
+
+[node name="Chair2" parent="." unique_id=1454272867 instance=ExtResource("2_65dp7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.48290414, -0.137389, -0.11412379)
+
+[node name="Chair3" parent="." unique_id=59468237 instance=ExtResource("2_65dp7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.24689795, -0.137389, -0.76026547)
