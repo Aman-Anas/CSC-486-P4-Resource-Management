@@ -87,6 +87,6 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_xykly")
 
 [node name="Label3" type="Label" parent="Good/PanelContainer" unique_id=1704858630]
 layout_mode = 2
-text = "NOW YOU GO TO COUNCIL OF BURGERS"
+text = "You defeated the Hotdog army!!"
 label_settings = SubResource("LabelSettings_kybp6")
 horizontal_alignment = 1

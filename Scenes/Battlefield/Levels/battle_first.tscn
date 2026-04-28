@@ -33,6 +33,7 @@ script = ExtResource("1_kmwkj")
 IntroDialogue = ExtResource("2_nskvk")
 
 [node name="BattlefieldCamera" parent="." unique_id=491425794 node_paths=PackedStringArray("OurPosts", "EnemyPosts", "EnemyParent") instance=ExtResource("3_hir1d")]
+nextScene = "uid://bld0tajvege06"
 OurPosts = [NodePath("../Node3D2/CommandUnit15"), NodePath("../Node3D2/CommandUnit16"), NodePath("../Node3D2/CommandUnit18"), NodePath("../Node3D2/CommandUnit17")]
 EnemyPosts = [NodePath("../Node3D/CommandUnit15"), NodePath("../Node3D/CommandUnit16"), NodePath("../Node3D/CommandUnit18"), NodePath("../Node3D/CommandUnit17")]
 EnemyParent = NodePath("../Enemies")
