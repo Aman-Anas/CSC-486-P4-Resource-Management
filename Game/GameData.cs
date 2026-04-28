@@ -26,13 +26,13 @@ public partial class GameData
     public ulong TimeGameStarted { get; set; }
 
     /// <summary> Spendable battlefield currency (Burger Bucks). </summary>
-    public int Currency { get; set; } = 80;
+    public int Currency { get; set; } = 840;
 
     /// <summary> Current round (1-based). Income is granted at round end, then this advances. </summary>
     public int CurrentRound { get; set; } = 1;
 
     /// <summary> Base income when a round ends (before per-round scaling). </summary>
-    public int BasePerRoundIncome { get; set; } = 100;
+    public int BasePerRoundIncome { get; set; } = 300;
 
     /// <summary> Added to income each round after the first: income += (CurrentRound - 1) * this. </summary>
     public int PerRoundIncomeDelta { get; set; } = 20;
