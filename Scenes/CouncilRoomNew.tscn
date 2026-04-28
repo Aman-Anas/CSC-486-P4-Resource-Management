@@ -51,12 +51,13 @@ radius = 0.45
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yeu25"]
 albedo_color = Color(0.2088, 0.36308017, 0.87, 1)
 
-[node name="CouncilRoomNew" type="Node3D" unique_id=1475931990 node_paths=PackedStringArray("WideCamera", "CloseCamera", "BobAnimPlayer")]
+[node name="CouncilRoomNew" type="Node3D" unique_id=1475931990 node_paths=PackedStringArray("WideCamera", "CloseCamera", "BobAnimPlayer", "BobInterface")]
 script = ExtResource("1_nx8cc")
 IntroDialogue = ExtResource("2_4bw2q")
 WideCamera = NodePath("Camera Wide")
 CloseCamera = NodePath("Camera Close")
 BobAnimPlayer = NodePath("Bob/RetargetedAnims")
+BobInterface = NodePath("Bob/Interface2")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1584352247]
 environment = SubResource("Environment_nx8cc")
@@ -95,7 +96,7 @@ transform = Transform3D(0.30569535, -0.35204673, 0.88465446, 0, 0.9291326, 0.369
 
 [node name="CSGCylinder3D6" type="CSGCylinder3D" parent="CSGCombiner3D" unique_id=992881684]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.7173753, 0)
-radius = 33.631348
+radius = 56.31836
 height = 1.001709
 sides = 30
 material = SubResource("StandardMaterial3D_0avhl")
@@ -142,6 +143,23 @@ transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, 7.5914726, 0)
 radius = 1.715332
 height = 0.08583984
 sides = 6
+material = SubResource("StandardMaterial3D_mxnnu")
+
+[node name="CSGCombiner3D2" type="CSGCombiner3D" parent="." unique_id=60859136]
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="CSGCombiner3D2" unique_id=1537658659]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 28.433899, 0)
+radius = 53.509766
+height = 58.867798
+sides = 30
+material = SubResource("StandardMaterial3D_mxnnu")
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="CSGCombiner3D2" unique_id=1990844759]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 33.56006, 0)
+operation = 2
+radius = 48.195313
+height = 69.12012
+sides = 30
 material = SubResource("StandardMaterial3D_mxnnu")
 
 [node name="PodContainer" type="Node3D" parent="." unique_id=679323328]

@@ -13,11 +13,15 @@ public partial class CouncilRoomNewIntroTrigger : Node3D
     [Export] private Camera3D CloseCamera = null!;
     [Export] private AnimationPlayer BobAnimPlayer = null!;
     [Export] private StringName BobIdleAnimation = "UAL1_Standard/Idle";
+    [Export] private Node BobInterface = null!;
 
     public override void _Ready()
     {
         AddToGroup("council_room_intro_trigger");
         SwitchToWideCamera();
+
+        BobInterface ??= GetNodeOrNull<Node>("../Bob/Interface2");
+        BobInterface?.QueueFree();
 
         BobAnimPlayer.Play(BobIdleAnimation);
 
