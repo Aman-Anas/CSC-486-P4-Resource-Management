@@ -7,7 +7,7 @@
 script = ExtResource("1_a4j4a")
 InitialHealth = 300
 Projectile = ExtResource("1_jovx8")
-ResponseRadius = 30.0
+ResponseRadius = 35.0
 ReloadTime = 2.0
 MoveSpeed = 0.0
 MoveForce = 0.0
