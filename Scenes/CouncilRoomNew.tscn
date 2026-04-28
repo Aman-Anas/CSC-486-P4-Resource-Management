@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://mgpkwnl3gddv"]
+
+[ext_resource type="Script" uid="uid://dj0e4boyui81" path="res://Game/Scenes/CouncilRoomNewIntroTrigger.cs" id="1_nx8cc"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_puu7n"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_council"]
+sky_material = SubResource("ProceduralSkyMaterial_puu7n")
+
+[sub_resource type="Environment" id="Environment_nx8cc"]
+background_mode = 2
+sky = SubResource("Sky_council")
+tonemap_mode = 4
+tonemap_exposure = 1.7
+tonemap_agx_white = 2.56
+tonemap_agx_contrast = 1.46
+
+[node name="CouncilRoomNew" type="Node3D" unique_id=1475931990]
+script = ExtResource("1_nx8cc")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1584352247]
+environment = SubResource("Environment_nx8cc")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1264627741]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
